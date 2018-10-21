@@ -6,7 +6,8 @@ The KeepersMaps project is part of the [Keepers Child Saftye](https://www.keeper
 ## Keepers Vision
 We provide non-invasive observational tools to help parents cope with cyberbullying and other social, behavioral and developmental issues. The platform uses a preventative approach, with both parent and child components, and is designed to promote a favorable online environment for youth.
 
-Please visit our [wiki](https://github.com/DavidDr90/KeppersMaps/wiki) for furthur project info: 
+## Project Diary
+To see the project diary please visit the [wiki](https://github.com/DavidDr90/KeppersMaps/wiki) section. 
 <!--### [User Manual](../../wiki/User-Manual)
 ### [Team Page](../../wiki/team)
 ### [Inception](../../wiki/inception)
@@ -23,4 +24,4 @@ Please visit our [wiki](https://github.com/DavidDr90/KeppersMaps/wiki) for furth
 This project is developed as part of the requirements for a final project at the software engineering department - [Azrieli College of Engineering](http://www.jce.ac.il/), Jerusalem, Israel.
 
 ## License
-[MIT License](/LICENSE) © David Recanati
+Under [MIT License](/LICENSE) © David Recanati
