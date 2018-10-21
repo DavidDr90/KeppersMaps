@@ -1,4 +1,4 @@
-# KeppersMaps
+# KeepersMaps
 <img align="right" src="/images/keepers%20logo.png">
 
 The KeepersMaps project is part of the [Keepers Child Saftye](https://www.keeperschildsafety.net/) startup. The project use all the data from the main app and use GoogleMaps to show the info on a frendliy map that can help the user to identefy abnormality behavior.
