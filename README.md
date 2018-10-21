@@ -5,4 +5,4 @@ The KeepersMaps project is part of the [Keepers Child Saftye](https://www.keeper
 The project is part of a fnial project in software enggenring B.A at the [Azrieli College of Engineering Jerusalem](https://english.jce.ac.il/)
 
 ## License
-[MIT License] (Link to the MIT file) © David Recanati
+[MIT License](/LICENSE) © David Recanati
