@@ -3,8 +3,8 @@
 
 The KeepersMaps project is part of the [Keepers Child Saftye](https://www.keeperschildsafety.net/) startup. The project use all the data from the main app and use GoogleMaps to show the info on a frendliy map that can help the user to identefy abnormality behavior.
 
-<!--## Motivation
-The project is part of a final project in software engineering B.A at the [Azrieli College of Engineering Jerusalem](https://english.jce.ac.il/) -->
+## Keepers Vision
+We provide non-invasive observational tools to help parents cope with cyberbullying and other social, behavioral and developmental issues. The platform uses a preventative approach, with both parent and child components, and is designed to promote a favorable online environment for youth.
 
 Please visit our [wiki](https://github.com/DavidDr90/KeppersMaps/wiki) for furthur project info: 
 <!--### [User Manual](../../wiki/User-Manual)
