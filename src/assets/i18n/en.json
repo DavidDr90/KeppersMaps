@@ -1,0 +1,13 @@
+{
+    "GENDER": "Gender",
+    "AGE": "Age",
+    "EN": "En",
+    "HE": "He",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "SEVERITY_LEVELS": "Severity Levels",
+    "HIGH": "High" ,
+    "MEDIUM": "Medium",
+    "LOW": "Low"
+
+}

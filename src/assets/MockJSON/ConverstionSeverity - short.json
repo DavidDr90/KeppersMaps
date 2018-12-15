@@ -1,0 +1,86 @@
+[
+	{
+		"id" : 1,
+		"created_date" : "2018-07-08 22:27:08",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 11,
+		"created_date" : "2018-07-08 22:27:13",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 21,
+		"created_date" : "2018-07-09 11:03:07",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 31,
+		"created_date" : "2018-07-09 13:14:09",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 41,
+		"created_date" : "2018-07-09 13:14:13",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 51,
+		"created_date" : "2018-07-09 16:54:29",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 61,
+		"created_date" : "2018-07-09 17:09:52",
+		"strength" : "heavy",
+		"child_id" : 31
+	},
+	{
+		"id" : 71,
+		"created_date" : "2018-07-09 20:43:13",
+		"strength" : "heavy",
+		"child_id" : 31
+	},
+	{
+		"id" : 81,
+		"created_date" : "2018-07-10 07:29:52",
+		"strength" : "heavy",
+		"child_id" : 31
+	},
+	{
+		"id" : 91,
+		"created_date" : "2018-07-10 09:42:57",
+		"strength" : "heavy",
+		"child_id" : 71
+	},
+	{
+		"id" : 101,
+		"created_date" : "2018-07-10 10:10:32",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 111,
+		"created_date" : "2018-07-10 10:22:49",
+		"strength" : "heavy",
+		"child_id" : 1
+	},
+	{
+		"id" : 121,
+		"created_date" : "2018-07-10 11:49:52",
+		"strength" : "heavy",
+		"child_id" : 31
+	},
+	{
+		"id" : 131,
+		"created_date" : "2018-07-10 15:51:18",
+		"strength" : "heavy",
+		"child_id" : 1
+	}
+]
