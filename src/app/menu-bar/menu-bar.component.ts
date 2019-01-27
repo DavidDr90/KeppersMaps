@@ -175,14 +175,22 @@ export class MenuBarComponent implements OnInit {
     console.log(this.ageSliderValue);
   }
 
-  myTemplate;
+
   filter() {
     this.spinnerService.show();
-    this.flaskService.getMap().subscribe((data) => {
-      console.log("in filter!")
-      console.log(data)
-      this.spinnerService.hide()
-    })
+    this.flaskService.getMap().subscribe(
+      // on seccues
+      (data) => {
+        console.log("in filter!")
+        console.log(data)
+        this.spinnerService.hide()
+      },
+      // on error
+      (err) => {
+        console.log("there was error!")
+        console.log(err)
+        this.spinnerService.hide()
+      })
     this.showMap = true
   }
 }
