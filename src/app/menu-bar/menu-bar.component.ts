@@ -8,6 +8,11 @@ import { } from 'events';
 import { HttpClient } from '@angular/common/http';
 import { FlaskService } from '../services/flask.service';
 
+// for loading spinner
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
+
+
 declare var require: any;
 // For working with Date and Time
 // https://momentjs.com/
@@ -61,7 +66,8 @@ export class MenuBarComponent implements OnInit {
   showMap: boolean = false;
 
   constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
-    private jsonService: JsonService, private flaskService: FlaskService) {
+    private jsonService: JsonService, private flaskService: FlaskService,
+    private spinnerService: Ng4LoadingSpinnerService) {
     // this.flaskService.initMap().subscribe((data) => {
     //   console.log("in ngOnInit!")
     //   console.log(data)
@@ -171,9 +177,11 @@ export class MenuBarComponent implements OnInit {
 
   myTemplate;
   filter() {
+    this.spinnerService.show();
     this.flaskService.getMap().subscribe((data) => {
       console.log("in filter!")
       console.log(data)
+      this.spinnerService.hide()
     })
     this.showMap = true
   }

@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// for loading spinner
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
+
 // For Google Maps
 // using the next github and npm packge
 // https://angular-maps.com/guides/getting-started/
@@ -56,6 +60,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MenuBarComponent
   ],
   imports: [
+    // for loading spinner
+    Ng4LoadingSpinnerModule.forRoot(),
     // for google maps
     AgmCoreModule.forRoot({
       apiKey: MY_API_KEY_FOR_GOOGLE_MAPS,
