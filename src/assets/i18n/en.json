@@ -10,6 +10,7 @@
     "MEDIUM": "Medium",
     "LOW": "Low",
     "START_AGE": "Start",
-    "END_AGE": "End"
+    "END_AGE": "End",
+    "HEAT_MAP": "Heat Map"
 
 }

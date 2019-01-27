@@ -1,1 +1,15 @@
-<iframe src="./assets/map.html"></iframe>
+<span *ngIf="heatMapChecked">
+    <iframe #heatMap src="./assets/heat_map.html"></iframe>
+</span>
+
+<span *ngIf="!heatMapChecked">
+    <iframe #regularMap src="./assets/map.html"></iframe>
+</span>
+
+<br/>
+
+<span>
+    <mat-slide-toggle [(ngModel)]="heatMapChecked" [disabled]="heatMapDisabled">
+        {{ 'HEAT_MAP' | translate}}
+    </mat-slide-toggle>
+</span>

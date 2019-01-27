@@ -193,4 +193,7 @@ export class MenuBarComponent implements OnInit {
       })
     this.showMap = true
   }
+
+  heatMapChecked = false;
+  heatMapDisabled = false;
 }

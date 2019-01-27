@@ -33,9 +33,9 @@
       <mat-list-item>
         <mat-icon mat-list-icon>gavel</mat-icon>
         <h4 mat-line>{{ 'AGE' | translate }}</h4>
-        <input mdInput type="number" placeholder="Start" [(ngModel)]="startAge" min="5" max="16"/>
-        &nbsp; 
-        <input mdInput type="number" placeholder="End" [(ngModel)]="endAge" min="5" max="16"/>
+        <input mdInput type="number" placeholder="Start" [(ngModel)]="startAge" min="5" max="16" />
+        &nbsp;
+        <input mdInput type="number" placeholder="End" [(ngModel)]="endAge" min="5" max="16" />
       </mat-list-item>
 
       <!--
@@ -104,6 +104,7 @@
   </mat-card-actions>
 
   <button mat-raised-button (click)="filter()">Filter!</button>
+
 </mat-card>
 
 <div [innerHtml]="myTemplate"></div>
