@@ -26,14 +26,26 @@
 
       <mat-divider></mat-divider> -->
 
+
       <!-- TODO: make the option to choose a range of ages
             fix the display when switch to RTL -->
+
+      <mat-list-item>
+        <mat-icon mat-list-icon>gavel</mat-icon>
+        <h4 mat-line>{{ 'AGE' | translate }}</h4>
+        <input mdInput type="number" placeholder="Start" [(ngModel)]="startAge" min="5" max="16"/>
+        &nbsp; 
+        <input mdInput type="number" placeholder="End" [(ngModel)]="endAge" min="5" max="16"/>
+      </mat-list-item>
+
+      <!--
       <mat-list-item>
         <mat-icon mat-list-icon>gavel</mat-icon>
         <h4 mat-line>{{ 'AGE' | translate }}</h4>
         <mat-slider (change)="onSliderChange()" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step"
           [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="ageSliderValue" [ngModelOptions]="{standalone: true}"></mat-slider>
       </mat-list-item>
+    -->
 
       <mat-divider></mat-divider>
 

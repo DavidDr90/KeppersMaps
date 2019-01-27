@@ -93,7 +93,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MatSliderModule,
     MatToolbarModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule
 
 
   ],

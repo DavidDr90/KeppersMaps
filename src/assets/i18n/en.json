@@ -8,6 +8,8 @@
     "SEVERITY_LEVELS": "Severity Levels",
     "HIGH": "High" ,
     "MEDIUM": "Medium",
-    "LOW": "Low"
+    "LOW": "Low",
+    "START_AGE": "Start",
+    "END_AGE": "End"
 
 }

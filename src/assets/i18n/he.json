@@ -8,5 +8,7 @@
     "SEVERITY_LEVELS": "דרגות חומרה",
     "HIGH": "גבוה" ,
     "MEDIUM": "בינוני",
-    "LOW": "נמוך"
+    "LOW": "נמוך",
+    "START_AGE": "התחלה",
+    "END_AGE": "סיום"
 }

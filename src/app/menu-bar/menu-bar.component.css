@@ -2,8 +2,12 @@
     max-width: 400px;
   }
 
-  .example-additional-selection {
-    opacity: 0.75;
-    font-size: 0.75em;
-  }
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+input{
+  width: 70px;
+}
   
