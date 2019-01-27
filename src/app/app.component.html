@@ -1,7 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center stretch">
   <!-- <app-menu-bar fxFlex="50%"></app-menu-bar> -->
   <app-menu-bar (event)="setShowMap($event)"></app-menu-bar>
-  <div *ngIf="showMap">
-    <app-google-maps></app-google-maps>
-  </div>
+  <app-google-maps></app-google-maps>
+
 </div>

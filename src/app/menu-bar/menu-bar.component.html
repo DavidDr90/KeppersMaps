@@ -1,0 +1,97 @@
+<mat-card class="example-card">
+
+
+
+  <mat-card-header>
+    <mat-card-title>Welcome to Keepers Maps</mat-card-title>
+    <mat-card-subtitle>Let's Filter Up!</mat-card-subtitle>
+  </mat-card-header>
+
+
+
+  <mat-card-content>
+    <mat-list>
+
+      <!-- TODO: change the date format according the choosen language 
+            DD/MM/YYYY or MM/DD/YYYY
+            fix the change event to catch the date pick in the pop up --
+      <mat-list-item>
+        <mat-form-field>
+          <input matInput (ngModelChange)="onDateChange()" [matDatepicker]="picker" [(ngModel)]="choosenDate"
+            [ngModelOptions]="{standalone: true}">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-list-item>
+
+      <mat-divider></mat-divider> -->
+
+      <!-- TODO: make the option to choose a range of ages
+            fix the display when switch to RTL -->
+      <mat-list-item>
+        <mat-icon mat-list-icon>gavel</mat-icon>
+        <h4 mat-line>{{ 'AGE' | translate }}</h4>
+        <mat-slider (change)="onSliderChange()" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step"
+          [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="ageSliderValue" [ngModelOptions]="{standalone: true}"></mat-slider>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon>face</mat-icon>
+        <h4 mat-line>{{ 'GENDER' | translate }}</h4>
+        <section *ngFor="let sex of sexs">
+          <mat-checkbox (change)="onChange(sex.name, true)"> {{ sex.name | translate}} </mat-checkbox>
+        </section>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon>bug_report</mat-icon>
+        <h4 mat-line>{{ 'SEVERITY_LEVELS' | translate }}</h4>
+
+        <div *ngFor="let level of severityLevels">
+          <mat-checkbox [(ngModel)]="filterObject.filterBy[level.is]" (change)="onChange()">
+            {{level.displayName | translate}}
+          </mat-checkbox>
+        </div>
+
+        <!-- <mat-form-field> 
+          <mat-select [formControl]="levels" multiple>
+            <mat-select-trigger>
+              <!-- {{levels.value ? levels.value[0] : ''}} --
+              {{levels.value}}
+              
+              <span *ngIf="levels.value?.length > 1" class="example-additional-selection">
+                (+{{levels.value.length - 1}} {{levels.value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let level of severityLevels" [value]="levels">{{ level.name | translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- <section *ngFor="let level of severityLevels">
+          <mat-checkbox (change)="onChange(level.name, false)"> {{ level.name | translate}} </mat-checkbox>
+        </section> -->
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <my-date-range-picker [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
+          [(ngModel)]="yesterday"></my-date-range-picker>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" *ngFor="let lang of langs" (click)="setLang(lang)">
+      {{ lang | translate}}
+    </button>
+  </mat-card-actions>
+
+  <button mat-raised-button (click)="filter()">Filter!</button>
+</mat-card>
+
+<div [innerHtml]="myTemplate"></div>
