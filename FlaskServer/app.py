@@ -3,10 +3,13 @@ from flask import Flask, make_response, abort, jsonify, send_file
 from flask_cors import CORS
 import json
 import pandas as pd
+from pandas.io.json import json_normalize
+
 import folium
 from folium.plugins import MarkerCluster, FastMarkerCluster, HeatMap
 import functools
 import time
+import requests
 
 
 app = Flask(__name__, static_folder='static')
@@ -41,7 +44,7 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/')
+@app.route('/init')
 def init_map():
     # create empty map to display when the app is first up
     my_map = folium.Map(location=[rome_lat, rome_lng], zoom_start=0, width="100%", height="100%")
@@ -61,7 +64,7 @@ def round_by_four(x):
 
 
 # @app.route('/pro', methods=['GET'])
-@app.route('/pro', methods=['GET'])
+@app.route('/pro')
 def show_map():
     proto_type()
     return send_file(path)
@@ -117,3 +120,41 @@ def create_marker(row, popup=None):
     # if popup:
     #     marker.bindPopup(row[popup])
     return "hello world"
+
+
+end_point = "https://graph-db-vod.keeperschildsafety.net"
+subdir = "/graph"
+
+headers = {"auth": "ailudAfKsubkGsubVvkuerybvkserXvSBndbYvsuyQdvkurYbvjrbeMmjhsdbpv",
+           "Content-type": "application/json"}
+
+"""
+Http request example:
+https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?
+latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000  
+"""
+
+ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
+     "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000  "
+
+markers_header = 'childWithLocationsAndSeverities'
+management_header = 'messagesPageableData'
+
+
+data_list = ["id", "childId", "birthdayDate", "initialLocationLongitude", "initialLocationLatitude"]
+
+@app.route('/api')
+def send_http_request():
+    r = requests.get(ex_one_person, headers=headers)
+
+    # save the data to file for debug
+    with open("newfile.log", 'w') as f:
+        f.write(r.text)
+
+    # management_data = json_normalize(js[management_header])
+
+    # read the received date to DataFrame
+    markers_data = json_normalize(r.json()[markers_header], 'severities', data_list)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(markers_data)
+    return "Hello World!"
