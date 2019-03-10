@@ -18,4 +18,10 @@ export class FlaskService {
   getMap() {
     return this.http.get(this.FlaskServerUrl + "/map", { responseType: 'text' })
   }
+  MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
+
+  getAddress() {
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=' + this.MY_API_KEY_FOR_GOOGLE_MAPS)
+  }
+
 }

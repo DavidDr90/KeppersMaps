@@ -10,14 +10,25 @@ import { FlaskService } from '../services/flask.service';
 
 // for loading spinner
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
-
+import {ErrorStateMatcher} from '@angular/material/core';
+import {FormGroupDirective, NgForm, Validators} from '@angular/forms';
+// import {} from '@types/googlemaps'
+import { Observable } from 'rxjs';
 
 declare var require: any;
 // For working with Date and Time
 // https://momentjs.com/
 var moment = require('moment');
 
+declare var google: any;
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 
 @Component({
@@ -28,6 +39,10 @@ var moment = require('moment');
 export class MenuBarComponent implements OnInit {
 
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
+
+  address;
+
+  matcher = new MyErrorStateMatcher();
 
   filterObject = {
     "startDate": null,
@@ -90,6 +105,36 @@ export class MenuBarComponent implements OnInit {
 
   }
 
+  addressOnClick(){
+    console.log("on click", this.address)
+    this.flaskService.getAddress().subscribe((data)=>{
+      console.log("data:");
+      console.log(data)
+    })
+    
+    
+  }
+
+
+  getGeoLocation(address: string) {
+    console.log('Getting address: ', address);
+    var res = this.flaskService.getAddress()
+    console.log(res)
+    // let geocoder = new google.maps.Geocode();
+    // return Observable.create(observer => {
+    //     geocoder.geocode({
+    //         'address': address
+    //     }, (results, status) => {
+    //         if (status == google.maps.GeocoderStatus.OK) {
+    //             observer.next(results[0].geometry.location);
+    //             observer.complete();
+    //         } else {
+    //             console.log('Error: ', results, ' & Status: ', status);
+    //             observer.error();
+    //         }
+    //     });
+    // });
+}
 
   /** change the display language to the input on
    *  if the lang is 'he' change all the display to be RTL
