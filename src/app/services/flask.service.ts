@@ -20,8 +20,16 @@ export class FlaskService {
   }
   MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
 
-  getAddress() {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=' + this.MY_API_KEY_FOR_GOOGLE_MAPS)
+  getAddress(address: string) {
+    if (this.isBlank(address))
+      address = "rome italy"
+    // replace spaces with '+'
+    var fixAddress = address.split(' ').join('+');
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fixAddress + '&key=' + this.MY_API_KEY_FOR_GOOGLE_MAPS)
   }
+
+  isBlank(str) {
+    return (!str || /^\s*$/.test(str) || str.length === 0 || !str.trim());
+}
 
 }

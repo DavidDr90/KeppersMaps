@@ -106,34 +106,29 @@ export class MenuBarComponent implements OnInit {
   }
 
   addressOnClick(){
-    console.log("on click", this.address)
-    this.flaskService.getAddress().subscribe((data)=>{
+    this.flaskService.getAddress(this.address).subscribe((data)=>{
       console.log("data:");
       console.log(data)
+      if (data['status'] != 'OK'){
+        console.error("There was error retriving the address")
+      }else{
+        // get the lat and lng
+        var location = data['results'][0]['geometry']['location']
+        console.log("location:")
+        console.log(location)
+      }
+
     })
     
     
   }
 
 
-  getGeoLocation(address: string) {
-    console.log('Getting address: ', address);
-    var res = this.flaskService.getAddress()
+  getGeoLocation(inputAddress: string) {
+    console.log('Getting address: ', inputAddress);
+    var res = this.flaskService.getAddress(inputAddress)
     console.log(res)
-    // let geocoder = new google.maps.Geocode();
-    // return Observable.create(observer => {
-    //     geocoder.geocode({
-    //         'address': address
-    //     }, (results, status) => {
-    //         if (status == google.maps.GeocoderStatus.OK) {
-    //             observer.next(results[0].geometry.location);
-    //             observer.complete();
-    //         } else {
-    //             console.log('Error: ', results, ' & Status: ', status);
-    //             observer.error();
-    //         }
-    //     });
-    // });
+
 }
 
   /** change the display language to the input on
