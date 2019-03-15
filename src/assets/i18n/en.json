@@ -11,6 +11,7 @@
     "LOW": "Low",
     "START_AGE": "Start",
     "END_AGE": "End",
-    "HEAT_MAP": "Heat Map"
+    "HEAT_MAP": "Heat Map",
+    "ADDRESS": "Address"
 
 }

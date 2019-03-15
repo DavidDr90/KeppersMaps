@@ -36,7 +36,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.css']
 })
-export class MenuBarComponent implements OnInit {
+export class MenuBarComponent {
 
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
 
@@ -51,7 +51,8 @@ export class MenuBarComponent implements OnInit {
       "isHeavy": false,
       "isMedium": false,
       "isEasy": false
-    }
+    },
+    "centerLocaion": null
   }
 
 
@@ -60,11 +61,6 @@ export class MenuBarComponent implements OnInit {
   choosenDate;
 
   langs = ["EN", "IT", "HE"];
-
-  sexs = [
-    { name: "MALE", checked: false },
-    { name: "FEMALE", checked: false }
-  ];
 
   severityLevels = [
     { displayName: "HIGH", is: "isHeavy" },
@@ -96,40 +92,32 @@ export class MenuBarComponent implements OnInit {
       endDate: obj
     }
     this.choosenDate = this.yesterday;
-
+    // save the date to the filter object
     this.filterObject.startDate = moment().subtract(1, 'days');
     this.filterObject.endDate = moment().subtract(1, 'days');
   }
 
-  ngOnInit() {
 
-  }
-
-  addressOnClick(){
+  /** Send the input address to GoogleMaps server
+   *  Retrive the lat and lng of the input address
+   *  If there was error display it to the user
+   *  If the user did not enter any address the defualt address is:
+   *  'Rome italy'
+   *  Save the location to the filter object
+   */
+  convertAddressToLocation(){
     this.flaskService.getAddress(this.address).subscribe((data)=>{
-      console.log("data:");
-      console.log(data)
       if (data['status'] != 'OK'){
         console.error("There was error retriving the address")
       }else{
         // get the lat and lng
         var location = data['results'][0]['geometry']['location']
-        console.log("location:")
-        console.log(location)
+        // save the lat and lng to the filter object to send to the FlaskServer
+        this.filterObject.centerLocaion = {"lat": location['lat'], "lng": location['lng']}
       }
-
-    })
-    
-    
+    })    
   }
 
-
-  getGeoLocation(inputAddress: string) {
-    console.log('Getting address: ', inputAddress);
-    var res = this.flaskService.getAddress(inputAddress)
-    console.log(res)
-
-}
 
   /** change the display language to the input on
    *  if the lang is 'he' change all the display to be RTL
@@ -194,7 +182,7 @@ export class MenuBarComponent implements OnInit {
     let today = moment();
     if ((start >= today) || (end >= today))
       //TODO: make an error message to the user!
-      console.log("you cannot choose dates in the future!")
+      console.error("you cannot choose dates in the future!")
     else {
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
@@ -217,8 +205,15 @@ export class MenuBarComponent implements OnInit {
 
 
   filter() {
-    this.spinnerService.show();
-    this.flaskService.getMap().subscribe(
+    //this.spinnerService.show();
+    // get the address and convert it to location
+    this.convertAddressToLocation();
+    this.flaskService.sendParameters(this.filterObject).subscribe((data)=>{
+      console.log("in sendParameters")
+      console.log(data)
+    })
+    /*
+    this.flaskService.getMap(this.filterObject).subscribe(
       // on seccues
       (data) => {
         console.log("in filter!")
@@ -232,8 +227,10 @@ export class MenuBarComponent implements OnInit {
         this.spinnerService.hide()
       })
     this.showMap = true
+    */
   }
 
   heatMapChecked = false;
   heatMapDisabled = false;
+  
 }

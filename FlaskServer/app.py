@@ -10,6 +10,8 @@ from folium.plugins import MarkerCluster, FastMarkerCluster, HeatMap
 import functools
 import time
 import requests
+from flask import request
+
 
 
 app = Flask(__name__, static_folder='static')
@@ -158,3 +160,13 @@ def send_http_request():
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):
         print(markers_data)
     return "Hello World!"
+
+
+
+@app.route('/filter', methods=['POST'])
+def form_example():
+    print("in filer!!!!")
+    data = request.get_json(force=True)
+    print(data)
+    jso = jsonify("Hello world")
+    return jso
