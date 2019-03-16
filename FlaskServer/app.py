@@ -4,7 +4,7 @@ from flask_cors import CORS
 import json
 import pandas as pd
 from pandas.io.json import json_normalize
-
+import datetime
 import folium
 from folium.plugins import MarkerCluster, FastMarkerCluster, HeatMap
 import functools
@@ -13,31 +13,80 @@ import requests
 from flask import request
 
 
+class PyJSON(object):
+    def __init__(self, d):
+        if type(d) is str:
+            d = json.loads(d)
 
+        self.from_dict(d)
+
+    def from_dict(self, d):
+        self.__dict__ = {}
+        for key, value in d.items():
+            if type(value) is dict:
+                value = PyJSON(value)
+            self.__dict__[key] = value
+
+    def to_dict(self):
+        d = {}
+        for key, value in self.__dict__.items():
+            if type(value) is PyJSON:
+                value = value.to_dict()
+            d[key] = value
+        return d
+
+    def __repr__(self):
+        return str(self.to_dict())
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+
+    def __getitem__(self, key):
+        return self.__dict__[key]
+
+
+# Keepers Server Consts
+end_point = "https://graph-db-vod.keeperschildsafety.net"
+subdir = "/graph"
+headers = {"auth": "ailudAfKsubkGsubVvkuerybvkserXvSBndbYvsuyQdvkurYbvjrbeMmjhsdbpv",
+           "Content-type": "application/json"}
+range = 100000  # 100 Kilometer
+
+
+# global parameters
+center_location = {}
+start_date = {}
+end_date = {}
+filter_by = []
+
+
+# base running function for Flask
 app = Flask(__name__, static_folder='static')
 # allows CORS for all domains on all routes
 CORS(app)
-
-
-def benchmark(func):
-    """
-    a decorator that print the time of function tack to execute
-    """
-    @functools.wraps(func)
-    def new_func(*args, **kwargs):
-        start_time = time.time()
-        func(*args, **kwargs)
-        elapsed_time = time.time() - start_time
-        print('function [{}] finished in {} ms'.format(
-            func.__name__, int(elapsed_time * 1000)))
-
-    return new_func
 
 
 # to use this just use: 'abort(404)'
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.route('/filter', methods=['POST'])
+def save_filter_data():
+    try:
+        global start_date, end_date, center_location, filter_by
+        data = request.get_json(force=True)
+        # save the filter data to global variables
+        # save the date and convert it to milliseconds
+        start_date = (datetime.datetime.strptime(data['startDate'], "%d/%m/%Y")).timestamp() * 1000
+        end_date = (datetime.datetime.strptime(data['endDate'], "%d/%m/%Y")).timestamp() * 1000
+        center_location = data['centerLocaion']
+        filter_by = data['filterBy']
+        return jsonify("success")
+    except Exception as e:
+        print(e)
+        abort(404)
 
 
 @app.route('/map')
@@ -58,8 +107,6 @@ def init_map():
 #     # app.run()
 #
 
-jsonPath = r"C:\Users\david\Desktop\Projects\KeepersMaps-Private\src\assets\MockJSON\ChildLocation.json"
-
 
 def round_by_four(x):
     return round(x, 4)
@@ -79,8 +126,9 @@ rome_lat, rome_lng = 41.9028, 12.4964
 
 def proto_type():
     start_time = time.time()
-    print("in pro!")
-    with open(jsonPath, 'r') as f:
+    return "in pro!"
+    """
+    with open("", 'r') as f:
         # create a new DataFrame
         d = pd.DataFrame(json.loads(f.read()))
     # make the lat and lng short
@@ -112,6 +160,7 @@ def proto_type():
     my_heat_map.save(path + r"\heat_map.html")
     elapsed_time = time.time() - start_time
     print("elapsed time:", int(elapsed_time * 1000), "ms")
+    """
 
 
 def create_marker(row, popup=None):
@@ -124,11 +173,6 @@ def create_marker(row, popup=None):
     return "hello world"
 
 
-end_point = "https://graph-db-vod.keeperschildsafety.net"
-subdir = "/graph"
-
-headers = {"auth": "ailudAfKsubkGsubVvkuerybvkserXvSBndbYvsuyQdvkurYbvjrbeMmjhsdbpv",
-           "Content-type": "application/json"}
 
 """
 Http request example:
@@ -163,10 +207,6 @@ def send_http_request():
 
 
 
-@app.route('/filter', methods=['POST'])
-def form_example():
-    print("in filer!!!!")
-    data = request.get_json(force=True)
-    print(data)
-    jso = jsonify("Hello world")
-    return jso
+
+
+

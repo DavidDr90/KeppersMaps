@@ -10,10 +10,11 @@ import { FlaskService } from '../services/flask.service';
 
 // for loading spinner
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormGroupDirective, NgForm, Validators } from '@angular/forms';
 // import {} from '@types/googlemaps'
 import { Observable } from 'rxjs';
+import { resolve } from 'url';
 
 declare var require: any;
 // For working with Date and Time
@@ -103,19 +104,22 @@ export class MenuBarComponent {
    *  If there was error display it to the user
    *  If the user did not enter any address the defualt address is:
    *  'Rome italy'
-   *  Save the location to the filter object
+   *  @returns Promise, resolve - return the lcoation, reject - return error message
    */
-  convertAddressToLocation(){
-    this.flaskService.getAddress(this.address).subscribe((data)=>{
-      if (data['status'] != 'OK'){
-        console.error("There was error retriving the address")
-      }else{
-        // get the lat and lng
-        var location = data['results'][0]['geometry']['location']
-        // save the lat and lng to the filter object to send to the FlaskServer
-        this.filterObject.centerLocaion = {"lat": location['lat'], "lng": location['lng']}
-      }
-    })    
+  private convertAddressToLocation(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.flaskService.getAddress(this.address).subscribe((data) => {
+        if (data['status'] != 'OK') {
+          console.error("There was error retriving the address")
+          reject("There was error retriving the address")
+        } else {
+          // get the lat and lng
+          var location = data['results'][0]['geometry']['location']
+          // save the lat and lng to the filter object to send to the FlaskServer
+          resolve(location)
+        }
+      })
+    })
   }
 
 
@@ -140,26 +144,6 @@ export class MenuBarComponent {
   }
 
 
-  /** change the checked value when the checkbox is change
-   * @param sex the clicked sex checkbox
-   */
-  onChange(input: string, isGender: boolean) {
-    /*var item;
-    var control;
-    if (isGender) {
-      item = this.sexs.find(x => x.name == input);
-      // control = 'gender';
-      // this._myForm.controls[control].setValue(this.sexs);
-    } else {
-      item = this.severityLevels.find(x => x.name == input);
-      // control = 'severityLevels';
-      // this._myForm.controls[control].setValue(this.severityLevels);
-    }
-    item.checked = !item.checked;*/
-
-  }
-
-
   myDateRangePickerOptions: IMyDrpOptions = {
     showClearBtn: true,
     showApplyBtn: true,
@@ -169,7 +153,6 @@ export class MenuBarComponent {
     showClearDateRangeBtn: true,
   };
 
-  // 
 
   /** dateRangeChanged callback function called when the user apply the date range.
    *  this fucntion check if the input date is valid (not greader then today)
@@ -205,32 +188,45 @@ export class MenuBarComponent {
 
 
   filter() {
-    //this.spinnerService.show();
+    this.spinnerService.show();
     // get the address and convert it to location
-    this.convertAddressToLocation();
-    this.flaskService.sendParameters(this.filterObject).subscribe((data)=>{
-      console.log("in sendParameters")
-      console.log(data)
+    this.convertAddressToLocation().then((data) => {
+      // save the address location in lat and lng 
+      this.filterObject.centerLocaion = data;
+      // save only the date for processing the Keepers information
+      if (moment.isMoment(this.filterObject.startDate))
+        this.filterObject.startDate = this.filterObject.startDate.format('DD/MM/YYYY');
+      if (moment.isMoment(this.filterObject.endDate))
+        this.filterObject.endDate = this.filterObject.endDate.format('DD/MM/YYYY');
+      // send the parameters to the server
+      this.flaskService.sendParameters(this.filterObject).subscribe(
+        (data) => {
+          console.log("in sendParameters")
+          console.log(data)
+          // after the parameters posted to the server create a map
+          this.flaskService.getMap().subscribe(
+            // on seccues
+            (data) => {
+              console.log("in filter!")
+              console.log(data)
+              this.spinnerService.hide()
+            },
+            // on error
+            (err) => {
+              console.log("there was error!")
+              console.log(err)
+              this.spinnerService.hide()
+            })
+          this.showMap = true
+        }, (error) => {
+          console.error(error)
+        })
+    }).catch((error) => {
+      console.error(error)
     })
-    /*
-    this.flaskService.getMap(this.filterObject).subscribe(
-      // on seccues
-      (data) => {
-        console.log("in filter!")
-        console.log(data)
-        this.spinnerService.hide()
-      },
-      // on error
-      (err) => {
-        console.log("there was error!")
-        console.log(err)
-        this.spinnerService.hide()
-      })
-    this.showMap = true
-    */
   }
 
   heatMapChecked = false;
   heatMapDisabled = false;
-  
+
 }

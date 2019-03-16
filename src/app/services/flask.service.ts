@@ -6,32 +6,36 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FlaskService {
 
+  MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
+
+  // TODO: change to production server address
+  FlaskServerUrl = "http://127.0.0.1:5000"
+
   constructor(private http: HttpClient) { }
 
-  FlaskServerUrl = "http://127.0.0.1:5000"
 
   initMap() {
     return this.http.get(this.FlaskServerUrl, { responseType: 'text' })
   }
 
 
-  getMap(param) {
+  getMap() {
     return this.http.get(this.FlaskServerUrl + "/map", { responseType: 'text' })
   }
 
-  sendParameters(param){
-    console.log("in getMap, param:")
-    console.log(param)
-    param = JSON.stringify(param)
-    console.log("Json view:")
-    console.log(param)
-    return this.http.post(this.FlaskServerUrl + "/filter", param)
+
+  /** use http post message to send the param data to the server
+   * @param param parameters to post to the server
+   */
+  sendParameters(param) {
+    return this.http.post(this.FlaskServerUrl + "/filter", JSON.stringify(param))
   }
 
 
-
-  MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
-
+  /** send address to the GoogleMape server and return the location in lat and lng
+   *  if the input address is empty use defualt address: 'rome italy'
+   * @param address to convert to location data
+   */
   getAddress(address: string) {
     if (this.isBlank(address))
       address = "rome italy"
