@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2ff0789-10b2-4c2f-828e-0e54383edc40" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +15,7 @@
     <SUITE FILE_PATH="coverage/FlaskServer$stack.coverage" NAME="stack Coverage Results" MODIFIED="1551422325673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/OneDrive/Python/untitled" />
     <SUITE FILE_PATH="coverage/FlaskProject$FlaskProject.coverage" NAME="FlaskProject Coverage Results" MODIFIED="1545384866196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FlaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1548605836844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1553504527377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1553538356008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FlaskProject$test.coverage" NAME="test Coverage Results" MODIFIED="1548593168809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../KeepersMaps" />
     <SUITE FILE_PATH="coverage/FlaskServer$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1553501393100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/OneDrive/Python/KeepersMaps" />
   </component>
@@ -60,11 +60,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1775">
-              <caret line="404" column="31" selection-start-line="404" selection-start-column="31" selection-end-line="404" selection-end-column="31" />
+            <state relative-caret-position="260">
+              <caret line="383" column="18" selection-start-line="383" selection-start-column="18" selection-end-line="383" selection-end-column="18" />
               <folding>
                 <element signature="e#1194#1316#0" />
                 <element signature="e#908#966#0" />
+                <element signature="e#2375#3134#0" />
                 <element signature="e#2370#2400#1" />
                 <element signature="e#2187#2229#0" />
                 <element signature="e#2318#2345#0" />
@@ -95,11 +96,21 @@
                 <element signature="e#10607#12771#0" />
                 <element signature="e#10607#10819#1" />
                 <element signature="e#12821#13083#1" />
-                <element signature="e#14584#14956#0" />
+                <element signature="e#14153#15020#0" />
+                <element signature="e#15702#16133#0" />
                 <element signature="e#14584#14716#1" />
                 <element signature="e#15146#15603#0" />
                 <element signature="e#15465#15585#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/requests/api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
@@ -121,9 +132,11 @@
       <find>markers_header</find>
       <find>data_list</find>
       <find>center_location</find>
-      <find>start_date</find>
       <find>data</find>
       <find>mana</find>
+      <find>start_date</find>
+      <find>{'page':</find>
+      <find>management</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,7 +152,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="949" />
     <option name="width" value="980" />
     <option name="height" value="1031" />
@@ -302,7 +315,7 @@
       <workItem from="1551725238782" duration="709000" />
       <workItem from="1551800514349" duration="2000" />
       <workItem from="1552159555962" duration="15000" />
-      <workItem from="1552641483827" duration="23477000" />
+      <workItem from="1552641483827" duration="27645000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -315,7 +328,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91196000" />
+    <option name="totallyTimeSpent" value="95364000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -327,15 +340,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2574899" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3285968" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5150977" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5150977" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39964476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
@@ -508,13 +522,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/requests/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1775">
-          <caret line="404" column="31" selection-start-line="404" selection-start-column="31" selection-end-line="404" selection-end-column="31" />
+        <state relative-caret-position="260">
+          <caret line="383" column="18" selection-start-line="383" selection-start-column="18" selection-end-line="383" selection-end-column="18" />
           <folding>
             <element signature="e#1194#1316#0" />
             <element signature="e#908#966#0" />
+            <element signature="e#2375#3134#0" />
             <element signature="e#2370#2400#1" />
             <element signature="e#2187#2229#0" />
             <element signature="e#2318#2345#0" />
@@ -545,7 +567,8 @@
             <element signature="e#10607#12771#0" />
             <element signature="e#10607#10819#1" />
             <element signature="e#12821#13083#1" />
-            <element signature="e#14584#14956#0" />
+            <element signature="e#14153#15020#0" />
+            <element signature="e#15702#16133#0" />
             <element signature="e#14584#14716#1" />
             <element signature="e#15146#15603#0" />
             <element signature="e#15465#15585#0" />

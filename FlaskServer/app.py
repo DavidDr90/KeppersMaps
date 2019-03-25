@@ -56,14 +56,15 @@ severities = 'severities'
 total_pages = 'totalPages'
 page_number_string = 'page'
 
-range = 50000000  # 100 Kilometer
+range = 100000  # 100 Kilometer
+limit = 1000
 # center_location = {'lat': 41.9028, 'lng': 12.4964}  # Rome Italy
 
 
 # global parameters
 center_location = {}
-start_date = {}
-end_date = {}
+start_date = 0
+end_date = 0
 filter_by = []
 child_age_range = []
 # Make an empty map object
@@ -89,7 +90,7 @@ def save_filter_data():
     :return:
     """
     try:
-        global start_date, end_date, center_location, filter_by, child_age, keepers_map
+        global start_date, end_date, center_location, filter_by, child_age_range, keepers_map
         data = request.get_json(force=True)
         print("data:")
         pprint.pprint(data)
@@ -100,7 +101,7 @@ def save_filter_data():
         center_location = data['centerLocaion']
         keepers_map = folium.Map(location=[center_location['lat'], center_location['lng']], zoom_start=10)
         filter_by = get_filter_by(data['filterBy'])
-        child_age_range = [data['age']['start'], [data['age']['end']]]
+        child_age_range = [data['age']['start'], data['age']['end']]
         return jsonify("success")
     except Exception as e:
         print(e)
@@ -109,10 +110,13 @@ def save_filter_data():
 
 @app.route('/map', methods=['GET'])
 def main():
-    add_center_location_to_map()
-    generate_map(create_http_request())
-    return jsonify("!!!!")
-
+    try:
+        add_center_location_to_map()
+        generate_map(create_http_request())
+        return jsonify("!!!!")
+    except Exception as e:
+        print("There was an error in the '/map' function\nDescription = ", e)
+        abort(404)
 
 
 
@@ -183,23 +187,6 @@ ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversations
      "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
 
-
-
-# @app.route('/api')
-# def send_http_request():
-#     r = requests.get(ex_one_person, headers=headers)
-#
-#     # save the data to file for debug
-#     with open("newfile.log", 'w') as f:
-#         f.write(r.text)
-#
-#     # management_data = json_normalize(js[management_header])
-#
-#     # read the received date to DataFrame
-#     markers_data = json_normalize(r.json()[markers_header], 'severities', data_list)
-#     with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-#         print(markers_data)
-#     return "Hello World!"
 
 
 
@@ -346,9 +333,7 @@ def process_one_child(child):
     global birthday_date, keepers_map, severities, longitude, latitude
     # check if the child is in the requested age range
     birthday = milliseconds_to_date(child[birthday_date])
-    print("birthday date:", birthday)
     age = calculate_age(birthday)
-    print("child age:", age)
     # if the given child is not in the age range continue
     if len(child_age_range) > 0 and not check_for_age_range(age, child_age_range):
         return
@@ -378,11 +363,7 @@ def process_one_child(child):
     if not output_list.size:
         return
 
-    print("output list")
-    pprint.pprint(output_list)
-
     lng, lat = child[longitude], child[latitude]
-    print("child location:\nlng:", lng, "lat:", lat)
 
     # create new Folium marker
     folium.Marker([lat, lng],
@@ -400,23 +381,22 @@ def generate_map(http_request):
     """
     global keepers_map
     global ex_one_person
-    first_request = requests.get(http_request, headers=headers).json()
-    print('first')
-    pprint.pprint(first_request)
+    first_response = requests.get(http_request, headers=headers).json()
+    g = first_response.headers.get('content-type')
+    print("content type")
+    pprint.pprint(g)
+    
     try:
         # save the data part from the json
-        data = first_request[markers_header]
-        print("data")
-        pprint.pprint(data)
+        data = first_response[markers_header]
         # save the management pare from the json
-        management = first_request[management_header]
+        management = first_response[management_header]
         # save the current page number to local variable
         page_number = int(management['pageable'][page_number_string])
 
         # read all the pages from Keepers server
         while management['pageable'][page_number_string] < management[total_pages]:
-            print("management")
-            pprint.pprint(management)
+
             # process the children in this page
             for child in data:
                 process_one_child(child)
@@ -435,11 +415,11 @@ def generate_map(http_request):
         # Save it as html
         keepers_map.save(r'C:\Users\david\OneDrive\Python\KeepersMaps\map.html')
     except Exception as e:
-        if first_request['status'] == 400:
-            print("Error!!!", first_request['message'])
+        if first_response['status'] == 400:
+            print("There was an error in generate_map().\nDescription = Bad Request (400)", first_response['message'])
             return
         else:
-            print("Error####", e)
+            print("There was an general error in generate_map()\nDescription = ", e)
             return
 
 
@@ -448,8 +428,9 @@ def create_http_request():
     use all the global parameters to form a http request to the Keepers API
     :return: the full http request as string
     """
-    return ''.join([base_request_string, "latitude=", str(center_location['lat']), "&longitude=", str(center_location['lng']),
-                   "&range=", str(range), "&startDateEpoch=", str(int(start_date)), "&endDateEpoch=", str(int(end_date))])
+    return ''.join([base_request_string, "latitude=", str(center_location['lat']), "&longitude=",
+                    str(center_location['lng']), "&range=", str(range), "&startDateEpoch=",
+                    str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  #, "&limit=", str(limit)])
 
 
 def get_filter_by(by):
@@ -465,5 +446,3 @@ def get_filter_by(by):
             if param in str(key).lower() and value:
                 output.append(param)
     return output
-
-
