@@ -381,10 +381,15 @@ def generate_map(http_request):
     """
     global keepers_map
     global ex_one_person
-    first_response = requests.get(http_request, headers=headers).json()
+    first_response = requests.get(http_request, headers=headers)
+    print("first response:")
+    pprint.pprint(first_response)
     g = first_response.headers.get('content-type')
     print("content type")
     pprint.pprint(g)
+    first_response = first_response.json()
+    print("after parsing to json")
+    pprint.pprint(first_response)
     
     try:
         # save the data part from the json
