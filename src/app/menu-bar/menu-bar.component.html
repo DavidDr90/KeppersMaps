@@ -11,23 +11,7 @@
 
   <mat-card-content>
     <mat-list>
-
-      <!-- TODO: change the date format according the choosen language 
-            DD/MM/YYYY or MM/DD/YYYY
-            fix the change event to catch the date pick in the pop up --
-      <mat-list-item>
-        <mat-form-field>
-          <input matInput (ngModelChange)="onDateChange()" [matDatepicker]="picker" [(ngModel)]="choosenDate"
-            [ngModelOptions]="{standalone: true}">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </mat-list-item>
-
-      <mat-divider></mat-divider> -->
-
-
-      <!-- TODO: make the option to choose a range of ages
+     <!-- TODO: make the option to choose a range of ages
             fix the display when switch to RTL -->
 
       <mat-list-item>
@@ -51,12 +35,12 @@
 
       <mat-list-item>
         <mat-icon mat-list-icon>face</mat-icon>
-        <h4 mat-line>{{ 'GENDER' | translate }}</h4>
-        <section *ngFor="let sex of sexs">
-          <mat-checkbox (change)="onChange(sex.name, true)"> {{ sex.name | translate}} </mat-checkbox>
-        </section>
+        <h4 mat-line>{{ 'ADDRESS' | translate }}</h4>
+        <input matInput type="text" placeholder="Clearable input" [(ngModel)]="address">
+        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="address=''">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-list-item>
-
       <mat-divider></mat-divider>
 
       <mat-list-item>

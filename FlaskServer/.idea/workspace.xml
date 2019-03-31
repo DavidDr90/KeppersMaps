@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a2ff0789-10b2-4c2f-828e-0e54383edc40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,21 +12,105 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/FlaskServer$stack.coverage" NAME="stack Coverage Results" MODIFIED="1551422325673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/OneDrive/Python/untitled" />
     <SUITE FILE_PATH="coverage/FlaskProject$FlaskProject.coverage" NAME="FlaskProject Coverage Results" MODIFIED="1545384866196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FlaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1548605836844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1549973019095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1553538356008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FlaskProject$test.coverage" NAME="test Coverage Results" MODIFIED="1548593168809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../KeepersMaps" />
+    <SUITE FILE_PATH="coverage/FlaskServer$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1553501393100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/OneDrive/Python/KeepersMaps" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/OneDrive/Python/KeepersMaps/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="326" column="32" selection-start-line="326" selection-end-line="327" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+                <element signature="e#640#1019#0" />
+                <element signature="e#2854#4647#0" />
+                <element signature="e#4649#4846#1" />
+                <element signature="e#4851#4933#0" />
+                <element signature="e#5776#6198#0" />
+                <element signature="e#4224#4728#0" />
+                <element signature="e#10587#10852#0" />
+                <element signature="e#10777#10911#0" />
+                <element signature="e#10640#10929#0" />
+                <element signature="e#10889#10997#0" />
+                <element signature="e#11067#11132#0" />
+                <element signature="e#10598#11219#0" />
+                <element signature="e#10481#10499#0" />
+                <element signature="e#10158#11173#0" />
+                <element signature="e#9927#10091#1" />
+                <element signature="e#11729#12204#0" />
+                <element signature="e#11259#11352#1" />
+                <element signature="e#12214#12527#0" />
+                <element signature="e#12209#12278#1" />
+                <element signature="e#10589#10638#1" />
+                <element signature="e#12482#13914#0" />
+                <element signature="e#12482#12744#1" />
+                <element signature="e#13197#13814#0" />
+                <element signature="e#11080#11793#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="70" selection-start-line="70" selection-end-line="70" selection-end-column="64" />
+            <state relative-caret-position="260">
+              <caret line="383" column="18" selection-start-line="383" selection-start-column="18" selection-end-line="383" selection-end-column="18" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#1194#1316#0" />
+                <element signature="e#908#966#0" />
+                <element signature="e#2375#3134#0" />
+                <element signature="e#2370#2400#1" />
+                <element signature="e#2187#2229#0" />
+                <element signature="e#2318#2345#0" />
+                <element signature="e#1092#1292#0" />
+                <element signature="e#3353#3409#0" />
+                <element signature="e#3427#4863#0" />
+                <element signature="e#3477#4863#1" />
+                <element signature="e#3331#3582#0" />
+                <element signature="e#4941#4997#0" />
+                <element signature="e#5408#5619#0" />
+                <element signature="e#6437#6702#0" />
+                <element signature="e#6738#6872#0" />
+                <element signature="e#6926#7215#0" />
+                <element signature="e#6926#7139#1" />
+                <element signature="e#7247#7482#0" />
+                <element signature="e#7247#7369#1" />
+                <element signature="e#7522#7679#0" />
+                <element signature="e#7522#7620#1" />
+                <element signature="e#7724#8345#0" />
+                <element signature="e#7724#8142#1" />
+                <element signature="e#8374#8392#0" />
+                <element signature="e#8422#9489#0" />
+                <element signature="e#8422#8586#1" />
+                <element signature="e#9534#10025#0" />
+                <element signature="e#9534#9751#1" />
+                <element signature="e#10071#10570#0" />
+                <element signature="e#10071#10252#1" />
+                <element signature="e#10607#12771#0" />
+                <element signature="e#10607#10819#1" />
+                <element signature="e#12821#13083#1" />
+                <element signature="e#14153#15020#0" />
+                <element signature="e#15702#16133#0" />
+                <element signature="e#14584#14716#1" />
+                <element signature="e#15146#15603#0" />
+                <element signature="e#15465#15585#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/requests/api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
@@ -39,6 +124,21 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>calculate_age</find>
+      <find>groupby_count</find>
+      <find>milliseconds_to_date</find>
+      <find>markers_header</find>
+      <find>data_list</find>
+      <find>center_location</find>
+      <find>data</find>
+      <find>mana</find>
+      <find>start_date</find>
+      <find>{'page':</find>
+      <find>management</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -46,39 +146,31 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../KeepersMaps/test.py" />
+        <option value="$USER_HOME$/OneDrive/Python/untitled/stack.py" />
+        <option value="$USER_HOME$/OneDrive/Python/KeepersMaps/test.py" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="15" />
-    <option name="y" value="30" />
-    <option name="width" value="1890" />
-    <option name="height" value="960" />
+    <option name="x" value="949" />
+    <option name="width" value="980" />
+    <option name="height" value="1031" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="FlaskServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ClassEx" />
+    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Python/untitled" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -97,6 +189,50 @@
     </option>
   </component>
   <component name="RunManager" selected="Flask server.Flask (app.py)">
+    <configuration name="stack" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="FlaskProject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/OneDrive/Python/untitled" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/OneDrive/Python/untitled/stack.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="FlaskProject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/OneDrive/Python/KeepersMaps" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/OneDrive/Python/KeepersMaps/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="FlaskProject" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,7 +262,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -141,7 +277,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -152,6 +288,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Flask server.Flask (app.py)" />
+        <item itemvalue="Python.test (1)" />
+        <item itemvalue="Python.stack" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -171,13 +309,27 @@
       <workItem from="1545807278945" duration="11406000" />
       <workItem from="1546340417889" duration="15600000" />
       <workItem from="1548590567964" duration="8833000" />
-      <workItem from="1549972393093" duration="228000" />
-      <workItem from="1549972649538" duration="1001000" />
+      <workItem from="1551206592820" duration="2880000" />
+      <workItem from="1551289294380" duration="74000" />
+      <workItem from="1551289465465" duration="6983000" />
+      <workItem from="1551422386244" duration="30000" />
+      <workItem from="1551725238782" duration="709000" />
+      <workItem from="1551800514349" duration="2000" />
+      <workItem from="1552159555962" duration="15000" />
+      <workItem from="1552641483827" duration="27645000" />
     </task>
+    <task id="LOCAL-00001" summary="start working on Keepers API">
+      <created>1551209444993</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1551209444993</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58255000" />
+    <option name="totallyTimeSpent" value="95364000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -190,14 +342,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.26153848" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2574899" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3285968" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.54174066" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5150977" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39964476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
@@ -217,6 +370,10 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="start working on Keepers API" />
+    <option name="LAST_COMMIT_MESSAGE" value="start working on Keepers API" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -228,13 +385,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-313451744/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="3616" column="8" selection-start-line="3616" selection-start-column="8" selection-end-line="3616" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/pandas/core/generic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -252,12 +402,177 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../KeepersMaps/test.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-313451744/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="3242" column="8" selection-start-line="3242" selection-start-column="8" selection-end-line="3242" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/datetime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="1459" column="8" selection-start-line="1459" selection-start-column="8" selection-end-line="1459" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/OneDrive/Python/untitled/stack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/flask/cli.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="234" selection-start-line="234" selection-end-line="234" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/werkzeug/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="689" column="4" selection-start-line="689" selection-start-column="4" selection-end-line="689" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="1812" selection-start-line="1812" selection-end-line="1812" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/_strptime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="361" selection-start-line="361" selection-end-line="361" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/lib/arraysetops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-450">
+          <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/prettytable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="216" selection-start-line="216" selection-end-line="216" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/branca/element.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/folium/map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="257" selection-start-line="257" selection-end-line="257" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/flask/globals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/OneDrive/Python/KeepersMaps/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="326" column="32" selection-start-line="326" selection-end-line="327" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#640#1019#0" />
+            <element signature="e#2854#4647#0" />
+            <element signature="e#4649#4846#1" />
+            <element signature="e#4851#4933#0" />
+            <element signature="e#5776#6198#0" />
+            <element signature="e#4224#4728#0" />
+            <element signature="e#10587#10852#0" />
+            <element signature="e#10777#10911#0" />
+            <element signature="e#10640#10929#0" />
+            <element signature="e#10889#10997#0" />
+            <element signature="e#11067#11132#0" />
+            <element signature="e#10598#11219#0" />
+            <element signature="e#10481#10499#0" />
+            <element signature="e#10158#11173#0" />
+            <element signature="e#9927#10091#1" />
+            <element signature="e#11729#12204#0" />
+            <element signature="e#11259#11352#1" />
+            <element signature="e#12214#12527#0" />
+            <element signature="e#12209#12278#1" />
+            <element signature="e#10589#10638#1" />
+            <element signature="e#12482#13914#0" />
+            <element signature="e#12482#12744#1" />
+            <element signature="e#13197#13814#0" />
+            <element signature="e#11080#11793#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/requests/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="70" selection-start-line="70" selection-end-line="70" selection-end-column="64" />
+        <state relative-caret-position="260">
+          <caret line="383" column="18" selection-start-line="383" selection-start-column="18" selection-end-line="383" selection-end-column="18" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#1194#1316#0" />
+            <element signature="e#908#966#0" />
+            <element signature="e#2375#3134#0" />
+            <element signature="e#2370#2400#1" />
+            <element signature="e#2187#2229#0" />
+            <element signature="e#2318#2345#0" />
+            <element signature="e#1092#1292#0" />
+            <element signature="e#3353#3409#0" />
+            <element signature="e#3427#4863#0" />
+            <element signature="e#3477#4863#1" />
+            <element signature="e#3331#3582#0" />
+            <element signature="e#4941#4997#0" />
+            <element signature="e#5408#5619#0" />
+            <element signature="e#6437#6702#0" />
+            <element signature="e#6738#6872#0" />
+            <element signature="e#6926#7215#0" />
+            <element signature="e#6926#7139#1" />
+            <element signature="e#7247#7482#0" />
+            <element signature="e#7247#7369#1" />
+            <element signature="e#7522#7679#0" />
+            <element signature="e#7522#7620#1" />
+            <element signature="e#7724#8345#0" />
+            <element signature="e#7724#8142#1" />
+            <element signature="e#8374#8392#0" />
+            <element signature="e#8422#9489#0" />
+            <element signature="e#8422#8586#1" />
+            <element signature="e#9534#10025#0" />
+            <element signature="e#9534#9751#1" />
+            <element signature="e#10071#10570#0" />
+            <element signature="e#10071#10252#1" />
+            <element signature="e#10607#12771#0" />
+            <element signature="e#10607#10819#1" />
+            <element signature="e#12821#13083#1" />
+            <element signature="e#14153#15020#0" />
+            <element signature="e#15702#16133#0" />
+            <element signature="e#14584#14716#1" />
+            <element signature="e#15146#15603#0" />
+            <element signature="e#15465#15585#0" />
           </folding>
         </state>
       </provider>

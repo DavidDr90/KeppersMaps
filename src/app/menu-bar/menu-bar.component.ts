@@ -10,14 +10,26 @@ import { FlaskService } from '../services/flask.service';
 
 // for loading spinner
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
-
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormGroupDirective, NgForm, Validators } from '@angular/forms';
+// import {} from '@types/googlemaps'
+import { Observable } from 'rxjs';
+import { resolve } from 'url';
 
 declare var require: any;
 // For working with Date and Time
 // https://momentjs.com/
 var moment = require('moment');
 
+declare var google: any;
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 
 @Component({
@@ -25,9 +37,13 @@ var moment = require('moment');
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.css']
 })
-export class MenuBarComponent implements OnInit {
+export class MenuBarComponent {
 
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
+
+  address;
+
+  matcher = new MyErrorStateMatcher();
 
   filterObject = {
     "startDate": null,
@@ -36,6 +52,11 @@ export class MenuBarComponent implements OnInit {
       "isHeavy": false,
       "isMedium": false,
       "isEasy": false
+    },
+    "centerLocaion": null,
+    "age": {
+      "start": 0,
+      "end": 0
     }
   }
 
@@ -45,11 +66,6 @@ export class MenuBarComponent implements OnInit {
   choosenDate;
 
   langs = ["EN", "IT", "HE"];
-
-  sexs = [
-    { name: "MALE", checked: false },
-    { name: "FEMALE", checked: false }
-  ];
 
   severityLevels = [
     { displayName: "HIGH", is: "isHeavy" },
@@ -64,7 +80,8 @@ export class MenuBarComponent implements OnInit {
 
   dateFormat = 'dd.mm.yyyy';
   showMap: boolean = false;
-
+  startAge;
+  endAge;
   constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
     private spinnerService: Ng4LoadingSpinnerService) {
@@ -81,13 +98,33 @@ export class MenuBarComponent implements OnInit {
       endDate: obj
     }
     this.choosenDate = this.yesterday;
-
+    // save the date to the filter object
     this.filterObject.startDate = moment().subtract(1, 'days');
     this.filterObject.endDate = moment().subtract(1, 'days');
   }
 
-  ngOnInit() {
 
+  /** Send the input address to GoogleMaps server
+   *  Retrive the lat and lng of the input address
+   *  If there was error display it to the user
+   *  If the user did not enter any address the defualt address is:
+   *  'Rome italy'
+   *  @returns Promise, resolve - return the lcoation, reject - return error message
+   */
+  private convertAddressToLocation(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.flaskService.getAddress(this.address).subscribe((data) => {
+        if (data['status'] != 'OK') {
+          console.error("There was error retriving the address")
+          reject("There was error retriving the address")
+        } else {
+          // get the lat and lng
+          var location = data['results'][0]['geometry']['location']
+          // save the lat and lng to the filter object to send to the FlaskServer
+          resolve(location)
+        }
+      })
+    })
   }
 
 
@@ -112,26 +149,6 @@ export class MenuBarComponent implements OnInit {
   }
 
 
-  /** change the checked value when the checkbox is change
-   * @param sex the clicked sex checkbox
-   */
-  onChange(input: string, isGender: boolean) {
-    /*var item;
-    var control;
-    if (isGender) {
-      item = this.sexs.find(x => x.name == input);
-      // control = 'gender';
-      // this._myForm.controls[control].setValue(this.sexs);
-    } else {
-      item = this.severityLevels.find(x => x.name == input);
-      // control = 'severityLevels';
-      // this._myForm.controls[control].setValue(this.severityLevels);
-    }
-    item.checked = !item.checked;*/
-
-  }
-
-
   myDateRangePickerOptions: IMyDrpOptions = {
     showClearBtn: true,
     showApplyBtn: true,
@@ -141,7 +158,6 @@ export class MenuBarComponent implements OnInit {
     showClearDateRangeBtn: true,
   };
 
-  // 
 
   /** dateRangeChanged callback function called when the user apply the date range.
    *  this fucntion check if the input date is valid (not greader then today)
@@ -154,7 +170,7 @@ export class MenuBarComponent implements OnInit {
     let today = moment();
     if ((start >= today) || (end >= today))
       //TODO: make an error message to the user!
-      console.log("you cannot choose dates in the future!")
+      console.error("you cannot choose dates in the future!")
     else {
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
@@ -178,22 +194,45 @@ export class MenuBarComponent implements OnInit {
 
   filter() {
     this.spinnerService.show();
-    this.flaskService.getMap().subscribe(
-      // on seccues
-      (data) => {
-        console.log("in filter!")
-        console.log(data)
-        this.spinnerService.hide()
-      },
-      // on error
-      (err) => {
-        console.log("there was error!")
-        console.log(err)
-        this.spinnerService.hide()
-      })
-    this.showMap = true
+    // save the age range to the filter object
+    this.filterObject.age.start = (this.startAge > 0) ? this.startAge : 5;
+    this.filterObject.age.end = (this.endAge > 0) ? this.endAge : 5; 
+    // get the address and convert it to location
+    this.convertAddressToLocation().then((data) => {
+      // save the address location in lat and lng 
+      this.filterObject.centerLocaion = data;
+      // save only the date for processing the Keepers information
+      if (moment.isMoment(this.filterObject.startDate))
+        this.filterObject.startDate = this.filterObject.startDate.format('DD/MM/YYYY');
+      if (moment.isMoment(this.filterObject.endDate))
+        this.filterObject.endDate = this.filterObject.endDate.format('DD/MM/YYYY');
+      // send the parameters to the server
+      this.flaskService.sendParameters(this.filterObject).subscribe(
+        (data) => {
+          // after the parameters posted to the server create a map
+          this.flaskService.getMap().subscribe(
+            // on seccues
+            (data) => {
+              console.log("in filter!")
+              console.log(data)
+              this.spinnerService.hide()
+            },
+            // on error
+            (err) => {
+              console.log("there was error!")
+              console.log(err)
+              this.spinnerService.hide()
+            })
+          this.showMap = true
+        }, (error) => {
+          console.error(error)
+        })
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 
   heatMapChecked = false;
   heatMapDisabled = false;
+
 }
