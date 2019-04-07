@@ -29,6 +29,276 @@ export class GoogleMapsComponent implements OnInit {
 
   @ViewChild('AgmMap') agmMap: AgmMap;
 
+  geoJsonObject = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.102996826171875,
+            51.54804306453371
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.067291259765625,
+            51.52754263322114
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.15106201171874997,
+            51.52241608253253
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.07415771484375,
+            51.49164465653034
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.10848999023437499,
+            51.52754263322114
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.1263427734375,
+            51.4830933498849
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.1318359375,
+            51.515579783755925
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.248565673828125,
+            51.60266574567797
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.254058837890625,
+            51.56768064709022
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.190887451171875,
+            51.61119461048402
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.08651733398437499,
+            51.386352101119364
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.1043701171875,
+            51.380352540777984
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.087890625,
+            51.376923867455886
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.34332275390625,
+            51.586456488215426
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.38864135742187494,
+            51.37520943448463
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.402374267578125,
+            51.36320660581431
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.372161865234375,
+            51.345196463050826
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.347442626953125,
+            51.376923867455886
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.11810302734375,
+            51.282534682474655
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.08651733398437499,
+            51.29627609493991
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.146942138671875,
+            51.28597042110153
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.11947631835937499,
+            51.31344707827587
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.124969482421875,
+            51.394921537317366
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -0.092010498046875,
+            51.39577839266317
+          ]
+        }
+      }
+    ]
+  }
+
   //this array are use for display the markers on the map
   heavy: any;
   medium: any;
@@ -37,6 +307,9 @@ export class GoogleMapsComponent implements OnInit {
   data: any;
   mapsZoom: any;
   mapBorders;
+
+  lat: number = DEFUALT_LATITUDE;
+  lng: number = DEFUALT_LONGITUDE;
 
   //this hold all the date locally
   markersArray = {
@@ -59,9 +332,6 @@ export class GoogleMapsComponent implements OnInit {
   screenWidth;
 
   map: any;
-
-  lat: number = DEFUALT_LATITUDE;
-  lng: number = DEFUALT_LONGITUDE;
 
   constructor(private jsonService: JsonService) {
     console.log("constractor");
@@ -228,6 +498,16 @@ export class GoogleMapsComponent implements OnInit {
       )
     }
     return smallArr;
+  }
+
+  clicked(clickEvent, gm, infoWindow) {
+    console.log("on click")
+    console.log(clickEvent)
+    // if (gm.lastOpen != null) {
+    //   gm.lastOpen.close();
+    // }
+    // gm.lastOpen = infoWindow; 
+    infoWindow.open();
   }
 
 
