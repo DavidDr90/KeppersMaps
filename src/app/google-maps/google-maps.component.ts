@@ -4,6 +4,7 @@ import { JsonService } from '../services/json.service';
 import { Marker, Subjects } from "../marker";
 import { AgmMap, LatLngBounds } from '@agm/core';
 
+import 'rxjs/add/operator/takeWhile';
 
 //TODO: make a welcome windoew where the user enter the first args, like data and subjects
 //      later on the user can change this arges
@@ -299,6 +300,36 @@ export class GoogleMapsComponent implements OnInit {
     ]
   }
 
+
+
+  labelOptions = {
+    color: 'black',
+    fontFamily: '',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    text: "Defual Value"
+  }
+
+  MarkersList: any;
+  /*[
+    {
+      "lat": -1.07415771484375,
+      "lng": 52.49164465653034,
+      "labelOptions": this.labelOptions,
+      "data": null
+    },
+    {
+      "text": 200,
+      "lat": -5.07415771484375,
+      "lng": 55.49164465653034,
+    },
+    {
+      "text": 300,
+      "lat": -7.07415771484375,
+      "lng": 20.49164465653034,
+    },
+  ]*/
+
   //this array are use for display the markers on the map
   heavy: any;
   medium: any;
@@ -332,10 +363,21 @@ export class GoogleMapsComponent implements OnInit {
   screenWidth;
 
   map: any;
+  private alive: boolean = true;
 
   constructor(private jsonService: JsonService) {
     console.log("constractor");
     this.onResize();
+    jsonService.data$.subscribe(
+      (data) => {
+        console.log("in google maps constructor!")
+        console.log(data)
+        this.MarkersList = data;
+      });
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   /** on component init
@@ -457,32 +499,32 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   //TODO: send the maps borders to the boundsChange() function to update the dispaly array
-  mapReady(event) {
-    console.log("map is ready!");
-    console.log(event);
-    console.log("data object in mapReady")
-    console.log(this.jsonService.dataObject);
-    console.time("remove dup")
-    // let vale = this.jsonService.removeDup(this.jsonService.dataObject.heavy)
-    console.log("vale")
-    console.timeEnd("remove dup")
+  // mapReady(event) {
+  //   console.log("map is ready!");
+  //   console.log(event);
+  //   console.log("data object in mapReady")
+  //   console.log(this.jsonService.dataObject);
+  //   console.time("remove dup")
+  //   // let vale = this.jsonService.removeDup(this.jsonService.dataObject.heavy)
+  //   console.log("vale")
+  //   console.timeEnd("remove dup")
 
-    console.time("save");
-    this.saveMarkers();
-    console.timeEnd("save")
-    /*
-    console.log(event.getBounds().getNorthEast().lat());
-    const bounds: LatLngBounds = new google.maps.LatLngBounds();
-    console.log(bounds.getNorthEast().lat());
-    console.log(bounds.getSouthWest().lng());
-    // console.log(google.maps.getBounds());
+  //   console.time("save");
+  //   this.saveMarkers();
+  //   console.timeEnd("save")
+  //   /*
+  //   console.log(event.getBounds().getNorthEast().lat());
+  //   const bounds: LatLngBounds = new google.maps.LatLngBounds();
+  //   console.log(bounds.getNorthEast().lat());
+  //   console.log(bounds.getSouthWest().lng());
+  //   // console.log(google.maps.getBounds());
 
-    console.log("in map ready:")
-    console.log(this.jsonService.dataObject);
-    this.saveDateLocally();
-    // this.boundsChange();
-    */
-  }
+  //   console.log("in map ready:")
+  //   console.log(this.jsonService.dataObject);
+  //   this.saveDateLocally();
+  //   // this.boundsChange();
+  //   */
+  // }
 
   /** this function reduce the number of markers in the main array
    *  there for the google map can display the makrers easlly and quickly
@@ -500,23 +542,13 @@ export class GoogleMapsComponent implements OnInit {
     return smallArr;
   }
 
-  clicked(clickEvent, gm, infoWindow) {
-    console.log("on click")
-    console.log(clickEvent)
-    // if (gm.lastOpen != null) {
-    //   gm.lastOpen.close();
-    // }
-    // gm.lastOpen = infoWindow; 
-    infoWindow.open();
-  }
-
 
   /************************* WORKING FONCTIONS *******************/
 
 
   /** save the markers from the json service to local arrays
    *  use the fiter to save only the relevant arrays
-   */
+   *
   saveMarkers(): any {
     _.forOwn(this.jsonService.filterObject.filterBy, (value, key) => {
       //remote the 'is' from 'isHeave'
@@ -526,7 +558,7 @@ export class GoogleMapsComponent implements OnInit {
         this.markersArray[newKey] = this.jsonService.dataObject[newKey].splice(0);
       }
     });
-  }
+  }*/
 
   /** check if the imput array is not empty
    * @param array 

@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '../services/translate.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { IMyDrpOptions, IMyDateRangeModel } from 'mydaterangepicker';
 import { JsonService } from '../services/json.service';
 import { } from 'events';
-import { HttpClient } from '@angular/common/http';
 import { FlaskService } from '../services/flask.service';
 
 // for loading spinner
@@ -60,7 +58,6 @@ export class MenuBarComponent {
     }
   }
 
-
   levels = new FormControl();
 
   choosenDate;
@@ -85,10 +82,6 @@ export class MenuBarComponent {
   constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
     private spinnerService: Ng4LoadingSpinnerService) {
-    // this.flaskService.initMap().subscribe((data) => {
-    //   console.log("in ngOnInit!")
-    //   console.log(data)
-    // })
     // save the date of yesterday and set the datepicker rang
     let today = new Date();
     today.setDate(today.getDate())// - 1);
@@ -196,7 +189,7 @@ export class MenuBarComponent {
     this.spinnerService.show();
     // save the age range to the filter object
     this.filterObject.age.start = (this.startAge > 0) ? this.startAge : 5;
-    this.filterObject.age.end = (this.endAge > 0) ? this.endAge : 5; 
+    this.filterObject.age.end = (this.endAge > 0) ? this.endAge : 5;
     // get the address and convert it to location
     this.convertAddressToLocation().then((data) => {
       // save the address location in lat and lng 
@@ -212,10 +205,11 @@ export class MenuBarComponent {
           // after the parameters posted to the server create a map
           this.flaskService.getMap().subscribe(
             // on seccues
-            (data) => {
+            (data: Object) => {
               console.log("in filter!")
               console.log(data)
-              this.spinnerService.hide()
+              this.jsonService.setUserData(data)
+              // this.spinnerService.hide()
             },
             // on error
             (err) => {
@@ -231,8 +225,5 @@ export class MenuBarComponent {
       console.error(error)
     })
   }
-
-  heatMapChecked = false;
-  heatMapDisabled = false;
 
 }
