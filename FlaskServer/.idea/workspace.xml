@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2ff0789-10b2-4c2f-828e-0e54383edc40" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,9 +35,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="385" column="30" selection-start-line="385" selection-start-column="30" selection-end-line="385" selection-end-column="30" />
+            <state relative-caret-position="61">
+              <caret line="106" column="35" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
               <folding>
+                <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#1019#1141#0" />
                 <element signature="e#1258#1488#1" />
                 <element signature="e#1850#1916#0" />
@@ -50,9 +48,6 @@
                 <element signature="e#2532#3324#0" />
                 <element signature="e#2721#2763#0" />
                 <element signature="e#3360#3387#0" />
-                <element signature="e#3442#3682#0" />
-                <element signature="e#3455#3558#0" />
-                <element signature="e#3594#3682#0" />
                 <element signature="e#3726#3932#0" />
                 <element signature="e#3726#3782#0" />
                 <element signature="e#3934#3962#0" />
@@ -75,23 +70,13 @@
                 <element signature="e#8053#8071#0" />
                 <element signature="e#8101#9168#0" />
                 <element signature="e#8101#8265#1" />
-                <element signature="e#9213#9704#0" />
                 <element signature="e#9213#9430#1" />
-                <element signature="e#9750#10249#0" />
                 <element signature="e#9750#9931#1" />
-                <element signature="e#10286#12209#0" />
                 <element signature="e#10286#10498#1" />
-                <element signature="e#11275#11775#0" />
-                <element signature="e#11463#11740#0" />
                 <element signature="e#12248#12510#1" />
-                <element signature="e#12919#14147#0" />
-                <element signature="e#13378#14039#0" />
-                <element signature="e#14183#14474#0" />
                 <element signature="e#14231#14356#0" />
                 <element signature="e#14383#14474#0" />
-                <element signature="e#14508#14939#0" />
                 <element signature="e#14508#14640#1" />
-                <element signature="e#14660#14910#0" />
                 <element signature="e#14969#15426#0" />
                 <element signature="e#14969#15177#1" />
                 <element signature="e#15288#15408#0" />
@@ -303,6 +288,7 @@
       <workItem from="1552641483827" duration="27645000" />
       <workItem from="1554039052007" duration="513000" />
       <workItem from="1554039864196" duration="631000" />
+      <workItem from="1554650566283" duration="4212000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -315,7 +301,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96508000" />
+    <option name="totallyTimeSpent" value="100720000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -328,14 +314,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2574899" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3285968" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5150977" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.59042555" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39964476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -369,6 +354,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1555786138143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/pandas/core/generic.py">
@@ -494,9 +482,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="385" column="30" selection-start-line="385" selection-start-column="30" selection-end-line="385" selection-end-column="30" />
+        <state relative-caret-position="61">
+          <caret line="106" column="35" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
           <folding>
+            <element signature="e#0#13#0" expanded="true" />
             <element signature="e#1019#1141#0" />
             <element signature="e#1258#1488#1" />
             <element signature="e#1850#1916#0" />
@@ -506,9 +495,6 @@
             <element signature="e#2532#3324#0" />
             <element signature="e#2721#2763#0" />
             <element signature="e#3360#3387#0" />
-            <element signature="e#3442#3682#0" />
-            <element signature="e#3455#3558#0" />
-            <element signature="e#3594#3682#0" />
             <element signature="e#3726#3932#0" />
             <element signature="e#3726#3782#0" />
             <element signature="e#3934#3962#0" />
@@ -531,23 +517,13 @@
             <element signature="e#8053#8071#0" />
             <element signature="e#8101#9168#0" />
             <element signature="e#8101#8265#1" />
-            <element signature="e#9213#9704#0" />
             <element signature="e#9213#9430#1" />
-            <element signature="e#9750#10249#0" />
             <element signature="e#9750#9931#1" />
-            <element signature="e#10286#12209#0" />
             <element signature="e#10286#10498#1" />
-            <element signature="e#11275#11775#0" />
-            <element signature="e#11463#11740#0" />
             <element signature="e#12248#12510#1" />
-            <element signature="e#12919#14147#0" />
-            <element signature="e#13378#14039#0" />
-            <element signature="e#14183#14474#0" />
             <element signature="e#14231#14356#0" />
             <element signature="e#14383#14474#0" />
-            <element signature="e#14508#14939#0" />
             <element signature="e#14508#14640#1" />
-            <element signature="e#14660#14910#0" />
             <element signature="e#14969#15426#0" />
             <element signature="e#14969#15177#1" />
             <element signature="e#15288#15408#0" />

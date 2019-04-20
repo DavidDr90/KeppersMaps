@@ -1,5 +1,5 @@
 import random
-from flask import Flask, make_response, abort, jsonify, send_file
+from flask import Flask, make_response, abort, jsonify, send_file, url_for, send_from_directory, Response
 from flask_cors import CORS
 import json
 import pandas as pd
@@ -17,12 +17,9 @@ from pyspark.sql import SQLContext
 import json
 import ijson
 import pandas as pd
-from pandas.io.json import json_normalize
 import numpy as np
-import functools
 import time
 from math import cos, asin, sqrt
-import matplotlib.pyplot as plt
 import folium
 from folium import plugins, ClickForMarker
 from folium.plugins import MarkerCluster
@@ -70,7 +67,6 @@ child_age_range = []
 # Make an empty map object
 keepers_map = {}
 
-
 # base running function for Flask
 app = Flask(__name__, static_folder='static')
 # allows CORS for all domains on all routes
@@ -116,8 +112,8 @@ def main():
         return jsonify("!!!!")
     except Exception as e:
         print("There was an error in the '/map' function\nDescription = ", e)
-        abort(404)
-
+        # abort(404)
+        abort(500, Response("Server Internal Error"))
 
 
 @app.route('/init')
@@ -126,6 +122,7 @@ def init_map():
     # my_map = folium.Map(location=[rome_lat, rome_lng], zoom_start=0, width="100%", height="100%")
     # my_map.save(path)
     return "init finish!"
+
 
 # if __name__ == '__main__':
 #     # regular way for running the flask app
@@ -182,12 +179,14 @@ def create_marker(row, popup=None):
     return "hello world"
 
 
-
 ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
-     "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
+                "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
 
-
+@app.route('/pro', methods=['GET'])
+def serve_file():
+    # g = url_for('static', filename='map.html')
+    return send_from_directory('static', 'map.html')
 
 
 # ##########    Working Private Functions   ##############
@@ -250,8 +249,8 @@ def distance(lat1, lon1, lat2, lon2):
     :param lon2:
     :return: the distance between the two locations
     """
-    p = 0.017453292519943295     # Pi/180
-    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    p = 0.017453292519943295  # Pi/180
+    a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     return 12742 * asin(sqrt(a))  # 2 * R; R = 6371 km
 
 
@@ -282,7 +281,7 @@ def groupby_count(df):
     m0 = (idss[1:] != idss[:-1]) | (ts[1:] != ts[:-1])
     m = np.concatenate(([True], m0, [True]))
     rows_out = rows[m[:-1]]
-    count = np.diff(np.flatnonzero(m)+1)
+    count = np.diff(np.flatnonzero(m) + 1)
 
     # create new column with the count for each row
     df.loc[rows_out, 'count'] = count
@@ -363,10 +362,22 @@ def process_one_child(child):
     if not output_list.size:
         return
 
-    lng, lat = child[longitude], child[latitude]
+    # create a json object with array of all the markers
+    # then parse this json back to array on the client side and use ngFor to create the markers
+    # TODO: calculate the total sum of all the massages in the output, place on the label variable.
+    print("output_list:")
+    pprint.pprint(output_list)
+    output_data = {"lat": child[latitude], "lng": child[longitude],
+                   "data": data_to_html_table(output_list, headers),
+                   "color": icon_color,
+                   "label": "TODO"}
+
+    json_data = json.dumps(output_data)
+    print("json_data:")
+    pprint.pprint(json_data)
 
     # create new Folium marker
-    folium.Marker([lat, lng],
+    folium.Marker([child[latitude], child[longitude]],
                   popup=data_to_html_table(output_list, headers),
                   icon=folium.Icon(color=icon_color, icon='glyphicon-info-sign')
                   ).add_to(keepers_map)
@@ -390,7 +401,7 @@ def generate_map(http_request):
     first_response = first_response.json()
     print("after parsing to json")
     pprint.pprint(first_response)
-    
+
     try:
         # save the data part from the json
         data = first_response[markers_header]
@@ -435,7 +446,7 @@ def create_http_request():
     """
     return ''.join([base_request_string, "latitude=", str(center_location['lat']), "&longitude=",
                     str(center_location['lng']), "&range=", str(range), "&startDateEpoch=",
-                    str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  #, "&limit=", str(limit)])
+                    str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  # , "&limit=", str(limit)])
 
 
 def get_filter_by(by):
