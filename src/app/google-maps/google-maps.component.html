@@ -14,17 +14,18 @@
     </mat-slide-toggle>
 </span> -->
 
+<!-- [iconUrl]="item.icon" -->
+
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
-    <agm-data-layer *ngIf="geoJsonObject" [geoJson]="geoJsonObject" 
-    (layerClick)="clicked($event, gm, infoWindow)" [style]="styleFunc">
-        <agm-snazzy-info-window [isOpen]="infoWindowIsOpen"
-        [latitude]="infoWindowLat" [longitude]="infoWindowLong"
-        [closeWhenOthersOpen]="true" [closeOnMapClick]="true"
-        [showCloseButton]="false" [openOnMarkerClick]="true"
-        [backgroundColor]="'#FFF'" #infoWindow>
-            {{infoWindowText}}
+     <agm-marker *ngFor="let item of MarkersList"
+        [latitude]="item.lat" [longitude]="item.lng"
+        [label]="item.labelOptions">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+                {{ item.data }}
+            </ng-template>
         </agm-snazzy-info-window>
-    </agm-data-layer>
+    </agm-marker>
 </agm-map>
 
 <button (click)="onClick()">click me!</button>
