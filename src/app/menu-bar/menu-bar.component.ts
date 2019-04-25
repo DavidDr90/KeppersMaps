@@ -187,9 +187,17 @@ export class MenuBarComponent {
 
   filter() {
     this.spinnerService.show();
+
     // save the age range to the filter object
     this.filterObject.age.start = (this.startAge > 0) ? this.startAge : 5;
     this.filterObject.age.end = (this.endAge > 0) ? this.endAge : 5;
+
+    if (this.jsonService.myLocationMarker != null){
+      console.log("We have location from the map")
+    }else{
+      console.log("We need location from the input filed")
+    }
+
     // get the address and convert it to location
     this.convertAddressToLocation().then((data) => {
       // save the address location in lat and lng 

@@ -39,6 +39,7 @@ export class JsonService {
 
   private boolSubject = new Subject<boolean>();
   private userData = new Subject<any>();
+  myLocationMarker: { lat: any; lng: any; };
 
 
   constructor(private http: HttpClient, private mapsAPILoader: MapsAPILoader) {

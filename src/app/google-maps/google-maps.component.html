@@ -1,6 +1,14 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="5" (zoomChange)="onZoomChange($event)">
-     <agm-marker *ngFor="let item of MarkersList"
-        [latitude]="item.lat" [longitude]="item.lng"
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="5" (zoomChange)="onZoomChange($event)"
+    (mapClick)="mapClicked($event)">
+    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
+    [label]="myLocationMarkerLabelOptions">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+                Search Here!
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng"
         [label]="item.labelOptions">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-template>

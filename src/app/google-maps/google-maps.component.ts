@@ -1,20 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { JsonService } from '../services/json.service';
-import { AgmMap} from '@agm/core';
-import { takeUntil} from 'rxjs/operators';
+import { AgmMap } from '@agm/core';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 
 //TODO: make a welcome windoew where the user enter the first args, like data and subjects
 //      later on the user can change this arges
-
-declare var require: any;
-
-// For work efficeint with collection of data
-// https://lodash.com/
-// Load the full build.
-var _ = require('lodash');
-
 
 declare var google: any;
 const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
@@ -56,7 +48,7 @@ export class GoogleMapsComponent implements OnInit {
     },
   ]*/
 
- 
+
   data: any;
   mapsZoom: any;
 
@@ -70,19 +62,21 @@ export class GoogleMapsComponent implements OnInit {
 
   map: any;
   private alive: Subject<void> = new Subject();
+  myLocationMarker: { lat: any; lng: any; };
+  myLocationMarkerLabelOptions = null
 
 
   constructor(private jsonService: JsonService) {
     // listen to changes in the json data from the menu component
     // if there is data save it localy and display it on the map
     jsonService.data$
-    .pipe(takeUntil(this.alive))
-    .subscribe(
-      (data) => {
-        console.log("in google maps constructor!")
-        console.log(data)
-        this.MarkersList = data;
-      });
+      .pipe(takeUntil(this.alive))
+      .subscribe(
+        (data) => {
+          console.log("in google maps constructor!")
+          console.log(data)
+          this.MarkersList = data;
+        });
   }
 
 
@@ -177,12 +171,19 @@ export class GoogleMapsComponent implements OnInit {
     this.mapsZoom = e;
   }
 
+  mapClicked($event) {
+    this.myLocationMarker = {
+      lat: $event.coords.lat,
+      lng: $event.coords.lng
+    }
+    this.jsonService.myLocationMarker = this.myLocationMarker
+  }
 
   /** check if the imput array is not empty
    * @param array 
    * @returns true if the array is not empty false if the array is empty
    */
-  arrayNotEmpty(array: any): boolean {
+  private arrayNotEmpty(array: any): boolean {
     if (!Array.isArray(array) || !array.length)
       // array does not exist, is not an array, or is empty
       return false;
