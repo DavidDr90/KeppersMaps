@@ -38,7 +38,6 @@ export class JsonService {
   data$: any;
 
   private boolSubject = new Subject<boolean>();
-
   private userData = new Subject<any>();
 
 

@@ -435,8 +435,7 @@ def generate_map(http_request):
             print("There was an error in generate_map().\nDescription = Bad Request (400)", first_response['message'])
             return
         else:
-            print("There was an general error in generate_map()\nDescription = ", e)
-            return
+            raise Exception("There was an general error in generate_map()\nDescription = ", e)
 
 
 def create_http_request():

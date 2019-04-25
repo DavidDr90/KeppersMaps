@@ -1,21 +1,3 @@
-<!-- <span *ngIf="heatMapChecked">
-    <iframe #heatMap src="./assets/heat_map.html"></iframe>
-</span>
-
-<span *ngIf="!heatMapChecked">
-    <iframe #regularMap src="./assets/map.html"></iframe>
-</span>
-
-<br/>
-
-<span>
-    <mat-slide-toggle [(ngModel)]="heatMapChecked" [disabled]="heatMapDisabled">
-        {{ 'HEAT_MAP' | translate}}
-    </mat-slide-toggle>
-</span> -->
-
-<!-- [iconUrl]="item.icon" -->
-
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
      <agm-marker *ngFor="let item of MarkersList"
         [latitude]="item.lat" [longitude]="item.lng"
@@ -27,5 +9,3 @@
         </agm-snazzy-info-window>
     </agm-marker>
 </agm-map>
-
-<button (click)="onClick()">click me!</button>

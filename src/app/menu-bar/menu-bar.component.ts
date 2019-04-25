@@ -209,7 +209,7 @@ export class MenuBarComponent {
               console.log("in filter!")
               console.log(data)
               this.jsonService.setUserData(data)
-              // this.spinnerService.hide()
+              this.spinnerService.hide()
             },
             // on error
             (err) => {

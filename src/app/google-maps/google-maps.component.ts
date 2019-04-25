@@ -4,7 +4,10 @@ import { JsonService } from '../services/json.service';
 import { Marker, Subjects } from "../marker";
 import { AgmMap, LatLngBounds } from '@agm/core';
 
-import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/operator/takeUntil';
+import { map, tap, takeUntil} from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 //TODO: make a welcome windoew where the user enter the first args, like data and subjects
 //      later on the user can change this arges
@@ -363,12 +366,15 @@ export class GoogleMapsComponent implements OnInit {
   screenWidth;
 
   map: any;
-  private alive: boolean = true;
+  private alive: Subject<void> = new Subject();
+
 
   constructor(private jsonService: JsonService) {
     console.log("constractor");
     this.onResize();
-    jsonService.data$.subscribe(
+    jsonService.data$
+    .pipe(takeUntil(this.alive))
+    .subscribe(
       (data) => {
         console.log("in google maps constructor!")
         console.log(data)
@@ -377,7 +383,9 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.alive = false;
+    console.log('ngOnDestory');
+    this.alive.next();
+    this.alive.complete();
   }
 
   /** on component init
