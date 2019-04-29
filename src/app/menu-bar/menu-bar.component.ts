@@ -239,7 +239,6 @@ export class MenuBarComponent {
       return
     }
     selectedItems.forEach(element => {
-      console.log(element)
       switch (element.item_id) {
         case 1:
           this.filterObject.filterBy.isHeavy = true
