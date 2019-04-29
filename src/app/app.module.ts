@@ -3,7 +3,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // for loading spinner
-import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+// import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 // For Google Maps
@@ -63,7 +64,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
   ],
   imports: [
     // for loading spinner
-    Ng4LoadingSpinnerModule.forRoot(),
+    // Ng4LoadingSpinnerModule.forRoot(),
+    NgxSpinnerModule, 
     // for google maps
     AgmCoreModule.forRoot({
       apiKey: MY_API_KEY_FOR_GOOGLE_MAPS,

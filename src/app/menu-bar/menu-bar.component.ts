@@ -7,7 +7,9 @@ import { } from 'events';
 import { FlaskService } from '../services/flask.service';
 
 // for loading spinner
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+// import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective, NgForm, Validators } from '@angular/forms';
 // import {} from '@types/googlemaps'
@@ -29,6 +31,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
 
 @Component({
   selector: 'app-menu-bar',
@@ -79,9 +82,10 @@ export class MenuBarComponent {
   showMap: boolean = false;
   startAge;
   endAge;
+
   constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
-    private spinnerService: Ng4LoadingSpinnerService) {
+    private spinner: NgxSpinnerService) {
     // save the date of yesterday and set the datepicker rang
     let today = new Date();
     today.setDate(today.getDate())// - 1);
@@ -186,52 +190,46 @@ export class MenuBarComponent {
 
 
   filter() {
-    this.spinnerService.show();
-
+    // this.spinnerService.show();
+    this.spinner.show()
     // save the age range to the filter object
     this.filterObject.age.start = (this.startAge > 0) ? this.startAge : 5;
     this.filterObject.age.end = (this.endAge > 0) ? this.endAge : 5;
+    // save the address location in lat and lng 
+    this.filterObject.centerLocaion = (this.jsonService.myLocationMarker != null) ?
+      this.jsonService.myLocationMarker : { lat: DEFUALT_LATITUDE, lng: DEFUALT_LONGITUDE };
+    // save only the date for processing the Keepers information
+    if (moment.isMoment(this.filterObject.startDate))
+      this.filterObject.startDate = this.filterObject.startDate.format('DD/MM/YYYY');
+    if (moment.isMoment(this.filterObject.endDate))
+      this.filterObject.endDate = this.filterObject.endDate.format('DD/MM/YYYY');
+    // send the parameters to the server
+    this.flaskService.sendParameters(this.filterObject).subscribe(
+      () => {
+        // after the parameters posted to the server create a map
+        this.flaskService.getMap().subscribe(
+          // on seccues
+          (data: Object) => {
+            console.log("in filter!")
+            console.log(data)
+            this.jsonService.setUserData(data)
+            // this.spinnerService.hide()
+            this.spinner.hide()
+          },
+          // on error
+          (err) => {
+            console.log("there was error!")
+            console.log(err)
+            // this.spinnerService.hide()
+            this.spinner.hide()
 
-    if (this.jsonService.myLocationMarker != null){
-      console.log("We have location from the map")
-    }else{
-      console.log("We need location from the input filed")
-    }
+          })
+        this.showMap = true
+      }, (error) => {
+        console.error(error)
+      })
 
-    // get the address and convert it to location
-    this.convertAddressToLocation().then((data) => {
-      // save the address location in lat and lng 
-      this.filterObject.centerLocaion = data;
-      // save only the date for processing the Keepers information
-      if (moment.isMoment(this.filterObject.startDate))
-        this.filterObject.startDate = this.filterObject.startDate.format('DD/MM/YYYY');
-      if (moment.isMoment(this.filterObject.endDate))
-        this.filterObject.endDate = this.filterObject.endDate.format('DD/MM/YYYY');
-      // send the parameters to the server
-      this.flaskService.sendParameters(this.filterObject).subscribe(
-        (data) => {
-          // after the parameters posted to the server create a map
-          this.flaskService.getMap().subscribe(
-            // on seccues
-            (data: Object) => {
-              console.log("in filter!")
-              console.log(data)
-              this.jsonService.setUserData(data)
-              this.spinnerService.hide()
-            },
-            // on error
-            (err) => {
-              console.log("there was error!")
-              console.log(err)
-              this.spinnerService.hide()
-            })
-          this.showMap = true
-        }, (error) => {
-          console.error(error)
-        })
-    }).catch((error) => {
-      console.error(error)
-    })
+
   }
 
 }

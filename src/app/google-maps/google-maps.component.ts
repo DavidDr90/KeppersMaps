@@ -20,13 +20,7 @@ export class GoogleMapsComponent implements OnInit {
 
   @ViewChild('AgmMap') agmMap: AgmMap;
 
-  labelOptions = {
-    color: 'black',
-    fontFamily: '',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    text: "Defual Value"
-  }
+  
 
   MarkersList: any;
   /*[
@@ -74,8 +68,11 @@ export class GoogleMapsComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log("in google maps constructor!")
+          data = JSON.parse(data)
           console.log(data)
-          this.MarkersList = data;
+          this.MarkersList = data['Markers'];
+          console.log("MarkersList")
+          console.log(this.MarkersList)
         });
   }
 
@@ -171,6 +168,10 @@ export class GoogleMapsComponent implements OnInit {
     this.mapsZoom = e;
   }
 
+  /** Add new marker on the map where the user clicked
+   *  Save the location of the marker to the jsonService paramter
+   * @param $event click event on the map
+   */
   mapClicked($event) {
     this.myLocationMarker = {
       lat: $event.coords.lat,
@@ -179,7 +180,7 @@ export class GoogleMapsComponent implements OnInit {
     this.jsonService.myLocationMarker = this.myLocationMarker
   }
 
-  /** check if the imput array is not empty
+  /** check if the input array is not empty
    * @param array 
    * @returns true if the array is not empty false if the array is empty
    */

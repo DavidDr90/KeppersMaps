@@ -29,6 +29,7 @@ const STRENGTH_LEVELS = {
 }
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,9 +47,9 @@ export class JsonService {
     // this.userData = {};
     this.myBool$ = this.boolSubject.asObservable()
     this.data$ = this.userData.asObservable();
-
   }
 
+  
   setUserData(val: object) {
     this.userData.next(val);
   }

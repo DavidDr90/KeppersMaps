@@ -9,11 +9,12 @@
         </agm-snazzy-info-window>
     </agm-marker>
     <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng"
-        [label]="item.labelOptions">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+        [label]="item.label">
+        <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
             <ng-template>
                 {{ item.data }}
             </ng-template>
         </agm-snazzy-info-window>
     </agm-marker>
 </agm-map>
+
