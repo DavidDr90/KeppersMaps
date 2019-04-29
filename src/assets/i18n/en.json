@@ -12,6 +12,7 @@
     "START_AGE": "Start",
     "END_AGE": "End",
     "HEAT_MAP": "Heat Map",
-    "ADDRESS": "Address"
+    "ADDRESS": "Address",
+    "PICK_DATA": "Pick a Data"
 
 }

@@ -1,36 +1,13 @@
-import random
-from flask import Flask, make_response, abort, jsonify, send_file
+from flask import Flask, make_response, abort, jsonify, Response
 from flask_cors import CORS
-import json
-import pandas as pd
-from pandas.io.json import json_normalize
-import datetime
-import folium
-from folium.plugins import MarkerCluster, FastMarkerCluster, HeatMap
-import functools
-import time
-import requests
 from flask import request
-from pyspark.context import SparkContext
-from pyspark import SparkConf
-from pyspark.sql import SQLContext
-import json
-import ijson
 import pandas as pd
-from pandas.io.json import json_normalize
 import numpy as np
-import functools
-import time
 from math import cos, asin, sqrt
-import matplotlib.pyplot as plt
-import folium
-from folium import plugins, ClickForMarker
-from folium.plugins import MarkerCluster
 import time
 import requests
 import datetime
 from datetime import date
-from pygeocoder import Geocoder
 import pprint
 from prettytable import PrettyTable
 
@@ -67,8 +44,8 @@ start_date = 0
 end_date = 0
 filter_by = []
 child_age_range = []
-# Make an empty map object
-keepers_map = {}
+
+json_data = {"Markers": []}
 
 
 # base running function for Flask
@@ -90,7 +67,7 @@ def save_filter_data():
     :return:
     """
     try:
-        global start_date, end_date, center_location, filter_by, child_age_range, keepers_map
+        global start_date, end_date, center_location, filter_by, child_age_range
         data = request.get_json(force=True)
         print("data:")
         pprint.pprint(data)
@@ -99,7 +76,6 @@ def save_filter_data():
         start_date = (datetime.datetime.strptime(data['startDate'], "%d/%m/%Y")).timestamp() * 1000
         end_date = (datetime.datetime.strptime(data['endDate'], "%d/%m/%Y")).timestamp() * 1000
         center_location = data['centerLocaion']
-        keepers_map = folium.Map(location=[center_location['lat'], center_location['lng']], zoom_start=10)
         filter_by = get_filter_by(data['filterBy'])
         child_age_range = [data['age']['start'], data['age']['end']]
         return jsonify("success")
@@ -111,21 +87,17 @@ def save_filter_data():
 @app.route('/map', methods=['GET'])
 def main():
     try:
-        add_center_location_to_map()
         generate_map(create_http_request())
-        return jsonify("!!!!")
+        # parse the markers' json back to array on the client side and use ngFor to create the markers
+        global json_data
+        local_json_data = json_data
+        # clear the json_data global for next use
+        json_data = json_data.fromkeys(json_data, [])
+        return jsonify(local_json_data)
     except Exception as e:
         print("There was an error in the '/map' function\nDescription = ", e)
-        abort(404)
+        abort(500, Response("Server Internal Error"))
 
-
-
-@app.route('/init')
-def init_map():
-    # # create empty map to display when the app is first up
-    # my_map = folium.Map(location=[rome_lat, rome_lng], zoom_start=0, width="100%", height="100%")
-    # my_map.save(path)
-    return "init finish!"
 
 # if __name__ == '__main__':
 #     # regular way for running the flask app
@@ -172,33 +144,11 @@ def proto_type():
     """
 
 
-def create_marker(row, popup=None):
-    """Returns a L.marker object"""
-    # icon = L.AwesomeMarkers.icon({markerColor: row.color})
-    # marker = L.marker(L.LatLng(row.lat, row.lng))
-    # marker.setIcon(icon)
-    # if popup:
-    #     marker.bindPopup(row[popup])
-    return "hello world"
-
-
-
 ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
-     "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
-
-
-
+                "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
 
 # ##########    Working Private Functions   ##############
-
-
-def add_center_location_to_map():
-    # add the user center location to the map
-    folium.Marker([center_location['lat'], center_location['lng']],
-                  popup="You Are Here",
-                  icon=folium.Icon(color='darkblue', icon='glyphicon-user')
-                  ).add_to(keepers_map)
 
 
 def string_to_icon_color(x):
@@ -250,8 +200,8 @@ def distance(lat1, lon1, lat2, lon2):
     :param lon2:
     :return: the distance between the two locations
     """
-    p = 0.017453292519943295     # Pi/180
-    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    p = 0.017453292519943295  # Pi/180
+    a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     return 12742 * asin(sqrt(a))  # 2 * R; R = 6371 km
 
 
@@ -282,7 +232,7 @@ def groupby_count(df):
     m0 = (idss[1:] != idss[:-1]) | (ts[1:] != ts[:-1])
     m = np.concatenate(([True], m0, [True]))
     rows_out = rows[m[:-1]]
-    count = np.diff(np.flatnonzero(m)+1)
+    count = np.diff(np.flatnonzero(m) + 1)
 
     # create new column with the count for each row
     df.loc[rows_out, 'count'] = count
@@ -328,9 +278,9 @@ def process_one_child(child):
     Handle one child. extract the child age, the requested severities
     and the child location
     :param child: input child to process
-    :return: add new marker to the global 'keepers_map' object
+    :return: add new marker to the global 'json_data' object
     """
-    global birthday_date, keepers_map, severities, longitude, latitude
+    global birthday_date, severities, longitude, latitude
     # check if the child is in the requested age range
     birthday = milliseconds_to_date(child[birthday_date])
     age = calculate_age(birthday)
@@ -363,13 +313,22 @@ def process_one_child(child):
     if not output_list.size:
         return
 
-    lng, lat = child[longitude], child[latitude]
-
-    # create new Folium marker
-    folium.Marker([lat, lng],
-                  popup=data_to_html_table(output_list, headers),
-                  icon=folium.Icon(color=icon_color, icon='glyphicon-info-sign')
-                  ).add_to(keepers_map)
+    # add new marker to the json object with array of all the markers
+    total_sum = str(int(output_list[:, -1].sum()))
+    output_data = {"lat": child[latitude], "lng": child[longitude],
+                   "data": "<h1>data_to_html_table(output_list, headers)</h1>",
+                   "color": icon_color,
+                   "label": {
+                       "color": 'black',
+                       "fontFamily": '',
+                       "fontSize": '14px',
+                       "fontWeight": 'bold',
+                       "text": total_sum
+                   }
+                   }
+    global json_data
+    # save the new child to the markers array
+    json_data["Markers"].append(output_data)
 
 
 def generate_map(http_request):
@@ -379,18 +338,20 @@ def generate_map(http_request):
     :param http_request: the base http request to the Keepers API
     :return: save the map object to local html file
     """
-    global keepers_map
     global ex_one_person
+    # first_response = requests.get(http_request, headers=headers)
     first_response = requests.get(http_request, headers=headers)
-    print("first response:")
+    print("first response")
     pprint.pprint(first_response)
+    if first_response.status_code == 500:
+        abort(500)
     g = first_response.headers.get('content-type')
     print("content type")
     pprint.pprint(g)
     first_response = first_response.json()
     print("after parsing to json")
     pprint.pprint(first_response)
-    
+
     try:
         # save the data part from the json
         data = first_response[markers_header]
@@ -417,15 +378,13 @@ def generate_map(http_request):
             # get the new page number
             page_number = int(management['pageable'][page_number_string])
 
-        # Save it as html
-        keepers_map.save(r'C:\Users\david\OneDrive\Python\KeepersMaps\map.html')
     except Exception as e:
+        print("Error.", e)
         if first_response['status'] == 400:
             print("There was an error in generate_map().\nDescription = Bad Request (400)", first_response['message'])
             return
         else:
-            print("There was an general error in generate_map()\nDescription = ", e)
-            return
+            raise Exception("There was an general error in generate_map()\nDescription = ", e)
 
 
 def create_http_request():
@@ -435,7 +394,7 @@ def create_http_request():
     """
     return ''.join([base_request_string, "latitude=", str(center_location['lat']), "&longitude=",
                     str(center_location['lng']), "&range=", str(range), "&startDateEpoch=",
-                    str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  #, "&limit=", str(limit)])
+                    str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  # , "&limit=", str(limit)])
 
 
 def get_filter_by(by):

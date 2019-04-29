@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { MapsAPILoader } from '@agm/core';
 import { Marker, Subjects } from "../marker";
+import { Subject } from 'rxjs/internal/Subject';
 
 
 // For parsing the JSON file efficiently we use 
@@ -27,12 +28,36 @@ const STRENGTH_LEVELS = {
   "EASY": "easy"
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class JsonService {
 
+  myBool$: any;
+  data$: any;
+
+  private boolSubject = new Subject<boolean>();
+  private userData = new Subject<any>();
+  myLocationMarker: { lat: any; lng: any; };
+
+
+  constructor(private http: HttpClient, private mapsAPILoader: MapsAPILoader) {
+    this.myBool$ = this.boolSubject.asObservable()
+    this.data$ = this.userData.asObservable();
+  }
+
+  
+  setUserData(val: object) {
+    this.userData.next(val);
+  }
+
+  getUserData() {
+    return this.userData;
+  }
+
+
+
+  /*************************    Old Service *********************/
 
   lat: any;
   lng: any;
@@ -72,8 +97,8 @@ export class JsonService {
 
   filterObject: { "startDate": any; "endDate": any; "filterBy": { "isHeavy": boolean; "isMedium": boolean; "isEasy": boolean; }; };
 
-  constructor(private http: HttpClient, private mapsAPILoader: MapsAPILoader) {
-  }
+  // constructor(private http: HttpClient, private mapsAPILoader: MapsAPILoader) {
+  // }
 
   /** get the data from the JSON file the slow way
   *  using a http request, saving the whole file to local memory
@@ -156,15 +181,15 @@ export class JsonService {
           switch (strArr[Math.floor(Math.random() * 3)]) {
             case STRENGTH_LEVELS.HEAVY:
               // if (!this.checkForDublicate(this.dataObject.heavy, obj))
-                this.dataObject.heavy.push(obj);
+              this.dataObject.heavy.push(obj);
               break;
             case STRENGTH_LEVELS.MEDIUM:
               // if (!this.checkForDublicate(this.dataObject.medium, obj))
-                this.dataObject.medium.push(obj);
+              this.dataObject.medium.push(obj);
               break;
             case STRENGTH_LEVELS.EASY:
               // if (!this.checkForDublicate(this.dataObject.easy, obj))
-                this.dataObject.easy.push(obj);
+              this.dataObject.easy.push(obj);
               break;
           }
 
@@ -346,10 +371,10 @@ export class JsonService {
     this.filterObject = filterObject;
     if ((this.dataObject.start_date !== filterObject.startDate)
       && (this.dataObject.end_date !== filterObject.endDate)) {
-        this.dataObject.start_date = filterObject.startDate;
-        this.dataObject.end_date = filterObject.endDate;
-        //get a new data from the server
-        return this.getDataFromServer();
+      this.dataObject.start_date = filterObject.startDate;
+      this.dataObject.end_date = filterObject.endDate;
+      //get a new data from the server
+      return this.getDataFromServer();
     }
     else {
       console.log("else");

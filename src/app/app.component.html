@@ -1,12 +1,4 @@
 <div fxLayout="row" fxLayoutAlign="center stretch">
-  <!-- <app-menu-bar fxFlex="50%"></app-menu-bar> -->
-  <app-menu-bar (event)="setShowMap($event)"></app-menu-bar>
-  <!-- <div *ngIf="showMap"> -->
-    <app-google-maps></app-google-maps>
-  <!-- </div> -->
-
-  <!-- for more information use the following link: -->
-  <!-- https://www.npmjs.com/package/ng4-loading-spinner -->
-  <ng4-loading-spinner> </ng4-loading-spinner>
-
+  <app-menu-bar fxFlex="40%"></app-menu-bar>
+  <app-google-maps></app-google-maps>
 </div>

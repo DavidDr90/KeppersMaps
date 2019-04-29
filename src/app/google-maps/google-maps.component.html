@@ -1,15 +1,20 @@
-<span *ngIf="heatMapChecked">
-    <iframe #heatMap src="./assets/heat_map.html"></iframe>
-</span>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="5" (zoomChange)="onZoomChange($event)"
+    (mapClick)="mapClicked($event)">
+    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
+    [label]="myLocationMarkerLabelOptions">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+                Search Here!
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng"
+        [label]="item.label">
+        <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
+            <ng-template>
+                {{ item.data }}
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+</agm-map>
 
-<span *ngIf="!heatMapChecked">
-    <iframe #regularMap src="./assets/map.html"></iframe>
-</span>
-
-<br/>
-
-<span>
-    <mat-slide-toggle [(ngModel)]="heatMapChecked" [disabled]="heatMapDisabled">
-        {{ 'HEAT_MAP' | translate}}
-    </mat-slide-toggle>
-</span>

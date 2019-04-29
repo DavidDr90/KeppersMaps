@@ -1,94 +1,57 @@
+<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+
 <mat-card class="example-card">
 
-
+  <span>
+    <a href="#" *ngFor="let lang of langs; let i = index" (click)="setLang(lang)">
+      <div *ngIf="langs.length-1 == i;then content else other_content">here is ignored</div>
+      <ng-template #content>
+        {{ lang | translate}}
+      </ng-template>
+      <ng-template #other_content>
+        {{ lang | translate}} &nbsp; | &nbsp;
+      </ng-template>
+    </a>
+  </span>
 
   <mat-card-header>
     <mat-card-title>Welcome to Keepers Maps</mat-card-title>
-    <mat-card-subtitle>Let's Filter Up!</mat-card-subtitle>
+    <mat-card-subtitle>Let's Filter Up</mat-card-subtitle>
   </mat-card-header>
-
-
 
   <mat-card-content>
     <mat-list>
-     <!-- TODO: make the option to choose a range of ages
-            fix the display when switch to RTL -->
-
       <mat-list-item>
         <mat-icon mat-list-icon>gavel</mat-icon>
-        <h4 mat-line>{{ 'AGE' | translate }}</h4>
-        <input mdInput type="number" placeholder="Start" [(ngModel)]="startAge" min="5" max="16" />
-        &nbsp;
-        <input mdInput type="number" placeholder="End" [(ngModel)]="endAge" min="5" max="16" />
+        <h4 mat-line>{{ 'AGE' | translate }}:</h4>
       </mat-list-item>
+      <form [formGroup]="sliderForm">
+        <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="options" formControlName="sliderControl">
+        </ng5-slider>
+      </form>
 
-      <!--
-      <mat-list-item>
-        <mat-icon mat-list-icon>gavel</mat-icon>
-        <h4 mat-line>{{ 'AGE' | translate }}</h4>
-        <mat-slider (change)="onSliderChange()" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min" [step]="step"
-          [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="ageSliderValue" [ngModelOptions]="{standalone: true}"></mat-slider>
-      </mat-list-item>
-    -->
-
-      <mat-divider></mat-divider>
-
-      <mat-list-item>
-        <mat-icon mat-list-icon>face</mat-icon>
-        <h4 mat-line>{{ 'ADDRESS' | translate }}</h4>
-        <input matInput type="text" placeholder="Clearable input" [(ngModel)]="address">
-        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="address=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-list-item>
+      <br>
       <mat-divider></mat-divider>
 
       <mat-list-item>
         <mat-icon mat-list-icon>bug_report</mat-icon>
-        <h4 mat-line>{{ 'SEVERITY_LEVELS' | translate }}</h4>
-
-        <div *ngFor="let level of severityLevels">
-          <mat-checkbox [(ngModel)]="filterObject.filterBy[level.is]" (change)="onChange()">
-            {{level.displayName | translate}}
-          </mat-checkbox>
-        </div>
-
-        <!-- <mat-form-field> 
-          <mat-select [formControl]="levels" multiple>
-            <mat-select-trigger>
-              <!-- {{levels.value ? levels.value[0] : ''}} --
-              {{levels.value}}
-              
-              <span *ngIf="levels.value?.length > 1" class="example-additional-selection">
-                (+{{levels.value.length - 1}} {{levels.value?.length === 2 ? 'other' : 'others'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let level of severityLevels" [value]="levels">{{ level.name | translate}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <!-- <section *ngFor="let level of severityLevels">
-          <mat-checkbox (change)="onChange(level.name, false)"> {{ level.name | translate}} </mat-checkbox>
-        </section> -->
+        <h4 mat-line>{{ 'SEVERITY_LEVELS' | translate }}:</h4>
       </mat-list-item>
+      <ng-multiselect-dropdown [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
+      </ng-multiselect-dropdown>
 
+      <br>
       <mat-divider></mat-divider>
 
       <mat-list-item>
-        <my-date-range-picker [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
-          [(ngModel)]="yesterday"></my-date-range-picker>
+        <mat-icon mat-list-icon>date_range</mat-icon>
+        <h4 mat-line>{{ 'PICK_DATA' | translate }}:</h4>
       </mat-list-item>
+      <my-date-range-picker [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
+        [(ngModel)]="yesterday"></my-date-range-picker>
     </mat-list>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button color="warn" *ngFor="let lang of langs" (click)="setLang(lang)">
-      {{ lang | translate}}
-    </button>
-  </mat-card-actions>
-
-  <button mat-raised-button (click)="filter()">Filter!</button>
+  <button mat-raised-button color="warn" (click)="filter()">Let's Go</button>
 
 </mat-card>
-
-<div [innerHtml]="myTemplate"></div>

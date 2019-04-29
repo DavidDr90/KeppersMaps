@@ -1,24 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HostListener } from "@angular/core"
 import { JsonService } from '../services/json.service';
-import { Marker, Subjects } from "../marker";
-import { AgmMap, LatLngBounds } from '@agm/core';
+import { AgmMap } from '@agm/core';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 //TODO: make a welcome windoew where the user enter the first args, like data and subjects
 //      later on the user can change this arges
 
-declare var require: any;
-
-// For work efficeint with collection of data
-// https://lodash.com/
-// Load the full build.
-var _ = require('lodash');
-
-
 declare var google: any;
 const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
-const SMALL_ARRAY_CONST = 20;
 
 @Component({
   selector: 'app-google-maps',
@@ -29,44 +20,73 @@ export class GoogleMapsComponent implements OnInit {
 
   @ViewChild('AgmMap') agmMap: AgmMap;
 
-  //this array are use for display the markers on the map
-  heavy: any;
-  medium: any;
-  easy: any;
+  
+
+  MarkersList: any;
+  /*[
+    {
+      "lat": -1.07415771484375,
+      "lng": 52.49164465653034,
+      "labelOptions": this.labelOptions,
+      "data": null
+    },
+    {
+      "text": 200,
+      "lat": -5.07415771484375,
+      "lng": 55.49164465653034,
+    },
+    {
+      "text": 300,
+      "lat": -7.07415771484375,
+      "lng": 20.49164465653034,
+    },
+  ]*/
+
 
   data: any;
   mapsZoom: any;
-  mapBorders;
 
-  //this hold all the date locally
-  markersArray = {
-    "heavy": [], "medium": [], "easy": []
-  };
-  leftover: any;
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event?) {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
-    // console.log("height: " + this.screenHeight);
-    // console.log("width: " + this.screenWidth);
-  }
-
+  lat: number = DEFUALT_LATITUDE;
+  lng: number = DEFUALT_LONGITUDE;
   userCurrentLocation: any;
-  markers = []//Promise<Marker[]>;// = [];
+
   // TODO: change the map css style to match the current screen size
   screenHeight;
   screenWidth;
 
   map: any;
+  private alive: Subject<void> = new Subject();
+  myLocationMarker: { lat: any; lng: any; };
+  myLocationMarkerLabelOptions = null
 
-  lat: number = DEFUALT_LATITUDE;
-  lng: number = DEFUALT_LONGITUDE;
 
   constructor(private jsonService: JsonService) {
-    console.log("constractor");
-    this.onResize();
+    // listen to changes in the json data from the menu component
+    // if there is data save it localy and display it on the map
+    jsonService.data$
+      .pipe(takeUntil(this.alive))
+      .subscribe(
+        (data) => {
+          console.log("in google maps constructor!")
+          data = JSON.parse(data)
+          console.log(data)
+          this.MarkersList = data['Markers'];
+          console.log("MarkersList")
+          console.log(this.MarkersList)
+        });
   }
+
+
+  /** When the component is destory close 
+   *  the subscribe of the json data
+   *  To free all memory use
+   */
+  ngOnDestroy() {
+    console.log('ngOnDestory');
+    this.alive.next();
+    this.alive.complete();
+  }
+
 
   /** on component init
    * ask the user for prumssion to get his location
@@ -99,6 +119,7 @@ export class GoogleMapsComponent implements OnInit {
     }
   }
 
+
   /** init the map using the input location
    * initiate the map on the page
    * zoom is the display distance from the ground.
@@ -116,6 +137,7 @@ export class GoogleMapsComponent implements OnInit {
     this.lat = myLatLng.lat;
     this.lng = myLatLng.lng;
   }
+
 
   /** ajust the size of the map depend on the device 
    * for mobile device like Android or iOS set the size to 100%
@@ -136,7 +158,7 @@ export class GoogleMapsComponent implements OnInit {
     }
   }
 
-  //TODO: use the zoom number to decide how match markers to show on the map
+
   /** this function fire each time the user zoom in or zoom out in the map
    * @param e the zoom level, 0 to 22, 0 is the whole world
    */
@@ -146,113 +168,23 @@ export class GoogleMapsComponent implements OnInit {
     this.mapsZoom = e;
   }
 
-  /** this function fire each time the currnet view is change
-   *  using the lat and lng of the view we can change the markers array
-   *  to display only the relevent marker to the currnet area in the world
-   * @param event the bounds of the current map view
+  /** Add new marker on the map where the user clicked
+   *  Save the location of the marker to the jsonService paramter
+   * @param $event click event on the map
    */
-  boundsChange(event) {
-
-    //save the current map borders
-    this.mapBorders = {
-      "NorthEast":
-      {
-        "lat": event.getNorthEast().lat().toFixed(7),
-        "lng": event.getNorthEast().lng().toFixed(7)
-      },
-      "SouthWest":
-      {
-        "lat": event.getSouthWest().lat().toFixed(7),
-        "lng": event.getSouthWest().lng().toFixed(7)
-      }
-    };
-
-    //TODO: fix the if
-    // if (!_.valuesIn(this.mapBorders).some(x => { console.log(x); return ((x !== undefined) && (x != null)) })) {//make sure all the entries in mabBorders are full
-    _.forOwn(this.markersArray, (value, key) => {
-      // if ((value.length != 0) && (value !== null) && (value !== undefined)) {//check that the array has mrakers in it
-      if (this.arrayNotEmpty(value)) {
-        //filter out all the markers the not in the display rang
-        this[key] = _.filter(value, (item) => {
-          return (
-            (item.longitude <= this.mapBorders.NorthEast.lng) && (item.longitude >= this.mapBorders.SouthWest.lng)
-            &&
-            (item.latitude <= this.mapBorders.NorthEast.lat) && (item.latitude >= this.mapBorders.SouthWest.lat)
-          )
-        })
-      }
-    });
-    // }
-
-  }
-
-  //TODO: send the maps borders to the boundsChange() function to update the dispaly array
-  mapReady(event) {
-    console.log("map is ready!");
-    console.log(event);
-    console.log("data object in mapReady")
-    console.log(this.jsonService.dataObject);
-    console.time("remove dup")
-    // let vale = this.jsonService.removeDup(this.jsonService.dataObject.heavy)
-    console.log("vale")
-    console.timeEnd("remove dup")
-
-    console.time("save");
-    this.saveMarkers();
-    console.timeEnd("save")
-    /*
-    console.log(event.getBounds().getNorthEast().lat());
-    const bounds: LatLngBounds = new google.maps.LatLngBounds();
-    console.log(bounds.getNorthEast().lat());
-    console.log(bounds.getSouthWest().lng());
-    // console.log(google.maps.getBounds());
-
-    console.log("in map ready:")
-    console.log(this.jsonService.dataObject);
-    this.saveDateLocally();
-    // this.boundsChange();
-    */
-  }
-
-  /** this function reduce the number of markers in the main array
-   *  there for the google map can display the makrers easlly and quickly
-   *  using the big number role asure us that the number of each subject will be in the right %
-   * @param arr a large markers array
-   * @returns smaller marker array, with a const length
-   */
-  private getOnlyFew(arr: any): any {
-    let smallArr = [];
-    for (let i = 0; i < SMALL_ARRAY_CONST; i++) {
-      smallArr.push(
-        arr[Math.floor(Math.random() * arr.length)]
-      )
+  mapClicked($event) {
+    this.myLocationMarker = {
+      lat: $event.coords.lat,
+      lng: $event.coords.lng
     }
-    return smallArr;
+    this.jsonService.myLocationMarker = this.myLocationMarker
   }
 
-
-  /************************* WORKING FONCTIONS *******************/
-
-
-  /** save the markers from the json service to local arrays
-   *  use the fiter to save only the relevant arrays
-   */
-  saveMarkers(): any {
-    _.forOwn(this.jsonService.filterObject.filterBy, (value, key) => {
-      //remote the 'is' from 'isHeave'
-      let newKey = (key.includes("is")) ? key.slice(2).toLowerCase() : key;
-      //save to local arrays depending on the filter
-      if ((value) && (this.arrayNotEmpty(this.jsonService.dataObject[newKey]))) {
-        this.markersArray[newKey] = this.jsonService.dataObject[newKey].splice(0);
-      }
-    });
-  }
-
-  /** check if the imput array is not empty
+  /** check if the input array is not empty
    * @param array 
    * @returns true if the array is not empty false if the array is empty
    */
-  arrayNotEmpty(array: any): boolean {
+  private arrayNotEmpty(array: any): boolean {
     if (!Array.isArray(array) || !array.length)
       // array does not exist, is not an array, or is empty
       return false;
