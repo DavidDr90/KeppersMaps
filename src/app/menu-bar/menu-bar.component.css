@@ -10,4 +10,7 @@
 input{
   width: 70px;
 }
-  
+
+span{
+    float: right;
+}

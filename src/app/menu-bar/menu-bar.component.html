@@ -2,9 +2,21 @@
 
 <mat-card class="example-card">
 
+  <span>
+    <a href="#" *ngFor="let lang of langs; let i = index" (click)="setLang(lang)">
+      <div *ngIf="langs.length-1 == i;then content else other_content">here is ignored</div>
+      <ng-template #content>
+        {{ lang | translate}}
+      </ng-template>
+      <ng-template #other_content>
+        {{ lang | translate}} &nbsp; | &nbsp;
+      </ng-template>
+    </a>
+  </span>
+
   <mat-card-header>
     <mat-card-title>Welcome to Keepers Maps</mat-card-title>
-    <mat-card-subtitle>Let's Filter Up!</mat-card-subtitle>
+    <mat-card-subtitle>Let's Filter Up</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -40,12 +52,6 @@
     </mat-list>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button color="warn" *ngFor="let lang of langs" (click)="setLang(lang)">
-      {{ lang | translate}}
-    </button>
-  </mat-card-actions>
-
-  <button mat-raised-button (click)="filter()">Filter!</button>
+  <button mat-raised-button color="warn" (click)="filter()">Let's Go</button>
 
 </mat-card>
