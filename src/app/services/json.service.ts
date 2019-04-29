@@ -28,8 +28,6 @@ const STRENGTH_LEVELS = {
   "EASY": "easy"
 }
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +42,6 @@ export class JsonService {
 
 
   constructor(private http: HttpClient, private mapsAPILoader: MapsAPILoader) {
-    // this.userData = {};
     this.myBool$ = this.boolSubject.asObservable()
     this.data$ = this.userData.asObservable();
   }
