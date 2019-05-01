@@ -37,8 +37,9 @@ import {
   MatLineModule, MatFormFieldModule, MatInputModule, MatDatepickerModule,
   MatNativeDateModule, MatSliderModule, MatToolbarModule, MatCardModule,
   MatSelectModule,
-  MatSlideToggle,
-  MatSlideToggleModule
+  MatSnackBar,
+  MatSlideToggleModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -105,8 +106,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MatCardModule,
     MatSelectModule,
     MatInputModule,
-    MatSlideToggleModule
-
+    MatSlideToggleModule,
+    MatSnackBarModule
 
   ],
   providers: [

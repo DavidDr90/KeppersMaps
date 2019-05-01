@@ -5,6 +5,7 @@ import { IMyDrpOptions, IMyDateRangeModel } from 'mydaterangepicker';
 import { JsonService } from '../services/json.service';
 import { } from 'events';
 import { FlaskService } from '../services/flask.service';
+import { MatSnackBar } from '@angular/material';
 
 // for loading spinner
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -84,7 +85,7 @@ export class MenuBarComponent {
 
   constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService, private snackBar: MatSnackBar) {
     // save the date of yesterday and set the datepicker rang
     this.yesterdayMoment = moment().subtract(1, 'days');
     let yesterdayObject = {
@@ -183,6 +184,8 @@ export class MenuBarComponent {
    *  Then recive the json data back from the flask server
    */
   filter() {
+    this.openSnackBar("Hello world")
+
     // save the address location in lat and lng 
     if ((this.jsonService.myLocationMarker === null) || (this.jsonService.myLocationMarker === undefined)) {
       console.error("Please choose a location on the map to search in")
@@ -287,5 +290,18 @@ export class MenuBarComponent {
       // array does not exist, is not an array, or is empty
       return false;
     return true;
+  }
+
+  /** Display toast to the user
+   * @param message 
+   * @param action 
+   */
+  openSnackBar(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: "bottom",
+      horizontalPosition: "center",
+      politeness: "polite",
+    });
   }
 }

@@ -5,9 +5,6 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 
-//TODO: make a welcome windoew where the user enter the first args, like data and subjects
-//      later on the user can change this arges
-
 declare var google: any;
 const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
 
@@ -20,28 +17,8 @@ export class GoogleMapsComponent implements OnInit {
 
   @ViewChild('AgmMap') agmMap: AgmMap;
 
-  
-
+  // Main markers array
   MarkersList: any;
-  /*[
-    {
-      "lat": -1.07415771484375,
-      "lng": 52.49164465653034,
-      "labelOptions": this.labelOptions,
-      "data": null
-    },
-    {
-      "text": 200,
-      "lat": -5.07415771484375,
-      "lng": 55.49164465653034,
-    },
-    {
-      "text": 300,
-      "lat": -7.07415771484375,
-      "lng": 20.49164465653034,
-    },
-  ]*/
-
 
   data: any;
   mapsZoom: any;
@@ -83,6 +60,7 @@ export class GoogleMapsComponent implements OnInit {
    */
   ngOnDestroy() {
     console.log('ngOnDestory');
+    // free the subscrip for prevent memory leaks
     this.alive.next();
     this.alive.complete();
   }
