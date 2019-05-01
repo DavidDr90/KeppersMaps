@@ -147,7 +147,8 @@ def proto_type():
 ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
                 "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
-
+'https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?' \
+'latitude=31.730217&longitude=35.204320&range=10000&startDateEpoch=1556571600000&endDateEpoch=1556571600000'
 # ##########    Working Private Functions   ##############
 
 
@@ -339,11 +340,13 @@ def generate_map(http_request):
     :return: save the map object to local html file
     """
     global ex_one_person
+    print("http request:")
+    pprint.pprint(http_request)
     # first_response = requests.get(http_request, headers=headers)
     first_response = requests.get(http_request, headers=headers)
     print("first response")
     pprint.pprint(first_response)
-    if first_response.status_code == 500:
+    if first_response.status_code is not 200:
         abort(500)
     g = first_response.headers.get('content-type')
     print("content type")

@@ -174,8 +174,8 @@ export class GoogleMapsComponent implements OnInit {
    */
   mapClicked($event) {
     this.myLocationMarker = {
-      lat: $event.coords.lat,
-      lng: $event.coords.lng
+      lat: Number($event.coords.lat).toFixed(6),
+      lng: Number($event.coords.lng).toFixed(6)
     }
     this.jsonService.myLocationMarker = this.myLocationMarker
   }

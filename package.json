@@ -34,6 +34,7 @@
     "moment": "^2.22.2",
     "mydaterangepicker": "^4.2.1",
     "ng-multiselect-dropdown": "^0.2.3",
+    "ng2-notify-popup": "^0.1.25",
     "ng4-loading-spinner": "^1.2.3",
     "ng5-slider": "^1.1.14",
     "ngx-spinner": "^7.1.4",
