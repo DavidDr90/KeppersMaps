@@ -169,10 +169,12 @@ export class MenuBarComponent {
     let start = moment().year(event.beginDate.year).month(event.beginDate.month - 1).date(event.beginDate.day);
     let end = moment().year(event.endDate.year).month(event.endDate.month - 1).date(event.endDate.day);
     let today = moment();
-    if ((start >= today) || (end >= today))
-      //TODO: make an error message to the user! 
-      console.error("you cannot choose dates in the future!")
-    else {
+    if ((start >= today) || (end >= today)){
+      let msg = "You cannot choose dates in the future!"
+      console.error(msg)
+      this.openSnackBar(msg)
+      // TODO: change the datapicker display back to yesterday
+    }else {
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
     }
@@ -184,11 +186,12 @@ export class MenuBarComponent {
    *  Then recive the json data back from the flask server
    */
   filter() {
-    this.openSnackBar("Hello world")
 
     // save the address location in lat and lng 
     if ((this.jsonService.myLocationMarker === null) || (this.jsonService.myLocationMarker === undefined)) {
-      console.error("Please choose a location on the map to search in")
+      let msg = "Please choose a location on the map to search in"
+      console.error(msg)
+      this.openSnackBar(msg)
       return
     }
 
@@ -215,14 +218,19 @@ export class MenuBarComponent {
             this.spinner.hide()
           },
           // on error
-          (err) => {
-            console.log("there was error!")
-            console.log(err)
+          (error) => {
+            let msg = "There was an error while tring to recive info from the server.";
+            console.error(msg)
+            console.error(error)            
             this.spinner.hide()
+            this.openSnackBar(msg + " Description: " + error.message)
           })
       }, (error) => {
+        let msg = "There was an error while posting filter object to the server."
+        console.error(msg)
         console.error(error)
         this.spinner.hide()
+        this.openSnackBar(msg +" Description: " + error.message)
       })
     this.resetFilterBy()
 

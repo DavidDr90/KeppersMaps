@@ -10,6 +10,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
+
 // For Google Maps
 // using the next github and npm packge
 // https://angular-maps.com/guides/getting-started/
@@ -36,10 +37,7 @@ import {
   MatButtonModule, MatCheckboxModule, MatListModule, MatIconModule,
   MatLineModule, MatFormFieldModule, MatInputModule, MatDatepickerModule,
   MatNativeDateModule, MatSliderModule, MatToolbarModule, MatCardModule,
-  MatSelectModule,
-  MatSnackBar,
-  MatSlideToggleModule,
-  MatSnackBarModule
+  MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -107,7 +105,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MatSelectModule,
     MatInputModule,
     MatSlideToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    
 
   ],
   providers: [

@@ -147,8 +147,6 @@ def proto_type():
 ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
                 "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
-'https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?' \
-'latitude=31.730217&longitude=35.204320&range=10000&startDateEpoch=1556571600000&endDateEpoch=1556571600000'
 # ##########    Working Private Functions   ##############
 
 
