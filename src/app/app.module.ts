@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module'; // Added here
 
 // for loading spinner
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -8,8 +9,20 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { Ng5SliderModule } from 'ng5-slider';
 // for the dropdown checkbox
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+// for login
+import { AngularFireModule } from "angularfire2"
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
-
+export const firebaseConfig = {
+  apiKey: "AIzaSyBo0oh2Lk43AKf8Chvvu27y6PFXjmPx5vM",
+  authDomain: "keepersmaps.firebaseapp.com",
+  databaseURL: "https://keepersmaps.firebaseio.com",
+  projectId: "keepersmaps",
+  storageBucket: "keepersmaps.appspot.com",
+  messagingSenderId: "997437409187",
+  appId: "1:997437409187:web:25960082a8566fcf"
+};
 
 // For Google Maps
 // using the next github and npm packge
@@ -25,7 +38,7 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { AppComponent } from './app.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
-
+import { LoginComponent } from './login/login.component'
 // for the translate servie
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateService } from './services/translate.service';
@@ -47,6 +60,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // for custom datepicker
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { JsonService } from './services/json.service';
+import { AuthService } from './services/auth.service';
 // datepicker with rang: https://github.com/kekeh/mydaterangepicker
 
 // make sure the display start as English
@@ -62,11 +76,17 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     AppComponent,
     TranslatePipe,
     GoogleMapsComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    LoginComponent
   ],
   imports: [
+    AppRoutingModule,
+    // for login
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     // for loading spinner
-    NgxSpinnerModule, 
+    NgxSpinnerModule,
     // for range slider
     Ng5SliderModule,
     // dropdown check box
@@ -106,10 +126,11 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MatInputModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    
+
 
   ],
   providers: [
+    AuthService,
     TranslateService,
     JsonService,
     {
