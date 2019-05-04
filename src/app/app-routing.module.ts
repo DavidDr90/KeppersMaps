@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { LoginComponent } from './login/login.component'
+import { MainComponent } from './main/main.component';
 
 //This is my case 
 const routes: Routes = [
@@ -12,8 +13,8 @@ const routes: Routes = [
         component: AppComponent
     },
     {
-        path: 'google',
-        component: GoogleMapsComponent
+        path: 'main',
+        component: MainComponent
     }
 ];
 

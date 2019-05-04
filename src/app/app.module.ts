@@ -61,6 +61,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { JsonService } from './services/json.service';
 import { AuthService } from './services/auth.service';
+import { MainComponent } from './main/main.component';
 // datepicker with rang: https://github.com/kekeh/mydaterangepicker
 
 // make sure the display start as English
@@ -77,7 +78,8 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     TranslatePipe,
     GoogleMapsComponent,
     MenuBarComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     AppRoutingModule,

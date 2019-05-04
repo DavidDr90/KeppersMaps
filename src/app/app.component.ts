@@ -7,13 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-
-  showMap: boolean = false;
-
   constructor() { }
-  
-  public setShowMap(event) {
-    this.showMap = event;
-  }
 
 }

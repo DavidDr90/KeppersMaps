@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 // for two range slider
 import { Options } from 'ng5-slider';
 import { finalize } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 
 declare var require: any;
@@ -93,7 +94,8 @@ export class MenuBarComponent {
 
   constructor(private translate: TranslateService, private formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
-    private spinner: NgxSpinnerService, private snackBar: MatSnackBar) {
+    private spinner: NgxSpinnerService, private snackBar: MatSnackBar,
+    private authService: AuthService) {
     // save the date of yesterday and set the datepicker rang
     this.yesterdayMoment = moment().subtract(1, 'days');
     this.yesterday = {
@@ -375,5 +377,10 @@ export class MenuBarComponent {
       horizontalPosition: "right",
       politeness: "polite",
     });
+  }
+
+  signOut() {
+    console.log("!!!!!!!!!!!!!")
+    this.authService.SignOut()
   }
 }
