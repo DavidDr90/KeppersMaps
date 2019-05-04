@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 // for two range slider
 import { Options } from 'ng5-slider';
+import { finalize } from 'rxjs/operators';
 
 
 declare var require: any;
@@ -189,7 +190,7 @@ export class MenuBarComponent {
     if ((start >= today) || (end >= today)) {
       let msg = "You cannot choose dates in the future"
       console.error(msg)
-      this.openSnackBar(msg)
+      this.openUserErrorToast(msg)
       // change the datapicker display back to yesterday
       this.setDateRangeToYesterday()
     } else {
@@ -219,14 +220,18 @@ export class MenuBarComponent {
    *  Then recive the json data back from the flask server
    */
   filter() {
+    let t0, t1
 
     // save the address location in lat and lng 
     if ((this.jsonService.myLocationMarker === null) || (this.jsonService.myLocationMarker === undefined)) {
       let msg = "Please choose a location on the map to search in"
       console.error(msg)
-      this.openSnackBar(msg)
+      this.openUserErrorToast(msg)
       return
     }
+
+    // begin time
+    t0 = performance.now();
 
     // save the severity levels to the filter object
     this.saveSeverityToFilterObject(this.selectedItems)
@@ -239,7 +244,15 @@ export class MenuBarComponent {
     this.spinner.show()
 
     // send the parameters to the server
-    this.flaskService.sendParameters(this.filterObject).subscribe(
+    this.flaskService.sendParameters(this.filterObject).pipe(
+      // this occurs in any case after the subscribe is over
+      finalize(() => {
+        // end time
+        t1 = performance.now();
+        let msg = "Call to the server took " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
+        console.info(msg)
+      })
+    ).subscribe(
       () => {
         // after the parameters posted to the server create a map
         this.flaskService.getMap().subscribe(
@@ -249,6 +262,10 @@ export class MenuBarComponent {
             console.log(data)
             this.jsonService.setUserData(data)
             this.spinner.hide()
+            // end time
+            t1 = performance.now();
+            let msg = "Call to the server took " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
+            this.openUserInfoToast(msg)
           },
           // on error
           (error) => {
@@ -256,15 +273,16 @@ export class MenuBarComponent {
             console.error(msg)
             console.error(error)
             this.spinner.hide()
-            this.openSnackBar(msg + " Description: " + error.message)
+            this.openUserErrorToast(msg + " Description: " + error.message)
           })
       }, (error) => {
         let msg = "There was an error while posting filter object to the server."
         console.error(msg)
         console.error(error)
         this.spinner.hide()
-        this.openSnackBar(msg + " Description: " + error.message)
+        this.openUserErrorToast(msg + " Description: " + error.message)
       })
+
     this.resetFilterBy()
 
   }
@@ -337,11 +355,24 @@ export class MenuBarComponent {
    * @param message 
    * @param action 
    */
-  openSnackBar(message: string, action?: string) {
+  openUserErrorToast(message: string, action?: string) {
     this.snackBar.open(message, action, {
       duration: 5000,
       verticalPosition: "bottom",
       horizontalPosition: "center",
+      politeness: "polite",
+    });
+  }
+
+  /** Display toast to the user
+   * @param message 
+   * @param action 
+   */
+  openUserInfoToast(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 2500,
+      verticalPosition: "top",
+      horizontalPosition: "right",
       politeness: "polite",
     });
   }
