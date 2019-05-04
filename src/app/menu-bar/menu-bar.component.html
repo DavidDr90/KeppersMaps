@@ -47,8 +47,12 @@
         <mat-icon mat-list-icon>date_range</mat-icon>
         <h4 mat-line>{{ 'PICK_DATA' | translate }}:</h4>
       </mat-list-item>
-      <my-date-range-picker [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
-        [(ngModel)]="yesterday"></my-date-range-picker>
+
+      <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
+        <my-date-range-picker name="reactiveFormsDateRange" [options]="myDateRangePickerOptions"
+          formControlName="myDateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
+      </form>
+
     </mat-list>
   </mat-card-content>
 

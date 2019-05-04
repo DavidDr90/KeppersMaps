@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '../services/translate.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IMyDrpOptions, IMyDateRangeModel } from 'mydaterangepicker';
 import { JsonService } from '../services/json.service';
 import { } from 'events';
@@ -66,9 +66,14 @@ export class MenuBarComponent {
   langs = ["EN", "IT", "HE"];
 
   // for the date picker
-  yesterday: any;
   dateFormat = 'dd.mm.yyyy';
   yesterdayMoment: any;
+  yesterday: {
+    year: any;
+    month: any; //months start in 0
+    day: any;
+  };
+  private myForm: FormGroup;
 
   // slider init
   minAge: number = MIN_AGE;
@@ -83,30 +88,34 @@ export class MenuBarComponent {
   };
 
 
-  constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
+
+
+  constructor(private translate: TranslateService, private formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
     private spinner: NgxSpinnerService, private snackBar: MatSnackBar) {
     // save the date of yesterday and set the datepicker rang
     this.yesterdayMoment = moment().subtract(1, 'days');
-    let yesterdayObject = {
+    this.yesterday = {
       year: this.yesterdayMoment.year(),
       month: this.yesterdayMoment.month() + 1,//months start in 0
       day: this.yesterdayMoment.date()
     }
-    /** date picker object
-     *  should be in the next format:
-     *  yesterday: {
-     *        beginDate: { year: number; month: number; day: number; };
-     *        endDate: { year: number; month: number; day: number; };
-     *  };
-     *  */
-    this.yesterday = {
-      beginDate: yesterdayObject,
-      endDate: yesterdayObject
-    }
+
     // save the date to the filter object
     this.filterObject.startDate = this.yesterdayMoment;
     this.filterObject.endDate = this.yesterdayMoment;
+  }
+
+  ngOnInit() {
+    // set the datepicker to yesterday
+    this.myForm = this.formBuilder.group({
+      myDateRange: [
+        {
+          beginDate: this.yesterday,
+          endDate: this.yesterday
+        },
+        Validators.required]
+    });
   }
 
   /** NOT IN USE!!! 
@@ -160,6 +169,14 @@ export class MenuBarComponent {
     showClearDateRangeBtn: true,
   };
 
+  /** date picker object
+  *  should be in the next format:
+  *  yesterday: {
+  *        beginDate: { year: number; month: number; day: number; };
+  *        endDate: { year: number; month: number; day: number; };
+  *  };
+  *  */
+
   /** dateRangeChanged callback function called when the user apply the date range.
    *  this fucntion check if the input date is valid (not greader then today)
    *  and save the new start and end dates to the filter object
@@ -169,16 +186,32 @@ export class MenuBarComponent {
     let start = moment().year(event.beginDate.year).month(event.beginDate.month - 1).date(event.beginDate.day);
     let end = moment().year(event.endDate.year).month(event.endDate.month - 1).date(event.endDate.day);
     let today = moment();
-    if ((start >= today) || (end >= today)){
-      let msg = "You cannot choose dates in the future!"
+    if ((start >= today) || (end >= today)) {
+      let msg = "You cannot choose dates in the future"
       console.error(msg)
       this.openSnackBar(msg)
-      // TODO: change the datapicker display back to yesterday
-    }else {
+      // change the datapicker display back to yesterday
+      this.setDateRangeToYesterday()
+    } else {
+      debugger
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
     }
   }
+
+  /** Set the DatePicker to yesterday date
+   */
+  setDateRangeToYesterday(): void {
+    // Set the datepicker to yesterday 
+    this.myForm.setValue({
+      myDateRange: {
+        beginDate: this.yesterday,
+        endDate: this.yesterday
+      }
+    });
+  }
+
+
 
   /** Main method
    *  Save all the parameters to the filter object
@@ -221,7 +254,7 @@ export class MenuBarComponent {
           (error) => {
             let msg = "There was an error while tring to recive info from the server.";
             console.error(msg)
-            console.error(error)            
+            console.error(error)
             this.spinner.hide()
             this.openSnackBar(msg + " Description: " + error.message)
           })
@@ -230,7 +263,7 @@ export class MenuBarComponent {
         console.error(msg)
         console.error(error)
         this.spinner.hide()
-        this.openSnackBar(msg +" Description: " + error.message)
+        this.openSnackBar(msg + " Description: " + error.message)
       })
     this.resetFilterBy()
 
