@@ -18,7 +18,6 @@ const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 export class GoogleMapsComponent implements OnInit {
 
   @ViewChild('AgmMap') agmMap: AgmMap;
-  @ViewChild("search") searchElementRef: ElementRef;
 
   // for the search box
   public searchControl: FormControl;

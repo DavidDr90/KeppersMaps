@@ -62,6 +62,7 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { JsonService } from './services/json.service';
 import { AuthService } from './services/auth.service';
 import { MainComponent } from './main/main.component';
+import { Routes, RouterModule } from '@angular/router';
 // datepicker with rang: https://github.com/kekeh/mydaterangepicker
 
 // make sure the display start as English
@@ -82,6 +83,19 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     MainComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      [
+        {
+          path: 'login',
+          component: LoginComponent
+        },
+        {
+          path: "main",
+          component: MainComponent
+        }
+      ],
+      // { enableTracing: true } // TODO <-- debugging purposes only
+    ),
     AppRoutingModule,
     // for login
     AngularFireModule.initializeApp(firebaseConfig),

@@ -34,6 +34,6 @@
 
     <div class="form-group">
         <input placeholder="search for location" type="text" [(ngModel)]="address">
-        <button (click)="searchAddress()">Search</button>
+        <button (click)="searchAddress()" (keyup.enter)="searchAddress()">Search</button>
     </div>
 </div>
