@@ -1,20 +1,39 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="5" (zoomChange)="onZoomChange($event)"
-    (mapClick)="mapClicked($event)">
-    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
-    [label]="myLocationMarkerLabelOptions">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-            <ng-template>
-                Search Here!
-            </ng-template>
-        </agm-snazzy-info-window>
-    </agm-marker>
-    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng"
-        [label]="item.label">
-        <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
-            <ng-template>
-                {{ item.data }}
-            </ng-template>
-        </agm-snazzy-info-window>
-    </agm-marker>
-</agm-map>
+<div class="container">
 
+
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (zoomChange)="onZoomChange($event)"
+        (mapClick)="mapClicked($event)">
+        <!-- Your search marker -->
+        <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
+            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+                <ng-template>
+                    {{ info }}
+                </ng-template>
+            </agm-snazzy-info-window>
+        </agm-marker>
+
+        <!-- User's center marker -->
+        <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
+            [label]="myLocationMarkerLabelOptions">
+            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+                <ng-template>
+                    Search Here!
+                </ng-template>
+            </agm-snazzy-info-window>
+        </agm-marker>
+
+        <!-- Server output -->
+        <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
+            <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
+                <ng-template>
+                    {{ item.data }}
+                </ng-template>
+            </agm-snazzy-info-window>
+        </agm-marker>
+    </agm-map>
+
+    <div class="form-group">
+        <input placeholder="search for location" type="text" [(ngModel)]="address">
+        <button (click)="searchAddress()">Search</button>
+    </div>
+</div>

@@ -22,7 +22,7 @@ declare var google: any;
 var moment = require('moment');
 
 
-const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
+const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 const MIN_AGE = 5, MAX_AGE = 17;
 
 @Component({
