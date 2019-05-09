@@ -4,6 +4,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { resolve, reject } from 'q';
 
 
 @Injectable({
@@ -35,15 +36,16 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigateByUrl('/main');
-        });
-        this.SetUserData(result.user);
-      }).catch((error) => {
-        window.alert(error.message)
-      })
+    return new Promise((resolve, reject) =>
+      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then((result) => {
+          this.SetUserData(result.user);
+          console.log("resolve")
+          resolve()
+        }).catch((error) => {
+          reject(error)
+        })
+    )
   }
 
   // Sign up with email/password
@@ -124,6 +126,27 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['/login']);
     })
+  }
+
+
+  convertErrorMessage(code: string): string {
+    switch (code) {
+      case 'auth/user-disabled': {
+        return 'Sorry your user is disabled.';
+      }
+      case 'auth/user-not-found': {
+        return 'Sorry user not found.';
+      }
+      case "auth/invalid-email": {
+        return 'Invalid email address.';
+      }
+      case "auth/wrong-password": {
+        return 'TODO.';
+      }
+      default: {
+        return 'Login error try again later.';
+      }
+    }
   }
 
 }
