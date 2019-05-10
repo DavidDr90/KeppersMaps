@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  isValid: boolean;
+  isValid: boolean = false;
 
   constructor(public authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
    * @param userEmail 
    */
   onChange(userEmail: string) {
-    this.isValid = this.validateEmail(userEmail)    
+    this.isValid = this.validateEmail(userEmail)
   }
 
-  
+
   /** Check if a given string is valid email
    * @param email - string to check
    */
@@ -47,15 +47,45 @@ export class LoginComponent implements OnInit {
   }
 
 
+  /** Handle function for rest password
+   *  this function uses the email from the email input field
+   * @param userName - the email to rest the password
+   */
+  forgotPassword(userName: string) {
+    this.authService.ForgotPassword(userName)
+      .then((msg: string) => {
+        this.openInfoToast(msg, "OK")
+      })
+      .catch((error) => {
+        this.openErrorToast(error, "Close")
+      })
+
+  }
+
+
   /** Display toast to the user
   * @param message 
   * @param action 
   */
   openErrorToast(message: string, action?: string) {
     this.snackBar.open(message, action, {
-      duration: 2500,
+      duration: 3000,
       verticalPosition: "bottom",
       horizontalPosition: "right",
+      politeness: "polite",
+    });
+  }
+
+
+  /** Display toast to the user
+ * @param message 
+ * @param action 
+ */
+  openInfoToast(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: "bottom",
+      horizontalPosition: "center",
       politeness: "polite",
     });
   }

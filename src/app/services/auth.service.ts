@@ -71,18 +71,21 @@ export class AuthService {
 
   // Reset Forggot password
   ForgotPassword(passwordResetEmail) {
-    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+    return new Promise((resolve, reject) => this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        resolve('Password reset email sent to ' + passwordResetEmail + ', please check your inbox.');
       }).catch((error) => {
-        window.alert(error)
+        reject(error)
       })
+    )
   }
 
   // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    // TODO
+    // return (user !== null && user.emailVerified !== false) ? true : false;
+    return (user !== null) ? true : false;
   }
 
   // Sign in with Google

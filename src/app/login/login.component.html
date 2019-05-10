@@ -7,11 +7,15 @@ display: block; margin-left: auto; margin-right: auto; margin-top: 30px;">
       <fieldset>
         <div class="form-group">
           <label for="exampleInputEmail1">Email Address</label>
-          <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" #userName
-            required (change)="onChange(userName.value)">
-          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-          <div *ngIf="!isValid" class="invalid-feedback">Please enter valid email address</div>
-          <div *ngIf="isValid" class="valid-feedback">Your input email address is well formatted</div>
+
+          <div id="baseInput">
+            <input type="email" class="form-control {{ isValid ? 'is-valid' : 'is-invalid' }}"
+              aria-describedby="emailHelp" placeholder="Enter email" #userName required
+              (change)="onChange(userName.value)">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small class="valid-feedback">Your input email address is well formatted</small>
+            <small class="invalid-feedback">Please enter valid email address</small>
+          </div>
 
         </div>
         <div class="form-group">
@@ -20,7 +24,6 @@ display: block; margin-left: auto; margin-right: auto; margin-top: 30px;">
         </div>
 
         <div style="text-align: center">
-          <!-- <button type="submit" class="btn btn-primary">Log In</button> -->
           <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in"
             (click)="login(userName.value, userPassword.value)">
         </div>
@@ -28,8 +31,9 @@ display: block; margin-left: auto; margin-right: auto; margin-top: 30px;">
     </form>
 
     <div style="text-align: center" class="forgotPassword">
-      <a [routerLink]="" class="nav-link" (click)="authService.ForgotPassword(userName.value)">Forgot Password?</a>
+      <a [routerLink]="" class="nav-link" (click)="forgotPassword(userName.value)">Forgot Password?</a>
     </div>
 
   </div>
+
 </div>
