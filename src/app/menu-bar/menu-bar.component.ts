@@ -90,8 +90,6 @@ export class MenuBarComponent {
   };
 
 
-
-
   constructor(private translate: TranslateService, private formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
     private spinner: NgxSpinnerService, private snackBar: MatSnackBar,
@@ -145,7 +143,8 @@ export class MenuBarComponent {
     })
   }
 
-  /** change the display language to the input on
+  /** NOT IN USE!
+   *  change the display language to the input on
    *  if the lang is 'he' change all the display to be RTL
    *  else keep the dispaly LTR
    * @param lang language to change to
