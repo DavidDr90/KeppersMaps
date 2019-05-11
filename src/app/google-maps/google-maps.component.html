@@ -1,38 +1,41 @@
-<div class="container" style="margin-top: 1%">
+<agm-map id="map" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (zoomChange)="onZoomChange($event)"
+    (mapClick)="mapClicked($event)" (mapReady)="mapReady($event)">
 
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (zoomChange)="onZoomChange($event)"
-        (mapClick)="mapClicked($event)">
-        <!-- Your search marker -->
-        <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
-            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-                <ng-template>
-                    {{ info }}
-                </ng-template>
-            </agm-snazzy-info-window>
-        </agm-marker>
-
-        <!-- User's center marker -->
-        <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
-            [label]="myLocationMarkerLabelOptions">
-            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-                <ng-template>
-                    Search Here!
-                </ng-template>
-            </agm-snazzy-info-window>
-        </agm-marker>
-
-        <!-- Server output -->
-        <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
-            <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
-                <ng-template>
-                    {{ item.data }}
-                </ng-template>
-            </agm-snazzy-info-window>
-        </agm-marker>
-    </agm-map>
-
-    <div class="form-group">
-        <input placeholder="search for location" type="text" [(ngModel)]="address">
-        <button (click)="searchAddress()" (keyup.enter)="searchAddress()">Search</button>
+    <!-- search box filed on the map -->
+    <div class="form-inline my-2 my-lg-0" id="searchBox">
+        <input type="text" placeholder="Search" [(ngModel)]="address">
+        <button class="btn btn-primary btn-sm my-2 my-sm-0" (click)="searchAddress()" (keyup.enter)="searchAddress()"
+            type="submit">Search</button>
     </div>
-</div>
+
+    <div id="menuComponent">
+        <app-menu-bar></app-menu-bar>
+    </div>
+    <!-- Your search marker -->
+    <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+                {{ info }}
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+
+    <!-- User's center marker -->
+    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
+        [label]="myLocationMarkerLabelOptions">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+                Search Here!
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+
+    <!-- Server output -->
+    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
+        <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
+            <ng-template>
+                {{ item.data }}
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+</agm-map>

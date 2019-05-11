@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { JsonService } from '../services/json.service';
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { FlaskService } from '../services/flask.service';
-
+import { HostListener } from "@angular/core";
 
 declare var google: any;
 const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
@@ -16,6 +16,16 @@ const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
   styleUrls: ['./google-maps.component.css']
 })
 export class GoogleMapsComponent implements OnInit {
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    document.getElementById("map").style.width = "1100px"//this.screenWidth + "px"
+    document.getElementById("map").style.height = "490px"//this.screenHeight + "px"
+    console.log(this.screenHeight, this.screenWidth);
+  }
+
 
   @ViewChild('AgmMap') agmMap: AgmMap;
 
@@ -36,7 +46,6 @@ export class GoogleMapsComponent implements OnInit {
   lng: number = DEFUALT_LONGITUDE;
   userCurrentLocation: any;
 
-  // TODO: change the map css style to match the current screen size
   screenHeight;
   screenWidth;
 
@@ -86,6 +95,8 @@ export class GoogleMapsComponent implements OnInit {
   ngOnInit() {
     //set current position
     this.setCurrentPosition();
+    this.onResize();
+
   }
 
 
@@ -171,6 +182,29 @@ export class GoogleMapsComponent implements OnInit {
       lng: Number($event.coords.lng).toFixed(6)
     }
     this.jsonService.myLocationMarker = this.myLocationMarker
+  }
+
+  searchBox: any;
+
+  mapReady(event: any) {
+
+    this.map = event;
+    const input = document.getElementById('Map-Search');
+    // this.searchBox = new google.maps.places.SearchBox(input);
+    // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('searchBox'));
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));
+
+  }
+
+  goToSearchedPlace() {
+    console.log("in gotosearchplace")
+  }
+
+  logout() {
+    console.log("in logout")
   }
 
   /** check if the input array is not empty
