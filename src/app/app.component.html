@@ -1,6 +1,11 @@
 <div class="navbar navbar-expand-lg  navbar-dark bg-primary">
     <div class="container">
-        <!-- TODO: add keepers logo -->
+        <!-- keepers logo -->
+        <a href="../">
+            <img style="height: 20px; width: 100px; display: block;" src="../assets/images/keepers_logo.png"
+                alt="Keepers Child Safety">
+        </a>
+
         <!-- app name -->
         <a href="../" class="navbar-brand">Keepers Maps</a>
 
@@ -26,7 +31,7 @@
         <!-- Change languages menu -->
         <div class="navbar-dark ml-auto">
             <div class="btn-group mr-2" *ngFor="let lang of langs; let i = index" (click)="setLang(lang)">
-                <button type="button" class="btn btn-outline-danger btn-sm">{{ lang | translate}}</button>               
+                <button type="button" class="btn btn-outline-danger btn-sm">{{ lang | translate}}</button>
             </div>
         </div>
 

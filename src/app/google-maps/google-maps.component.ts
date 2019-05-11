@@ -26,7 +26,6 @@ export class GoogleMapsComponent implements OnInit {
     console.log(this.screenHeight, this.screenWidth);
   }
 
-
   @ViewChild('AgmMap') agmMap: AgmMap;
 
   // for the search box
@@ -184,27 +183,13 @@ export class GoogleMapsComponent implements OnInit {
     this.jsonService.myLocationMarker = this.myLocationMarker
   }
 
-  searchBox: any;
-
+  /** when the map is ready set the search box and the menu component  
+   * 
+   */
   mapReady(event: any) {
-
-    this.map = event;
-    const input = document.getElementById('Map-Search');
-    // this.searchBox = new google.maps.places.SearchBox(input);
-    // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-
+    this.map = event;  
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('searchBox'));
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));
-
-  }
-
-  goToSearchedPlace() {
-    console.log("in gotosearchplace")
-  }
-
-  logout() {
-    console.log("in logout")
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));    
   }
 
   /** check if the input array is not empty
@@ -240,7 +225,6 @@ export class GoogleMapsComponent implements OnInit {
         this.zoom = 14;
         this.jsonService.myLocationMarker = { "lat": this.lat, "lng": this.lng };
       }
-
     })
   }
 }
