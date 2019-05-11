@@ -21,8 +21,9 @@ export class GoogleMapsComponent implements OnInit {
   onResize(event?) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    document.getElementById("map").style.width = "1100px"//this.screenWidth + "px"
-    document.getElementById("map").style.height = "490px"//this.screenHeight + "px"
+    document.getElementById("map").style.width = this.screenWidth + "px"
+    let navBerSize = 80;
+    document.getElementById("map").style.height = (this.screenHeight - navBerSize) + "px"
     console.log(this.screenHeight, this.screenWidth);
   }
 
@@ -189,9 +190,12 @@ export class GoogleMapsComponent implements OnInit {
   mapReady(event: any) {
     this.map = event;  
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('searchBox'));
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));    
   }
 
+  displayMenu(){
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));    
+  }
+  
   /** check if the input array is not empty
    * @param array 
    * @returns true if the array is not empty false if the array is empty

@@ -2,10 +2,18 @@
     (mapClick)="mapClicked($event)" (mapReady)="mapReady($event)">
 
     <!-- search box filed on the map -->
-    <div class="form-inline my-2 my-lg-0" id="searchBox">
-        <input type="text" placeholder="Search" [(ngModel)]="address">
-        <button class="btn btn-primary btn-sm my-2 my-sm-0" (click)="searchAddress()" (keyup.enter)="searchAddress()"
-            type="submit">Search</button>
+    <div class="navbar navbar-expand-lg navbar-light bg-light" id="searchBox">
+        <div class="container">
+            <button class="nav-link" (click)="displayMenu()">
+                <i class="material-icons">menu</i>
+            </button>
+
+
+            <input type="text" placeholder="Search" class="form-control" [(ngModel)]="address">
+            <button class="nav-link" (click)="searchAddress()" (keyup.enter)="searchAddress()">
+                <i class="material-icons">search</i>
+            </button>
+        </div>
     </div>
 
     <div id="menuComponent">
