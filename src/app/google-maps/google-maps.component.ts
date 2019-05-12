@@ -188,14 +188,15 @@ export class GoogleMapsComponent implements OnInit {
    * 
    */
   mapReady(event: any) {
-    this.map = event;  
+    this.map = event;
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('searchBox'));
+    this.map.controls[google.maps.ControlPosition.LEFT_CENTER].push(document.getElementById('menuComponent'));
   }
 
-  displayMenu(){
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('menuComponent'));    
+  displayMenu() {
+    console.log(this.map.controls[google.maps.ControlPosition.LEFT_CENTER]['j'].length)    
   }
-  
+
   /** check if the input array is not empty
    * @param array 
    * @returns true if the array is not empty false if the array is empty
