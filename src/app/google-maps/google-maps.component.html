@@ -3,7 +3,7 @@
 
     <!-- search box filed on the map -->
     <div class="navbar navbar-expand-lg navbar-light bg-light" id="searchBox"
-        style="margin-top: 1%; margin-right: 1%; height: 7%; width: 25%; padding: 0%">
+        style="margin-top: 1%; margin-right: 1%; height: 12%; width: 25%; padding: 0%">
         <div class="container">
             <button type="button" class="btn btn-link" (click)="searchAddress()" (keyup.enter)="searchAddress()">
                 <i class="material-icons">search</i>
@@ -20,9 +20,10 @@
     <div id="menuComponent">
         <app-menu-bar></app-menu-bar>
     </div>
+
     <!-- Your search marker -->
     <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+        <agm-snazzy-info-window [maxWidth]="2000" [closeWhenOthersOpen]="true">
             <ng-template>
                 {{ info }}
             </ng-template>

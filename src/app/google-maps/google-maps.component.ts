@@ -38,7 +38,27 @@ export class GoogleMapsComponent implements OnInit {
   data: any;
   mapsZoom: any;
   address: any;
-  info: any = null;
+
+  info: any = '<table style="width:100%">' +
+    '<tr>' +
+    '<th>Firstname</th>' +
+    '<th>Lastname</th> ' +
+    '<th>Age</th>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>Jill</td>' +
+    '<td>Smith</td> ' +
+    '<td>50</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td>Eve</td>' +
+    '<td>Jackson</td> ' +
+    '<td>94</td>' +
+    '</tr>' +
+    '</table>'
+
+
+
 
   // for the AGM map
   zoom: number = 5;
@@ -194,7 +214,7 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   displayMenu() {
-    console.log(this.map.controls[google.maps.ControlPosition.LEFT_CENTER]['j'].length)    
+    console.log(this.map.controls[google.maps.ControlPosition.LEFT_CENTER]['j'].length)
   }
 
   /** check if the input array is not empty
