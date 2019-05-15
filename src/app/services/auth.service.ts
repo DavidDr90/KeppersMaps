@@ -82,9 +82,7 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    // TODO
-    // return (user !== null && user.emailVerified !== false) ? true : false;
+    const user = JSON.parse(localStorage.getItem('user'));    
     return (user !== null) ? true : false;
   }
 
@@ -144,7 +142,7 @@ export class AuthService {
         return 'Invalid email address.';
       }
       case "auth/wrong-password": {
-        return 'TODO.';
+        return 'Worng username or password, please try again.';
       }
       default: {
         return 'Login error try again later.';

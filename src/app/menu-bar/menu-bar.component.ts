@@ -154,10 +154,8 @@ export class MenuBarComponent {
     // change the display to RTL
     if (lang !== 'he' && document.getElementsByTagName('html')[0].hasAttribute('dir')) {
       document.getElementsByTagName('html')[0].removeAttribute('dir');
-      this.dateFormat = "mm.dd.yyyy";//TODO: change the format when change te lang
     } else if (lang === 'he' && !document.getElementsByTagName('html')[0].hasAttribute('dir')) {
       document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
-      this.dateFormat = "dd.mm.yyyy";
     }
     this.translate.use(lang);
   }

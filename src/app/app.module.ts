@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module'; // Added here
 
 // for loading spinner
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -14,6 +13,14 @@ import { AngularFireModule } from "angularfire2"
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+// For Google Maps
+// using the next github and npm packge
+// https://angular-maps.com/guides/getting-started/
+// https://github.com/SebastianM/angular-google-maps
+// https://github.com/atmist/snazzy-info-window
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 export const firebaseConfig = {
   apiKey: "AIzaSyBo0oh2Lk43AKf8Chvvu27y6PFXjmPx5vM",
   authDomain: "keepersmaps.firebaseapp.com",
@@ -23,16 +30,6 @@ export const firebaseConfig = {
   messagingSenderId: "997437409187",
   appId: "1:997437409187:web:25960082a8566fcf"
 };
-
-// For Google Maps
-// using the next github and npm packge
-// https://angular-maps.com/guides/getting-started/
-// https://github.com/SebastianM/angular-google-maps
-// https://github.com/atmist/snazzy-info-window
-import { AgmCoreModule } from '@agm/core';
-import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-
 
 // My Components
 import { AppComponent } from './app.component';
@@ -61,8 +58,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { JsonService } from './services/json.service';
 import { AuthService } from './services/auth.service';
-import { MainComponent } from './main/main.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 // datepicker with rang: https://github.com/kekeh/mydaterangepicker
 
 // make sure the display start as English
@@ -79,8 +75,7 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
     TranslatePipe,
     GoogleMapsComponent,
     MenuBarComponent,
-    LoginComponent,
-    MainComponent
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -94,9 +89,7 @@ const MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
           component: GoogleMapsComponent
         }
       ],
-      // { enableTracing: true } // TODO <-- debugging purposes only
     ),
-    AppRoutingModule,
     // for login
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,

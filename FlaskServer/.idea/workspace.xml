@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2ff0789-10b2-4c2f-828e-0e54383edc40" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/services/flask.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/services/flask.service.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,41 +56,6 @@
                 <element signature="e#3228#3256#0" />
                 <element signature="e#3347#4783#0" />
                 <element signature="e#3397#4783#1" />
-                <element signature="e#5119#5252#0" />
-                <element signature="e#5126#5210#0" />
-                <element signature="e#5306#5595#0" />
-                <element signature="e#5306#5519#1" />
-                <element signature="e#5627#5862#0" />
-                <element signature="e#5627#5749#1" />
-                <element signature="e#5902#6059#0" />
-                <element signature="e#5902#6000#1" />
-                <element signature="e#6104#6724#0" />
-                <element signature="e#6104#6522#1" />
-                <element signature="e#6753#6771#0" />
-                <element signature="e#6801#7870#0" />
-                <element signature="e#6801#6965#1" />
-                <element signature="e#7915#8406#0" />
-                <element signature="e#7915#8132#1" />
-                <element signature="e#8452#8951#0" />
-                <element signature="e#8452#8633#1" />
-                <element signature="e#8988#11302#0" />
-                <element signature="e#8988#9198#1" />
-                <element signature="e#9962#10462#0" />
-                <element signature="e#10150#10427#0" />
-                <element signature="e#10738#11190#0" />
-                <element signature="e#10936#11169#0" />
-                <element signature="e#11341#11603#1" />
-                <element signature="e#12112#13232#0" />
-                <element signature="e#12571#13232#0" />
-                <element signature="e#13269#13578#0" />
-                <element signature="e#13344#13469#0" />
-                <element signature="e#13612#14044#0" />
-                <element signature="e#13612#13744#1" />
-                <element signature="e#13764#14014#0" />
-                <element signature="e#14074#14531#0" />
-                <element signature="e#14074#14282#1" />
-                <element signature="e#14393#14513#0" />
-                <element signature="e#14437#14513#0" />
               </folding>
             </state>
           </provider>
@@ -137,7 +99,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="948" />
     <option name="width" value="981" />
     <option name="height" value="1032" />
@@ -304,6 +266,7 @@
       <workItem from="1554650566283" duration="14089000" />
       <workItem from="1556733347536" duration="80000" />
       <workItem from="1556733578275" duration="3978000" />
+      <workItem from="1557943131198" duration="78000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -316,7 +279,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114655000" />
+    <option name="totallyTimeSpent" value="114733000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -329,7 +292,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2574899" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

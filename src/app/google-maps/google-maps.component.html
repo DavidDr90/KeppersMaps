@@ -23,8 +23,8 @@
 
     <!-- Your search marker -->
     <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
-        <agm-snazzy-info-window [maxWidth]="2000" [closeWhenOthersOpen]="true">
-            <ng-template>
+        <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
+            <ng-template style="text-align: center">
                 {{ info }}
             </ng-template>
         </agm-snazzy-info-window>
@@ -34,8 +34,8 @@
     <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
         [label]="myLocationMarkerLabelOptions">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-            <ng-template>
-                Search Here!
+            <ng-template style="text-align: center">
+                {{ info }}
             </ng-template>
         </agm-snazzy-info-window>
     </agm-marker>
@@ -44,7 +44,7 @@
     <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
         <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
             <ng-template>
-                {{ item.data }}
+                <div [innerHTML]="item.data"></div>
             </ng-template>
         </agm-snazzy-info-window>
     </agm-marker>

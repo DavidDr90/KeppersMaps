@@ -147,6 +147,31 @@ def proto_type():
 ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
                 "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
 
+"""= '<table class="table table-hover">'+
+'  <thead class="table-primary">'+
+'    <tr >'+
+     '<th scope="col">Type</th>'+
+     '<th scope="col">Column heading</th>'+
+     '<th scope="col">Column heading</th>'+
+     '<th scope="col">Column heading</th>'+
+   '</tr>'+
+ '</thead>'+
+ '<tbody>'+
+   '<tr>'+
+     '<th scope="row">Active</th>'+
+     '<td>Column content</td>'+
+     '<td>Column content</td>'+
+     '<td>Column content</td>'+
+   '</tr>' + 
+   '<tr>'+
+     '<th scope="row">Active</th>'+
+     '<td>Column content</td>'+
+     '<td>Column content</td>'+
+     '<td>Column content</td>'+
+   '</tr>' + 
+   '</table>'
+   """
+
 # ##########    Working Private Functions   ##############
 
 
