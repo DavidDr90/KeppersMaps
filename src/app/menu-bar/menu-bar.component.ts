@@ -193,7 +193,6 @@ export class MenuBarComponent {
       // change the datapicker display back to yesterday
       this.setDateRangeToYesterday()
     } else {
-      debugger
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
     }
@@ -268,7 +267,7 @@ export class MenuBarComponent {
           },
           // on error
           (error) => {
-            let msg = "There was an error while tring to recive info from the server.";
+            let msg = "There was an error while trying to recive info from the server.";
             console.error(msg)
             console.error(error)
             this.spinner.hide()

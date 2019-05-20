@@ -78,15 +78,7 @@ export class GoogleMapsComponent implements OnInit {
     this.alive.complete();
   }
 
-  ngOnChanges() {
-    this.onResize();
-
-  }
-
-  ngDoCheck (){
-
-  }
-
+  
   /** on component init
    * ask the user for prumssion to get his location
    * then send the location to the map
@@ -96,7 +88,7 @@ export class GoogleMapsComponent implements OnInit {
   ngOnInit() {
     //set current position
     this.setCurrentPosition();
-    // this.onResize();
+    this.onResize();
   }
 
 

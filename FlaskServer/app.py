@@ -10,6 +10,7 @@ import datetime
 from datetime import date
 import pprint
 from prettytable import PrettyTable
+from jinja2 import Environment, PackageLoader, select_autoescape, nativetypes
 
 # Keepers Server Consts
 end_point = "https://graph-db-vod.keeperschildsafety.net"
@@ -46,7 +47,6 @@ filter_by = []
 child_age_range = []
 
 json_data = {"Markers": []}
-
 
 # base running function for Flask
 app = Flask(__name__, static_folder='static')
@@ -171,6 +171,7 @@ ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversations
    '</tr>' + 
    '</table>'
    """
+
 
 # ##########    Working Private Functions   ##############
 
@@ -297,6 +298,36 @@ def data_to_html_table(data, headers):
     return output_table.get_html_string()
 
 
+def new_data_to_html_table(data, headers):
+    # sort the headers by alphabetic order to match the data
+    headers_list = sorted(headers)
+    # add the count column
+    headers_list.append('count')
+    # capitalize all the headers
+    headers_list = [head.capitalize() for head in headers_list]
+    env = nativetypes.NativeEnvironment()
+    # create thead, use 'class="table-primary"'
+    # create tbody
+    # create full table, use 'class="table table-hover"'
+    template = env.from_string("<table class='table table-hover'>"
+                               "<thead><tr>"
+                               "{% for item in headers %}"
+                               "<th>{{ item }}</th>"
+                               "{% endfor %}"
+                               "</tr></thead>"
+                               "<tbody>"
+                               "{% for row in data %}"
+                               "<tr>"
+                                "{% for item in row %}"
+                               "<td>{{ item }}</td>"                               
+                                "{% endfor %}"
+                               "</tr>"
+                               "{% endfor %}"
+                               "</tbody>")
+    result = template.render(data=data, headers=headers_list)
+    return result
+
+
 def process_one_child(child):
     """
     Handle one child. extract the child age, the requested severities
@@ -340,7 +371,7 @@ def process_one_child(child):
     # add new marker to the json object with array of all the markers
     total_sum = str(int(output_list[:, -1].sum()))
     output_data = {"lat": child[latitude], "lng": child[longitude],
-                   "data": "<h1>data_to_html_table(output_list, headers)</h1>",
+                   "data": new_data_to_html_table(output_list, headers),
                    "color": icon_color,
                    "label": {
                        "color": 'black',
