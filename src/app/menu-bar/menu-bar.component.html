@@ -1,57 +1,45 @@
-<ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+<div class="card mb-3" style="margin-top: 2.5%; margin-left: 2%">
+  <ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
 
-<mat-card class="example-card">
+  <div class="card-body">
+    <h3 class="card-title">Let's Filter Up</h3>
+  </div>
 
-  <span>
-    <a href="#" *ngFor="let lang of langs; let i = index" (click)="setLang(lang)">
-      <div *ngIf="langs.length-1 == i;then content else other_content">here is ignored</div>
-      <ng-template #content>
-        {{ lang | translate}}
-      </ng-template>
-      <ng-template #other_content>
-        {{ lang | translate}} &nbsp; | &nbsp;
-      </ng-template>
-    </a>
-  </span>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <h4 class="card-title">
+        <i class="material-icons">directions_walk</i>
+        {{ 'AGE' | translate }}:
+      </h4>
 
-  <mat-card-header>
-    <mat-card-title>Welcome to Keepers Maps</mat-card-title>
-    <mat-card-subtitle>Let's Filter Up</mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-card-content>
-    <mat-list>
-      <mat-list-item>
-        <mat-icon mat-list-icon>gavel</mat-icon>
-        <h4 mat-line>{{ 'AGE' | translate }}:</h4>
-      </mat-list-item>
       <form [formGroup]="sliderForm">
         <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="options" formControlName="sliderControl">
         </ng5-slider>
       </form>
+    </li>
+    <li class="list-group-item">
+      <h4 class="card-title">
+        <i class="material-icons">adb</i>
+        {{ 'SEVERITY_LEVELS' | translate }}:
+      </h4>
 
-      <br>
-      <mat-divider></mat-divider>
-
-      <mat-list-item>
-        <mat-icon mat-list-icon>bug_report</mat-icon>
-        <h4 mat-line>{{ 'SEVERITY_LEVELS' | translate }}:</h4>
-      </mat-list-item>
       <ng-multiselect-dropdown [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
       </ng-multiselect-dropdown>
+    </li>
+    <li class="list-group-item">
+      <h4 class="card-title">
+        <i class="material-icons">date_range</i>
+        {{ 'PICK_DATA' | translate }}:
+      </h4>
 
-      <br>
-      <mat-divider></mat-divider>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
+        <my-date-range-picker name="reactiveFormsDateRange" [options]="myDateRangePickerOptions"
+          formControlName="myDateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
+      </form>
+    </li>
+  </ul>
 
-      <mat-list-item>
-        <mat-icon mat-list-icon>date_range</mat-icon>
-        <h4 mat-line>{{ 'PICK_DATA' | translate }}:</h4>
-      </mat-list-item>
-      <my-date-range-picker [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
-        [(ngModel)]="yesterday"></my-date-range-picker>
-    </mat-list>
-  </mat-card-content>
-
-  <button mat-raised-button color="warn" (click)="filter()">Let's Go</button>
-
-</mat-card>
+  <div class="card-body">
+    <button type="submit" class="btn btn-danger btn-lg btn-block" (click)="filter()">Let's Go</button>
+  </div>
+</div>

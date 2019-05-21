@@ -1,38 +1,28 @@
-import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '../services/translate.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IMyDrpOptions, IMyDateRangeModel } from 'mydaterangepicker';
 import { JsonService } from '../services/json.service';
 import { } from 'events';
 import { FlaskService } from '../services/flask.service';
+import { MatSnackBar } from '@angular/material';
 
 // for loading spinner
 import { NgxSpinnerService } from 'ngx-spinner';
 // for two range slider
 import { Options } from 'ng5-slider';
+import { finalize } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
-import { ErrorStateMatcher } from '@angular/material/core';
-import { FormGroupDirective, NgForm, Validators } from '@angular/forms';
-// import {} from '@types/googlemaps'
-import { Observable } from 'rxjs';
-import { resolve } from 'url';
 
 declare var require: any;
+declare var google: any;
 // For working with Date and Time
 // https://momentjs.com/
 var moment = require('moment');
 
-declare var google: any;
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
-const DEFUALT_LATITUDE = 51.5074, DEFUALT_LONGITUDE = 0.1278;//London UK
+const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 const MIN_AGE = 5, MAX_AGE = 17;
 
 @Component({
@@ -42,10 +32,7 @@ const MIN_AGE = 5, MAX_AGE = 17;
 })
 export class MenuBarComponent {
 
-  @Output() event: EventEmitter<any> = new EventEmitter<any>();
-
-  matcher = new MyErrorStateMatcher();
-
+  // for the filter arguments
   filterObject = {
     "startDate": null,
     "endDate": null,
@@ -77,21 +64,18 @@ export class MenuBarComponent {
     itemsShowLimit: 3,
   };
 
-  levels = new FormControl();
-
-  choosenDate;
-
+  // for the languages switchers
   langs = ["EN", "IT", "HE"];
 
-  
-
-  yesterday: {
-    beginDate: { year: number; month: number; day: number; };
-    endDate: { year: number; month: number; day: number; };
-  };
-
+  // for the date picker
   dateFormat = 'dd.mm.yyyy';
-  showMap: boolean = false;
+  yesterdayMoment: any;
+  yesterday: {
+    year: any;
+    month: any; //months start in 0
+    day: any;
+  };
+  private myForm: FormGroup;
 
   // slider init
   minAge: number = MIN_AGE;
@@ -105,21 +89,34 @@ export class MenuBarComponent {
     step: 1
   };
 
-  constructor(private translate: TranslateService, private _formBuilder: FormBuilder,
+
+  constructor(private translate: TranslateService, private formBuilder: FormBuilder,
     private jsonService: JsonService, private flaskService: FlaskService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService, private snackBar: MatSnackBar,
+    private authService: AuthService) {
     // save the date of yesterday and set the datepicker rang
-    let today = new Date();
-    today.setDate(today.getDate())// - 1);
-    let obj = { year: today.getFullYear(), month: (today.getMonth() + 1), day: today.getDate() - 1 }
+    this.yesterdayMoment = moment().subtract(1, 'days');
     this.yesterday = {
-      beginDate: obj,
-      endDate: obj
+      year: this.yesterdayMoment.year(),
+      month: this.yesterdayMoment.month() + 1,//months start in 0
+      day: this.yesterdayMoment.date()
     }
-    this.choosenDate = this.yesterday;
+
     // save the date to the filter object
-    this.filterObject.startDate = moment().subtract(1, 'days');
-    this.filterObject.endDate = moment().subtract(1, 'days');
+    this.filterObject.startDate = this.yesterdayMoment;
+    this.filterObject.endDate = this.yesterdayMoment;
+  }
+
+  ngOnInit() {
+    // set the datepicker to yesterday
+    this.myForm = this.formBuilder.group({
+      myDateRange: [
+        {
+          beginDate: this.yesterday,
+          endDate: this.yesterday
+        },
+        Validators.required]
+    });
   }
 
   /** NOT IN USE!!! 
@@ -146,7 +143,8 @@ export class MenuBarComponent {
     })
   }
 
-  /** change the display language to the input on
+  /** NOT IN USE!
+   *  change the display language to the input on
    *  if the lang is 'he' change all the display to be RTL
    *  else keep the dispaly LTR
    * @param lang language to change to
@@ -156,10 +154,8 @@ export class MenuBarComponent {
     // change the display to RTL
     if (lang !== 'he' && document.getElementsByTagName('html')[0].hasAttribute('dir')) {
       document.getElementsByTagName('html')[0].removeAttribute('dir');
-      this.dateFormat = "mm.dd.yyyy";//TODO: change the format when change te lang
     } else if (lang === 'he' && !document.getElementsByTagName('html')[0].hasAttribute('dir')) {
       document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
-      this.dateFormat = "dd.mm.yyyy";
     }
     this.translate.use(lang);
   }
@@ -173,6 +169,14 @@ export class MenuBarComponent {
     showClearDateRangeBtn: true,
   };
 
+  /** date picker object
+  *  should be in the next format:
+  *  yesterday: {
+  *        beginDate: { year: number; month: number; day: number; };
+  *        endDate: { year: number; month: number; day: number; };
+  *  };
+  *  */
+
   /** dateRangeChanged callback function called when the user apply the date range.
    *  this fucntion check if the input date is valid (not greader then today)
    *  and save the new start and end dates to the filter object
@@ -182,32 +186,71 @@ export class MenuBarComponent {
     let start = moment().year(event.beginDate.year).month(event.beginDate.month - 1).date(event.beginDate.day);
     let end = moment().year(event.endDate.year).month(event.endDate.month - 1).date(event.endDate.day);
     let today = moment();
-    if ((start >= today) || (end >= today))
-      //TODO: make an error message to the user!
-      console.error("you cannot choose dates in the future!")
-    else {
+    if ((start >= today) || (end >= today)) {
+      let msg = "You cannot choose dates in the future"
+      console.error(msg)
+      this.openUserErrorToast(msg)
+      // change the datapicker display back to yesterday
+      this.setDateRangeToYesterday()
+    } else {
       this.filterObject.startDate = start;
       this.filterObject.endDate = end;
     }
   }
 
+  /** Set the DatePicker to yesterday date
+   */
+  setDateRangeToYesterday(): void {
+    // Set the datepicker to yesterday 
+    this.myForm.setValue({
+      myDateRange: {
+        beginDate: this.yesterday,
+        endDate: this.yesterday
+      }
+    });
+  }
+
+
+
+  /** Main method
+   *  Save all the parameters to the filter object
+   *  Post the filter object to the flask server
+   *  Then recive the json data back from the flask server
+   */
   filter() {
-    this.saveFilterBy(this.selectedItems)
-    this.sliderForm.reset({ sliderControl: [MIN_AGE, MAX_AGE] });
-    this.spinner.show()
-    // save the age range to the filter object
-    this.filterObject.age.start = this.minAge;
-    this.filterObject.age.end = this.maxAge;
+    let t0, t1
+
     // save the address location in lat and lng 
-    this.filterObject.centerLocaion = (this.jsonService.myLocationMarker != null) ?
-      this.jsonService.myLocationMarker : { lat: DEFUALT_LATITUDE, lng: DEFUALT_LONGITUDE };
+    if ((this.jsonService.myLocationMarker === null) || (this.jsonService.myLocationMarker === undefined)) {
+      let msg = "Please choose a location on the map to search in"
+      console.error(msg)
+      this.openUserErrorToast(msg)
+      return
+    }
+
+    // begin time
+    t0 = performance.now();
+
+    // save the severity levels to the filter object
+    this.saveSeverityToFilterObject(this.selectedItems)
+    this.saveAgeToFilterObject();
     // save only the date for processing the Keepers information
-    if (moment.isMoment(this.filterObject.startDate))
-      this.filterObject.startDate = this.filterObject.startDate.format('DD/MM/YYYY');
-    if (moment.isMoment(this.filterObject.endDate))
-      this.filterObject.endDate = this.filterObject.endDate.format('DD/MM/YYYY');
+    this.saveDateToFilterObject();
+    // save the center search location
+    this.filterObject.centerLocaion = this.jsonService.myLocationMarker;
+
+    this.spinner.show()
+
     // send the parameters to the server
-    this.flaskService.sendParameters(this.filterObject).subscribe(
+    this.flaskService.sendParameters(this.filterObject).pipe(
+      // this occurs in any case after the subscribe is over
+      finalize(() => {
+        // end time
+        t1 = performance.now();
+        let msg = "Call to the server took " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
+        console.info(msg)
+      })
+    ).subscribe(
       () => {
         // after the parameters posted to the server create a map
         this.flaskService.getMap().subscribe(
@@ -217,24 +260,54 @@ export class MenuBarComponent {
             console.log(data)
             this.jsonService.setUserData(data)
             this.spinner.hide()
+            // end time
+            t1 = performance.now();
+            let msg = "Call to the server took " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
+            this.openUserInfoToast(msg)
           },
           // on error
-          (err) => {
-            console.log("there was error!")
-            console.log(err)
+          (error) => {
+            let msg = "There was an error while trying to recive info from the server.";
+            console.error(msg)
+            console.error(error)
             this.spinner.hide()
-
+            this.openUserErrorToast(msg + " Description: " + error.message)
           })
-        this.showMap = true
       }, (error) => {
+        let msg = "There was an error while posting filter object to the server."
+        console.error(msg)
         console.error(error)
+        this.spinner.hide()
+        this.openUserErrorToast(msg + " Description: " + error.message)
       })
+
     this.resetFilterBy()
+
+  }
+
+  /** Reset the age slider 
+   *  save user's age range pick
+   */
+  saveAgeToFilterObject() {
+    // reset the age slider for the next time
+    this.sliderForm.reset({ sliderControl: [MIN_AGE, MAX_AGE] });
+    // save the age range to the filter object
+    this.filterObject.age.start = this.minAge;
+    this.filterObject.age.end = this.maxAge;
+  }
+
+  /** Save the date to the filter object
+   */
+  saveDateToFilterObject() {
+    this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?
+      this.filterObject.startDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
+    this.filterObject.endDate = (moment.isMoment(this.filterObject.endDate)) ?
+      this.filterObject.endDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
   }
 
   /** Save the filterBy parameters from the dropdown
    */
-  saveFilterBy(selectedItems: any): any {
+  saveSeverityToFilterObject(selectedItems: any): any {
     if (!this.arrayNotEmpty(selectedItems)) {
       return
     }
@@ -274,5 +347,36 @@ export class MenuBarComponent {
       // array does not exist, is not an array, or is empty
       return false;
     return true;
+  }
+
+  /** Display toast to the user
+   * @param message 
+   * @param action 
+   */
+  openUserErrorToast(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: "bottom",
+      horizontalPosition: "center",
+      politeness: "polite",
+    });
+  }
+
+  /** Display toast to the user
+   * @param message 
+   * @param action 
+   */
+  openUserInfoToast(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 2500,
+      verticalPosition: "top",
+      horizontalPosition: "right",
+      politeness: "polite",
+    });
+  }
+
+  signOut() {
+    console.log("!!!!!!!!!!!!!")
+    this.authService.SignOut()
   }
 }
