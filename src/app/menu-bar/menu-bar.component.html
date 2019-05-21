@@ -1,5 +1,5 @@
 <div class="card mb-3" style="margin-top: 2.5%; margin-left: 2%">
-  <ngx-spinner type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+  <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
 
   <div class="card-body">
     <h3 class="card-title">Let's Filter Up</h3>
@@ -8,13 +8,13 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <h4 class="card-title">
-        <i class="material-icons">directions_walk</i>
-        {{ 'AGE' | translate }}:
+        <i class="material-icons">date_range</i>
+        {{ 'PICK_DATA' | translate }}:
       </h4>
 
-      <form [formGroup]="sliderForm">
-        <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="options" formControlName="sliderControl">
-        </ng5-slider>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
+        <my-date-range-picker name="reactiveFormsDateRange" [options]="myDateRangePickerOptions"
+          formControlName="myDateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
       </form>
     </li>
     <li class="list-group-item">
@@ -28,13 +28,13 @@
     </li>
     <li class="list-group-item">
       <h4 class="card-title">
-        <i class="material-icons">date_range</i>
-        {{ 'PICK_DATA' | translate }}:
+        <i class="material-icons">directions_walk</i>
+        {{ 'AGE' | translate }}:
       </h4>
 
-      <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
-        <my-date-range-picker name="reactiveFormsDateRange" [options]="myDateRangePickerOptions"
-          formControlName="myDateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
+      <form [formGroup]="sliderForm">
+        <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="options" formControlName="sliderControl">
+        </ng5-slider>
       </form>
     </li>
   </ul>

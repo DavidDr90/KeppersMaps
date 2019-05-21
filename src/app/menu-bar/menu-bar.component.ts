@@ -239,7 +239,7 @@ export class MenuBarComponent {
     // save the center search location
     this.filterObject.centerLocaion = this.jsonService.myLocationMarker;
 
-    this.spinner.show()
+    this.spinner.show();
 
     // send the parameters to the server
     this.flaskService.sendParameters(this.filterObject).pipe(
