@@ -357,7 +357,7 @@ export class MenuBarComponent {
     this.snackBar.open(message, action, {
       duration: 5000,
       verticalPosition: "bottom",
-      horizontalPosition: "center",
+      horizontalPosition: "right",
       politeness: "polite",
     });
   }
@@ -376,7 +376,6 @@ export class MenuBarComponent {
   }
 
   signOut() {
-    console.log("!!!!!!!!!!!!!")
     this.authService.SignOut()
   }
 }

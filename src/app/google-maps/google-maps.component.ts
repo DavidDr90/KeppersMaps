@@ -16,16 +16,6 @@ const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 })
 export class GoogleMapsComponent implements OnInit {
 
-  // When the window size is changing the map size is changeing respectively
-  @HostListener('window:resize', ['$event'])
-  onResize(event?) {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
-    document.getElementById("map").style.width = this.screenWidth + "px"
-    let navBerSize = 80;
-    document.getElementById("map").style.height = (this.screenHeight - navBerSize) + "px"
-  }
-
   // for the search box
   public searchControl: FormControl;
   // Main markers array
@@ -37,10 +27,7 @@ export class GoogleMapsComponent implements OnInit {
   zoom: number = 5;
   lat: number = DEFUALT_LATITUDE;
   lng: number = DEFUALT_LONGITUDE;
-  userCurrentLocation: any;
-  // for the Google Maps' custom size
-  screenHeight;
-  screenWidth;
+  userCurrentLocation: any;  
   // the Google Maps vairble
   map: any;
   // for the jsonSerivce subscribe
@@ -88,9 +75,14 @@ export class GoogleMapsComponent implements OnInit {
   ngOnInit() {
     //set current position
     this.setCurrentPosition();
-    this.onResize();
   }
 
+  /** Set the map size after the component is loaded   
+   */
+  ngAfterViewInit(){
+    this.onResize()
+  }
+ 
 
   /** init the map using the input location
    * initiate the map on the page
@@ -237,5 +229,16 @@ export class GoogleMapsComponent implements OnInit {
       }
     }
   }
+
+  /** When the window size is changing the map size is changeing respectively 
+   * 
+   */
+  onResize() { 
+    debugger  
+    document.getElementById("map").style.width =  window.innerWidth + "px"
+    let navBerSize = 80;
+    document.getElementById("map").style.height = (window.innerHeight - navBerSize) + "px"
+  }
+
 }
 
