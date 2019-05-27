@@ -333,6 +333,48 @@ def get_summery_info(data):
     # create new column with the count for each row
     df.loc[rows_out, 'count'] = count
 """
+"""
+    < !-- < ng - template >
+    < table
+
+    class ="table table-hover" >
+
+    < thead >
+    < tr >
+    < th
+    scope = "col" > Type < / th >
+    < th
+    scope = "col" > Column
+    heading < / th >
+    < th
+    scope = "col" > Column
+    heading < / th >
+
+< / tr >
+< / thead >
+< tbody >
+< tr >
+< td
+rowspan = "2" > Column
+content < / td >
+< td > Column
+content < / td >
+< td > Column
+content < / td >
+< / tr >
+< tr >
+< !-- < td > Column
+content < / td > --
+< td > Column
+content < / td >
+< td > Column
+content < / td >
+< / tr >
+< / tbody >
+< / table >
+< / ng - template >
+"""
+
 
 def change_display_strings(s):
     """
@@ -355,7 +397,7 @@ def new_data_to_html_table(data, headers):
     headers_list.append('count')
     # capitalize all the headers
     headers_list = [head.capitalize() for head in headers_list]
-    summery_info = get_summery_info(data)
+    # summery_info = get_summery_info(data) TODO
 
     env = nativetypes.NativeEnvironment()
     # create thead, use 'class="table-primary"'
