@@ -22,7 +22,7 @@
     </div>
 
     <!-- Your search marker -->
-    <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng">
+    <agm-marker *ngIf="!myLocationMarker" [latitude]="lat" [longitude]="lng" [iconUrl]="myLocationIcon">
         <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
             <ng-template style="text-align: center">
                 {{ info }}
@@ -31,7 +31,7 @@
     </agm-marker>
 
     <!-- User's center marker -->
-    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng"
+    <agm-marker *ngIf="myLocationMarker" [latitude]="myLocationMarker.lat" [longitude]="myLocationMarker.lng" [iconUrl]="myLocationIcon"
         [label]="myLocationMarkerLabelOptions">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-template style="text-align: center">
@@ -41,7 +41,7 @@
     </agm-marker>
 
     <!-- Server output -->
-    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
+    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label" [iconUrl]="item.icon">
         <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
             <ng-template>
                 <div [innerHTML]="item.data"></div>

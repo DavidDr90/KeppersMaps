@@ -16,6 +16,25 @@ const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 })
 export class GoogleMapsComponent implements OnInit {
 
+  myLocationIcon = {
+    url: 'https://img.icons8.com/office/40/000000/street-view.png'
+  }
+
+  lowIcon = {
+    url: "https://img.icons8.com/ultraviolet/40/000000/marker.png"
+  }
+  highIcon = {
+    url: "https://img.icons8.com/color/40/000000/marker.png"
+  }
+  mediumIcon = {
+    url: "https://img.icons8.com/office/40/000000/marker.png"
+  }
+  generalIcon = {
+    url: ""
+  }
+
+
+
   // for the search box
   public searchControl: FormControl;
   // Main markers array
@@ -27,7 +46,7 @@ export class GoogleMapsComponent implements OnInit {
   zoom: number = 10;
   lat: number = DEFUALT_LATITUDE;
   lng: number = DEFUALT_LONGITUDE;
-  userCurrentLocation: any;  
+  userCurrentLocation: any;
   // the Google Maps vairble
   map: any;
   // for the jsonSerivce subscribe
@@ -43,9 +62,9 @@ export class GoogleMapsComponent implements OnInit {
     jsonService.data$
       .pipe(takeUntil(this.alive))
       .subscribe(
-        (data) => {        
-          data = JSON.parse(data)          
-          this.MarkersList = data['Markers'];          
+        (data) => {
+          data = JSON.parse(data)
+          this.MarkersList = data['Markers'];
         });
   }
 
@@ -60,7 +79,7 @@ export class GoogleMapsComponent implements OnInit {
     this.alive.complete();
   }
 
-  
+
   /** on component init
    * ask the user for prumssion to get his location
    * then send the location to the map
@@ -74,10 +93,10 @@ export class GoogleMapsComponent implements OnInit {
 
   /** Set the map size after the component is loaded   
    */
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.onResize()
   }
- 
+
 
   /** init the map using the input location
    * initiate the map on the page
@@ -228,8 +247,8 @@ export class GoogleMapsComponent implements OnInit {
   /** When the window size is changing the map size is changeing respectively 
    * 
    */
-  onResize() {       
-    document.getElementById("map").style.width =  window.innerWidth + "px"
+  onResize() {
+    document.getElementById("map").style.width = window.innerWidth + "px"
     let navBerSize = 80;
     document.getElementById("map").style.height = (window.innerHeight - navBerSize) + "px"
   }

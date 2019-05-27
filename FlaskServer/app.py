@@ -178,10 +178,10 @@ ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversations
 
 def string_to_icon_color(x):
     return {
-        'heavy': 'red',
-        'medium': 'orange',
-        'easy': 'green',
-    }.get(x, "blue")  # 'blue' is default value
+        'heavy': 'highIcon',
+        'medium': 'mediumIcon',
+        'easy': 'lowIcon',
+    }.get(x, "generalIcon")  # 'blue' is default value
 
 
 def check_for_age_range(child_age, age_range):
@@ -440,7 +440,7 @@ def process_one_child(child):
     if len(filter_by) == 1:
         icon_color = string_to_icon_color(filter_by[0])
     else:
-        icon_color = 'pink'  # TODO: pick color for mixed values
+        icon_color = 'generalIcon'
 
     # create a list of the headers from the original data
     headers = [key for key in child[severities][0].keys() if key != "messageId"]
@@ -466,7 +466,7 @@ def process_one_child(child):
     total_sum = str(int(output_list[:, -1].sum()))
     output_data = {"lat": child[latitude], "lng": child[longitude],
                    "data": new_data_to_html_table(output_list, headers),
-                   "color": icon_color,
+                   "icon": icon_color,
                    "label": {
                        "color": 'black',
                        "fontFamily": '',
