@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2ff0789-10b2-4c2f-828e-0e54383edc40" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/menu-bar/menu-bar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,11 +41,57 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+            <state relative-caret-position="71">
+              <caret line="311" column="4" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="4" />
               <folding>
-                <element signature="e#0#64#0" expanded="true" />
+                <element signature="e#500#622#0" />
+                <element signature="e#739#969#1" />
+                <element signature="e#1331#1397#0" />
+                <element signature="e#1757#1815#0" />
+                <element signature="e#1886#2732#0" />
+                <element signature="e#1886#1979#1" />
+                <element signature="e#1997#2669#0" />
+                <element signature="e#2173#2215#0" />
+                <element signature="e#2705#2732#0" />
+                <element signature="e#2787#3302#0" />
+                <element signature="e#2800#3143#0" />
+                <element signature="e#3179#3302#0" />
+                <element signature="e#3305#3333#0" />
+                <element signature="e#3424#4860#0" />
+                <element signature="e#3474#4860#1" />
+                <element signature="e#4879#5099#0" />
+                <element signature="e#5101#5728#1" />
+                <element signature="e#5825#5958#0" />
+                <element signature="e#5832#5916#0" />
+                <element signature="e#6012#6301#0" />
+                <element signature="e#6012#6225#1" />
+                <element signature="e#6333#6568#0" />
+                <element signature="e#6333#6455#1" />
+                <element signature="e#6608#6765#0" />
+                <element signature="e#6608#6706#1" />
+                <element signature="e#6810#7430#0" />
+                <element signature="e#6810#7228#1" />
+                <element signature="e#7459#7477#0" />
+                <element signature="e#7507#7671#1" />
+                <element signature="e#8621#9112#0" />
+                <element signature="e#8621#8838#1" />
                 <element signature="e#9158#9657#0" />
+                <element signature="e#9158#9339#1" />
+                <element signature="e#9900#10021#0" />
+                <element signature="e#11004#11214#1" />
+                <element signature="e#11978#12478#0" />
+                <element signature="e#12166#12443#0" />
+                <element signature="e#12945#13178#0" />
+                <element signature="e#13350#13612#1" />
+                <element signature="e#15341#15650#0" />
+                <element signature="e#15416#15541#0" />
+                <element signature="e#15684#16116#0" />
+                <element signature="e#15684#15816#1" />
+                <element signature="e#15836#16086#0" />
+                <element signature="e#16146#16603#0" />
+                <element signature="e#16146#16354#1" />
+                <element signature="e#16465#16585#0" />
+                <element signature="e#16509#16585#0" />
               </folding>
             </state>
           </provider>
@@ -77,6 +123,9 @@
       <find>data_to_html_table</find>
       <find>03</find>
       <find>-07-</find>
+      <find>limit</find>
+      <find>new_data_to_html_table</find>
+      <find>df</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -262,7 +311,8 @@
       <workItem from="1557943131198" duration="78000" />
       <workItem from="1557943275292" duration="786000" />
       <workItem from="1558377342263" duration="5163000" />
-      <workItem from="1558465613269" duration="2803000" />
+      <workItem from="1558465613269" duration="3993000" />
+      <workItem from="1558938053412" duration="7721000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -275,7 +325,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123485000" />
+    <option name="totallyTimeSpent" value="132396000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -295,15 +345,15 @@
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32983023" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3280142" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6560284" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.50177306" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17375886" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5425532" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3285968" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32978722" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.3285968" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -327,11 +377,21 @@
           <url>file://$PROJECT_DIR$/../KeepersMaps/test.py</url>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>313</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>307</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1558890357745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskServer$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1558951848341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/pandas/core/generic.py">
@@ -372,13 +432,6 @@
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/flask/cli.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="234" selection-start-line="234" selection-end-line="234" />
         </state>
       </provider>
     </entry>
@@ -455,13 +508,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/jinja2/environment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="877" selection-start-line="877" selection-end-line="877" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/flask/cli.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="248" selection-start-line="248" selection-end-line="248" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+        <state relative-caret-position="71">
+          <caret line="311" column="4" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="4" />
           <folding>
-            <element signature="e#0#64#0" expanded="true" />
+            <element signature="e#500#622#0" />
+            <element signature="e#739#969#1" />
+            <element signature="e#1331#1397#0" />
+            <element signature="e#1757#1815#0" />
+            <element signature="e#1886#2732#0" />
+            <element signature="e#1886#1979#1" />
+            <element signature="e#1997#2669#0" />
+            <element signature="e#2173#2215#0" />
+            <element signature="e#2705#2732#0" />
+            <element signature="e#2787#3302#0" />
+            <element signature="e#2800#3143#0" />
+            <element signature="e#3179#3302#0" />
+            <element signature="e#3305#3333#0" />
+            <element signature="e#3424#4860#0" />
+            <element signature="e#3474#4860#1" />
+            <element signature="e#4879#5099#0" />
+            <element signature="e#5101#5728#1" />
+            <element signature="e#5825#5958#0" />
+            <element signature="e#5832#5916#0" />
+            <element signature="e#6012#6301#0" />
+            <element signature="e#6012#6225#1" />
+            <element signature="e#6333#6568#0" />
+            <element signature="e#6333#6455#1" />
+            <element signature="e#6608#6765#0" />
+            <element signature="e#6608#6706#1" />
+            <element signature="e#6810#7430#0" />
+            <element signature="e#6810#7228#1" />
+            <element signature="e#7459#7477#0" />
+            <element signature="e#7507#7671#1" />
+            <element signature="e#8621#9112#0" />
+            <element signature="e#8621#8838#1" />
             <element signature="e#9158#9657#0" />
+            <element signature="e#9158#9339#1" />
+            <element signature="e#9900#10021#0" />
+            <element signature="e#11004#11214#1" />
+            <element signature="e#11978#12478#0" />
+            <element signature="e#12166#12443#0" />
+            <element signature="e#12945#13178#0" />
+            <element signature="e#13350#13612#1" />
+            <element signature="e#15341#15650#0" />
+            <element signature="e#15416#15541#0" />
+            <element signature="e#15684#16116#0" />
+            <element signature="e#15684#15816#1" />
+            <element signature="e#15836#16086#0" />
+            <element signature="e#16146#16603#0" />
+            <element signature="e#16146#16354#1" />
+            <element signature="e#16465#16585#0" />
+            <element signature="e#16509#16585#0" />
           </folding>
         </state>
       </provider>

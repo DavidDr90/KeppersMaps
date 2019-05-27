@@ -241,13 +241,14 @@ export class MenuBarComponent {
 
     this.spinner.show();
 
+
     // send the parameters to the server
     this.flaskService.sendParameters(this.filterObject).pipe(
       // this occurs in any case after the subscribe is over
       finalize(() => {
         // end time
         t1 = performance.now();
-        let msg = "Call to the server took " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
+        let msg = "Finalize time: " + Number((t1 - t0) / 1000).toFixed(2) + " seconds.";
         console.info(msg)
       })
     ).subscribe(
@@ -256,8 +257,6 @@ export class MenuBarComponent {
         this.flaskService.getMap().subscribe(
           // on seccues
           (data: Object) => {
-            console.log("in filter!")
-            console.log(data)
             this.jsonService.setUserData(data)
             this.spinner.hide()
             // end time
@@ -298,11 +297,15 @@ export class MenuBarComponent {
 
   /** Save the date to the filter object
    */
-  saveDateToFilterObject() {
-    this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?
-      this.filterObject.startDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
-    this.filterObject.endDate = (moment.isMoment(this.filterObject.endDate)) ?
-      this.filterObject.endDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
+  saveDateToFilterObject() {      
+    if (typeof (this.filterObject.startDate) !== "string") {
+      this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?
+        this.filterObject.startDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
+    }
+    if (typeof (this.filterObject.endDate) !== "string") {
+      this.filterObject.endDate = (moment.isMoment(this.filterObject.endDate)) ?
+        this.filterObject.endDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
+    }
   }
 
   /** Save the filterBy parameters from the dropdown

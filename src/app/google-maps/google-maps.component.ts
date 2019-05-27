@@ -24,7 +24,7 @@ export class GoogleMapsComponent implements OnInit {
   address: any;
   info: any
   // for the AGM map
-  zoom: number = 5;
+  zoom: number = 10;
   lat: number = DEFUALT_LATITUDE;
   lng: number = DEFUALT_LONGITUDE;
   userCurrentLocation: any;  
@@ -37,20 +37,15 @@ export class GoogleMapsComponent implements OnInit {
   myLocationMarkerLabelOptions = null
 
 
-  // TODO: check the MarkersList using real data from Keepers
   constructor(private jsonService: JsonService, private flaskService: FlaskService) {
     // listen to changes in the json data from the menu component
     // if there is data save it localy and display it on the map
     jsonService.data$
       .pipe(takeUntil(this.alive))
       .subscribe(
-        (data) => {
-          console.log("in google maps constructor!")
-          data = JSON.parse(data)
-          console.log(data)
-          this.MarkersList = data['Markers'];
-          console.log("MarkersList")
-          console.log(this.MarkersList)
+        (data) => {        
+          data = JSON.parse(data)          
+          this.MarkersList = data['Markers'];          
         });
   }
 
@@ -233,8 +228,7 @@ export class GoogleMapsComponent implements OnInit {
   /** When the window size is changing the map size is changeing respectively 
    * 
    */
-  onResize() { 
-    debugger  
+  onResize() {       
     document.getElementById("map").style.width =  window.innerWidth + "px"
     let navBerSize = 80;
     document.getElementById("map").style.height = (window.innerHeight - navBerSize) + "px"

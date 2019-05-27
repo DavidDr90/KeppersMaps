@@ -263,13 +263,18 @@ def groupby_count(df):
     df.loc[rows_out, 'count'] = count
     # delete the nan rows
     df = df.dropna()
+    # remove the message ID column
+    del df['messageId']
+    # convert the count column to int
+    df = df.astype({"count": int})
+    # fix the strings in the severity column
+    df['severity'] = df['severity'].apply(change_display_strings)
     # convert the DataFrame back to numpy matrix
     return df.values
 
 
 def param_to_matrix(data, list_data):
     """
-    convert input data to html table
     use the group by function to reduce the number of row for each date
     :param data: input data, list of dictionaries
     :return: new numpy array with all the data
@@ -298,6 +303,51 @@ def data_to_html_table(data, headers):
     return output_table.get_html_string()
 
 
+def get_summery_info(data):
+    header_names = ['date', 'severity', 'count']
+    df = pd.DataFrame(data, columns=header_names)
+    # summery = df.groupby(['severity', 'count']).sum()
+    # group by the date and count
+    table_row = df.groupby(['date', 'count']).sum()
+    table_row.fillna(0, inplace=True)
+    # table_row = table_row[header_names]
+    print("df:", df)
+    print("table_row:", table_row)
+
+    """
+    # get the number of uniqe rows
+    unq, date = np.unique(df[df.columns[0]], return_inverse=True)
+    # get the data from the right column
+    date_values = df[df.columns[0]].values
+    rows = np.lexsort([date, date_values])
+
+    ts = date[rows]
+    idss = date_values[rows]
+
+    # remove the duplicates and count
+    m0 = (idss[1:] != idss[:-1]) | (ts[1:] != ts[:-1])
+    m = np.concatenate(([True], m0, [True]))
+    rows_out = rows[m[:-1]]
+    count = np.diff(np.flatnonzero(m) + 1)
+
+    # create new column with the count for each row
+    df.loc[rows_out, 'count'] = count
+"""
+
+def change_display_strings(s):
+    """
+    Convert the severity string to much the string in the client side
+    :param s: the string to change
+    :return: the right string or string with capital letter
+    """
+    if s == "heavy":
+        return "High"
+    elif s == "easy":
+        return "Low"
+    else:
+        return s.capitalize()
+
+
 def new_data_to_html_table(data, headers):
     # sort the headers by alphabetic order to match the data
     headers_list = sorted(headers)
@@ -305,6 +355,8 @@ def new_data_to_html_table(data, headers):
     headers_list.append('count')
     # capitalize all the headers
     headers_list = [head.capitalize() for head in headers_list]
+    summery_info = get_summery_info(data)
+
     env = nativetypes.NativeEnvironment()
     # create thead, use 'class="table-primary"'
     # create tbody
@@ -349,7 +401,7 @@ def process_one_child(child):
         icon_color = 'pink'  # TODO: pick color for mixed values
 
     # create a list of the headers from the original data
-    headers = [key for key in child[severities][0].keys()]
+    headers = [key for key in child[severities][0].keys() if key != "messageId"]
     # create an empty numpy array for the messages data
     output_list = np.array([])
 
