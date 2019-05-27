@@ -289,7 +289,7 @@ export class MenuBarComponent {
    */
   saveAgeToFilterObject() {
     // reset the age slider for the next time
-    this.sliderForm.reset({ sliderControl: [MIN_AGE, MAX_AGE] });
+    // this.sliderForm.reset({ sliderControl: [MIN_AGE, MAX_AGE] });
     // save the age range to the filter object
     this.filterObject.age.start = this.minAge;
     this.filterObject.age.end = this.maxAge;
@@ -297,7 +297,7 @@ export class MenuBarComponent {
 
   /** Save the date to the filter object
    */
-  saveDateToFilterObject() {      
+  saveDateToFilterObject() {
     if (typeof (this.filterObject.startDate) !== "string") {
       this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?
         this.filterObject.startDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');

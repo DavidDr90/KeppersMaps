@@ -6,8 +6,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/google-maps/google-maps.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -324,7 +322,7 @@
       <workItem from="1557943275292" duration="786000" />
       <workItem from="1558377342263" duration="5163000" />
       <workItem from="1558465613269" duration="3993000" />
-      <workItem from="1558938053412" duration="9847000" />
+      <workItem from="1558938053412" duration="11168000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -337,7 +335,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134522000" />
+    <option name="totallyTimeSpent" value="135843000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -349,7 +347,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2574899" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

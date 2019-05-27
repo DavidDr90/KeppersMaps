@@ -2,7 +2,7 @@
   <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
 
   <div class="card-body">
-    <h3 class="card-title">Let's Filter Up</h3>
+    <h3 class="card-title">{{ 'FILTER_UP' | translate }}</h3>
   </div>
 
   <ul class="list-group list-group-flush">
@@ -40,6 +40,6 @@
   </ul>
 
   <div class="card-body">
-    <button type="submit" class="btn btn-danger btn-lg btn-block" (click)="filter()">Let's Go</button>
+    <button type="submit" class="btn btn-danger btn-lg btn-block" (click)="filter()">{{ 'LETS_GO' | translate}}</button>
   </div>
 </div>

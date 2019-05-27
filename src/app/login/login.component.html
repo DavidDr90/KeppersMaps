@@ -1,26 +1,26 @@
 <div class="card text-black bg-outline-primary mb-3" style="max-width: 20rem; 
 display: block; margin-left: auto; margin-right: auto; margin-top: 30px;">
-  <div class="card-header">Log In</div>
+  <div class="card-header">{{ 'LOG_IN' | translate}}</div>
   <div class="card-body">
 
     <form>
       <fieldset>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email Address</label>
+          <label for="exampleInputEmail1">{{ 'EMAIL_ADDRESS' | translate}}</label>
 
           <div id="baseInput">
             <input type="email" class="form-control {{ isValid ? 'is-valid' : 'is-invalid' }}"
-              aria-describedby="emailHelp" placeholder="Enter email" #userName required
+              aria-describedby="emailHelp" placeholder="{{ 'ENTER_EMAIL' | translate}}" #userName required
               (change)="onChange(userName.value)">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <small class="valid-feedback">Your input email address is well formatted</small>
-            <small class="invalid-feedback">Please enter valid email address</small>
+            <small id="emailHelp" class="form-text text-muted">{{ 'NEVER_USE' | translate }}</small>
+            <small class="valid-feedback">{{ 'EMIL_VALID' | translate }}</small>
+            <small class="invalid-feedback">{{ 'EMIL_INVALID' | translate }}</small>
           </div>
 
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" placeholder="Password" #userPassword required>
+          <label for="exampleInputPassword1">{{ 'PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate}}" #userPassword required>
         </div>
 
         <div style="text-align: center">
@@ -31,7 +31,7 @@ display: block; margin-left: auto; margin-right: auto; margin-top: 30px;">
     </form>
 
     <div style="text-align: center" class="forgotPassword">
-      <a [routerLink]="" class="nav-link" (click)="forgotPassword(userName.value)">Forgot Password?</a>
+      <a [routerLink]="" class="nav-link" (click)="forgotPassword(userName.value)">{{ 'FOROGOT_PASSWORD' | translate}}</a>
     </div>
 
   </div>

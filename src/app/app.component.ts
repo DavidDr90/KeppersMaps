@@ -11,7 +11,7 @@ import { TranslateService } from './services/translate.service';
 export class AppComponent {
 
   // for the languages switchers
-  langs = ["EN", "IT", "HE"];
+  langs = ["EN", "IT"];
 
 
   constructor(public router: Router, public authService: AuthService,

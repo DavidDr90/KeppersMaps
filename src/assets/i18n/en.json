@@ -6,13 +6,23 @@
     "MALE": "Male",
     "FEMALE": "Female",
     "SEVERITY_LEVELS": "Severity Levels",
-    "HIGH": "High" ,
+    "HIGH": "High",
     "MEDIUM": "Medium",
     "LOW": "Low",
     "START_AGE": "Start",
     "END_AGE": "End",
     "HEAT_MAP": "Heat Map",
     "ADDRESS": "Address",
-    "PICK_DATE": "Pick a Date"
-
+    "PICK_DATE": "Pick a Date",
+    "LETS_GO": "Let's Go",
+    "FILTER_UP": "Let's Filter Up",
+    "SEARCH": "Search",
+    "ENTER_EMAIL": "Enter Email",
+    "PASSWORD": "Password",
+    "LOG_IN": "Log In",
+    "EMAIL_ADDRESS": "Email Address",
+    "FOROGOT_PASSWORD": "Forgot Password?",
+    "NEVER_USE": "We'll never share your email with anyone else.",
+    "EMIL_VALID": "Your input email address is well formatted",
+    "EMIL_INVALID": "Please enter valid email address"
 }
