@@ -18,20 +18,7 @@ export class GoogleMapsComponent implements OnInit {
 
   myLocationIcon = {
     url: 'https://img.icons8.com/office/40/000000/street-view.png'
-  }
-
-  lowIcon = {
-    url: "https://img.icons8.com/ultraviolet/40/000000/marker.png"
-  }
-  highIcon = {
-    url: "https://img.icons8.com/color/40/000000/marker.png"
-  }
-  mediumIcon = {
-    url: "https://img.icons8.com/office/40/000000/marker.png"
-  }
-  generalIcon = {
-    url: ""
-  }
+  }  
 
 
 
@@ -65,6 +52,7 @@ export class GoogleMapsComponent implements OnInit {
         (data) => {
           data = JSON.parse(data)
           this.MarkersList = data['Markers'];
+          console.log(this.MarkersList)
         });
   }
 

@@ -41,7 +41,7 @@
     </agm-marker>
 
     <!-- Server output -->
-    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label" [iconUrl]="item.icon">
+    <agm-marker *ngFor="let item of MarkersList" [latitude]="item.lat" [longitude]="item.lng" [label]="item.label">
         <agm-snazzy-info-window [maxWidth]="500" [closeWhenOthersOpen]="true">
             <ng-template>
                 <div [innerHTML]="item.data"></div>
