@@ -16,13 +16,11 @@ import { AuthService } from '../services/auth.service';
 
 
 declare var require: any;
-declare var google: any;
 // For working with Date and Time
 // https://momentjs.com/
 var moment = require('moment');
 
 
-const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 const MIN_AGE = 5, MAX_AGE = 17;
 
 @Component({
@@ -232,7 +230,11 @@ export class MenuBarComponent {
     t0 = performance.now();
 
     // save the severity levels to the filter object
-    this.saveSeverityToFilterObject(this.selectedItems)
+    if (!this.saveSeverityToFilterObject(this.selectedItems)){
+      this.openUserErrorToast("Please choose at least one severity level")
+      return
+    }
+
     this.saveAgeToFilterObject();
     // save only the date for processing the Keepers information
     this.saveDateToFilterObject();
@@ -312,7 +314,7 @@ export class MenuBarComponent {
    */
   saveSeverityToFilterObject(selectedItems: any): any {
     if (!this.arrayNotEmpty(selectedItems)) {
-      return
+      return false
     }
     selectedItems.forEach(element => {
       switch (element.item_id) {
@@ -329,6 +331,7 @@ export class MenuBarComponent {
           break;
       }
     });
+    return true
 
   }
 

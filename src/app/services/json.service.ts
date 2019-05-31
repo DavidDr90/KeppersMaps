@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import { HttpClient } from '@angular/common/http';
-import { MapsAPILoader } from '@agm/core';
 import { Subject } from 'rxjs/internal/Subject';
+
+const DEFUALT_LATITUDE = 41.9028, DEFUALT_LONGITUDE = 12.4964;//Rome Italy
 
 
 @Injectable({
@@ -14,14 +12,17 @@ export class JsonService {
   data$: any;
 
   private userData = new Subject<any>();
-  myLocationMarker: { lat: any; lng: any; };
+  myLocationMarker: { lat: any; lng: any; } = {
+    "lat": DEFUALT_LATITUDE,
+    "lng": DEFUALT_LONGITUDE
+  };
 
 
   constructor() {
     this.data$ = this.userData.asObservable();
   }
 
-  
+
   setUserData(val: object) {
     this.userData.next(val);
   }
