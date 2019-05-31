@@ -12,7 +12,7 @@
         {{ 'PICK_DATE' | translate }}:
       </h4>
 
-      <form [formGroup]="myForm" (ngSubmit)="onSubmitReactiveForms()" novalidate>
+      <form [formGroup]="myForm" novalidate>
         <my-date-range-picker name="reactiveFormsDateRange" [options]="myDateRangePickerOptions"
           formControlName="myDateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
       </form>

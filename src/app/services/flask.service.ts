@@ -9,7 +9,7 @@ export class FlaskService {
   MY_API_KEY_FOR_GOOGLE_MAPS = 'AIzaSyDqvULxK5r9Yw1-a8gDYLJITEcgKfhp1X8';
 
   // TODO: change to production server address
-  FlaskServerUrl = "http://127.0.0.1:5000"
+  FlaskServerUrl = "https://keepersmaps.appspot.com"
 
   constructor(private http: HttpClient) { }
 

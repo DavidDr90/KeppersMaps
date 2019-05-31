@@ -75,7 +75,7 @@ export class MenuBarComponent {
     month: any; //months start in 0
     day: any;
   };
-  private myForm: FormGroup;
+  myForm: FormGroup;
 
   // slider init
   minAge: number = MIN_AGE;
