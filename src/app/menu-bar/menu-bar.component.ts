@@ -230,14 +230,17 @@ export class MenuBarComponent {
     t0 = performance.now();
 
     // save the severity levels to the filter object
-    if (!this.saveSeverityToFilterObject(this.selectedItems)){
+    if (!this.saveSeverityToFilterObject(this.selectedItems)) {
       this.openUserErrorToast("Please choose at least one severity level")
       return
     }
 
     this.saveAgeToFilterObject();
     // save only the date for processing the Keepers information
-    this.saveDateToFilterObject();
+    if (!this.saveDateToFilterObject()){
+      this.openUserErrorToast("Please enter valid date")
+      return
+    }
     // save the center search location
     this.filterObject.centerLocaion = this.jsonService.myLocationMarker;
 
@@ -300,6 +303,9 @@ export class MenuBarComponent {
   /** Save the date to the filter object
    */
   saveDateToFilterObject() {
+    // if there is no input date
+    if (this.filterObject.startDate.year() == -1)
+      return false
     if (typeof (this.filterObject.startDate) !== "string") {
       this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?
         this.filterObject.startDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
@@ -308,6 +314,7 @@ export class MenuBarComponent {
       this.filterObject.endDate = (moment.isMoment(this.filterObject.endDate)) ?
         this.filterObject.endDate.format('DD/MM/YYYY') : this.yesterdayMoment.format('DD/MM/YYYY');
     }
+    return true
   }
 
   /** Save the filterBy parameters from the dropdown

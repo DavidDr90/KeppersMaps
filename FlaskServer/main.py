@@ -10,6 +10,8 @@ from datetime import date
 import pprint
 from prettytable import PrettyTable
 from jinja2 import Environment, PackageLoader, select_autoescape, nativetypes
+from random import randint
+
 
 # Keepers Server Consts
 end_point = "https://graph-db-vod.keeperschildsafety.net"
@@ -59,7 +61,7 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-@app.route('/filter', methods=['POST'])
+@app.route('/filter', methods=['POST', 'GET'])
 def save_filter_data():
     """
     save all the filters variable from the client to local variables
@@ -68,8 +70,8 @@ def save_filter_data():
     try:
         global start_date, end_date, center_location, filter_by, child_age_range
         data = request.get_json(force=True)
-        print("data:")
-        pprint.pprint(data)
+        # print("data:")
+        # pprint.pprint(data)
         # save the filter data to global variables
         # save the date and convert it to milliseconds
         start_date = (datetime.datetime.strptime(data['startDate'], "%d/%m/%Y")).timestamp() * 1000
@@ -234,7 +236,7 @@ def distance(lat1, lon1, lat2, lon2):
 
 
 def round_by_four(x):
-    return round(x, 4)
+    return round(x, 6)
 
 
 def groupby_count(df):
@@ -314,8 +316,8 @@ def get_summery_info(data):
     table_row = df.groupby(['date', 'count']).sum()
     table_row.fillna(0, inplace=True)
     # table_row = table_row[header_names]
-    print("df:", df)
-    print("table_row:", table_row)
+    # print("df:", df)
+    # print("table_row:", table_row)
 
     """
     # get the number of uniqe rows
@@ -425,6 +427,11 @@ def new_data_to_html_table(data, headers):
     return result
 
 
+def fix_location(param):
+    return round(param, 5) + float("0.0000" + str(randint(10, 20)))
+
+
+
 def process_one_child(child):
     """
     Handle one child. extract the child age, the requested severities
@@ -467,7 +474,7 @@ def process_one_child(child):
 
     # add new marker to the json object with array of all the markers
     total_sum = str(int(output_list[:, -1].sum()))
-    output_data = {"lat": child[latitude], "lng": child[longitude],
+    output_data = {"lat": fix_location(child[latitude]), "lng": fix_location(child[longitude]),
                    "data": new_data_to_html_table(output_list, headers),
                    "icon": icon_color,
                    "label": {
@@ -491,20 +498,20 @@ def generate_map(http_request):
     :return: save the map object to local html file
     """
     global ex_one_person
-    print("http request:")
-    pprint.pprint(http_request)
+    # print("http request:")
+    # pprint.pprint(http_request)
     # first_response = requests.get(http_request, headers=headers)
     first_response = requests.get(http_request, headers=headers)
-    print("first response")
-    pprint.pprint(first_response)
+    # print("first response")
+    # pprint.pprint(first_response)
     if first_response.status_code is not 200:
         abort(500)
     g = first_response.headers.get('content-type')
-    print("content type")
-    pprint.pprint(g)
+    # print("content type")
+    # pprint.pprint(g)
     first_response = first_response.json()
-    print("after parsing to json")
-    pprint.pprint(first_response)
+    # print("after parsing to json")
+    # pprint.pprint(first_response)
 
     try:
         # save the data part from the json
