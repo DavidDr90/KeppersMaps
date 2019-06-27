@@ -58,7 +58,7 @@ export class MenuBarComponent {
     idField: 'item_id',
     textField: 'item_text',
     selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
+    unSelectAllText: 'Unselect All',
     itemsShowLimit: 3,
   };
 
@@ -216,6 +216,7 @@ export class MenuBarComponent {
    *  Then recive the json data back from the flask server
    */
   filter() {
+    debugger
     let t0, t1
 
     // save the address location in lat and lng 
@@ -286,7 +287,6 @@ export class MenuBarComponent {
       })
 
     this.resetFilterBy()
-
   }
 
   /** Reset the age slider 
@@ -304,7 +304,7 @@ export class MenuBarComponent {
    */
   saveDateToFilterObject() {
     // if there is no input date
-    if (this.filterObject.startDate.year() == -1)
+    if ((typeof (this.filterObject.startDate) !== "string") &&  (this.filterObject.startDate.year() == -1))
       return false
     if (typeof (this.filterObject.startDate) !== "string") {
       this.filterObject.startDate = (moment.isMoment(this.filterObject.startDate)) ?

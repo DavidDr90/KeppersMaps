@@ -225,7 +225,7 @@ export class GoogleMapsComponent implements OnInit {
       if (isFromSearchBox) {
         this.lat = location.lat
         this.lng = location.lng
-        this.zoom = 14;
+        this.zoom = 12;
         this.jsonService.myLocationMarker = { "lat": this.lat, "lng": this.lng };
       }
     }
