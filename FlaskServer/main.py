@@ -223,7 +223,6 @@ def distance(lat1, lon1, lat2, lon2):
     calculate the distance between two points specified by latitude and longitude
     using the Haverine Formula:
     https://en.wikipedia.org/wiki/Haversine_formula
-    https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
     :param lat1:
     :param lon1:
     :param lat2:
@@ -318,67 +317,6 @@ def get_summery_info(data):
     # table_row = table_row[header_names]
     # print("df:", df)
     # print("table_row:", table_row)
-
-    """
-    # get the number of uniqe rows
-    unq, date = np.unique(df[df.columns[0]], return_inverse=True)
-    # get the data from the right column
-    date_values = df[df.columns[0]].values
-    rows = np.lexsort([date, date_values])
-
-    ts = date[rows]
-    idss = date_values[rows]
-
-    # remove the duplicates and count
-    m0 = (idss[1:] != idss[:-1]) | (ts[1:] != ts[:-1])
-    m = np.concatenate(([True], m0, [True]))
-    rows_out = rows[m[:-1]]
-    count = np.diff(np.flatnonzero(m) + 1)
-
-    # create new column with the count for each row
-    df.loc[rows_out, 'count'] = count
-"""
-"""
-    < !-- < ng - template >
-    < table
-
-    class ="table table-hover" >
-
-    < thead >
-    < tr >
-    < th
-    scope = "col" > Type < / th >
-    < th
-    scope = "col" > Column
-    heading < / th >
-    < th
-    scope = "col" > Column
-    heading < / th >
-
-< / tr >
-< / thead >
-< tbody >
-< tr >
-< td
-rowspan = "2" > Column
-content < / td >
-< td > Column
-content < / td >
-< td > Column
-content < / td >
-< / tr >
-< tr >
-< !-- < td > Column
-content < / td > --
-< td > Column
-content < / td >
-< td > Column
-content < / td >
-< / tr >
-< / tbody >
-< / table >
-< / ng - template >
-"""
 
 
 def change_display_strings(s):
@@ -571,3 +509,12 @@ def get_filter_by(by):
             if param in str(key).lower() and value:
                 output.append(param)
     return output
+
+
+def quick_sort(arr): 
+    if len(arr) <= 1:
+        return arr
+    else:
+        return quick_sort([x for x in arr[1:] if x < arr[0]]) + \
+               [arr[0]] + \
+               quick_sort([x for x in arr[1:] if x >= arr[0]])
