@@ -74,8 +74,10 @@ def save_filter_data():
         # pprint.pprint(data)
         # save the filter data to global variables
         # save the date and convert it to milliseconds
-        start_date = (datetime.datetime.strptime(data['startDate'], "%d/%m/%Y")).timestamp() * 1000
-        end_date = (datetime.datetime.strptime(data['endDate'], "%d/%m/%Y")).timestamp() * 1000
+        start_date = (datetime.datetime.strptime(
+            data['startDate'], "%d/%m/%Y")).timestamp() * 1000
+        end_date = (datetime.datetime.strptime(
+            data['endDate'], "%d/%m/%Y")).timestamp() * 1000
         center_location = data['centerLocaion']
         filter_by = get_filter_by(data['filterBy'])
         child_age_range = [data['age']['start'], data['age']['end']]
@@ -104,79 +106,10 @@ def main():
 def root():
     return "Welcome to KeepersMaps"
 
-# if __name__ == '__main__':
-#     # regular way for running the flask app
-#     # app.run()
-#
 
-
-def proto_type():
-    start_time = time.time()
-    return "in pro!"
-    """
-    with open("", 'r') as f:
-        # create a new DataFrame
-        d = pd.DataFrame(json.loads(f.read()))
-    # make the lat and lng short
-    d.latitude, d.longitude = round_by_four(d.latitude), round_by_four(d.longitude)
-    # extract the date and time to two different columns and delete the original column
-    d['Date'], d['Time'] = d['date_created'].str.split(' ', 1).str
-    d['Time'] = d['Time'].str[:2]
-    # remove duplicates values
-    d.drop_duplicates(inplace=True)
-    # combine the lat and lng to one column tuple
-    # d['Location'] = list(zip(d.latitude, d.longitude))
-    # delete unnecessary columns
-    del d['date_created'], d['Time']
-
-    number_of_markers = random.randint(1, 10000)
-    samples = d.sample(number_of_markers)
-    locations_list = samples[['latitude', 'longitude']].values.tolist()
-
-    # regular map
-    my_map = folium.Map(location=[rome_lat, rome_lng], zoom_start=5, width="100%", height="100%")
-    my_map.add_child(FastMarkerCluster(locations_list))
-
-    # heat map
-    my_heat_map = folium.Map(location=[rome_lat, rome_lng], zoom_start=5, width="100%", height="100%")
-    my_heat_map.add_child(HeatMap(locations_list))
-
-    # save both maps
-    my_map.save(path + r"\map.html")
-    my_heat_map.save(path + r"\heat_map.html")
-    elapsed_time = time.time() - start_time
-    print("elapsed time:", int(elapsed_time * 1000), "ms")
-    """
-
-
-ex_one_person = "https://graph-db-vod.keeperschildsafety.net/graph/conversationsAtPointVicinityAndTimeRange?" \
-                "latitude=31.758731&longitude=35.1552423&range=5000&startDateEpoch=1550049989000&endDateEpoch=1550649989000"
-
-"""= '<table class="table table-hover">'+
-'  <thead class="table-primary">'+
-'    <tr >'+
-     '<th scope="col">Type</th>'+
-     '<th scope="col">Column heading</th>'+
-     '<th scope="col">Column heading</th>'+
-     '<th scope="col">Column heading</th>'+
-   '</tr>'+
- '</thead>'+
- '<tbody>'+
-   '<tr>'+
-     '<th scope="row">Active</th>'+
-     '<td>Column content</td>'+
-     '<td>Column content</td>'+
-     '<td>Column content</td>'+
-   '</tr>' + 
-   '<tr>'+
-     '<th scope="row">Active</th>'+
-     '<td>Column content</td>'+
-     '<td>Column content</td>'+
-     '<td>Column content</td>'+
-   '</tr>' + 
-   '</table>'
-   """
-
+if __name__ == '__main__':
+    # regular way for running the flask app
+    app.run()
 
 # ##########    Working Private Functions   ##############
 
@@ -230,7 +163,8 @@ def distance(lat1, lon1, lat2, lon2):
     :return: the distance between the two locations
     """
     p = 0.017453292519943295  # Pi/180
-    a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * \
+        cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     return 12742 * asin(sqrt(a))  # 2 * R; R = 6371 km
 
 
@@ -355,9 +289,9 @@ def new_data_to_html_table(data, headers):
                                "<tbody>"
                                "{% for row in data %}"
                                "<tr>"
-                                "{% for item in row %}"
-                               "<td>{{ item }}</td>"                               
-                                "{% endfor %}"
+                               "{% for item in row %}"
+                               "<td>{{ item }}</td>"
+                               "{% endfor %}"
                                "</tr>"
                                "{% endfor %}"
                                "</tbody>")
@@ -391,17 +325,24 @@ def process_one_child(child):
     else:
         icon_color = 'generalIcon'
 
+    # if the distance between the center point and the input child is bigger then 'range'
+    if distance(center_location['lat'], center_location['lng'], child[latitude], child[longitude]) > range:
+        return
+
     # create a list of the headers from the original data
-    headers = [key for key in child[severities][0].keys() if key != "messageId"]
+    headers = [key for key in child[severities][0].keys() if key !=
+               "messageId"]
     # create an empty numpy array for the messages data
     output_list = np.array([])
 
     for param in filter_by:
         # save only the relevant data, the one that equals to 'param'
-        only_param = [d for d in child[severities] if d.get('severity') == param]
+        only_param = [d for d in child[severities]
+                      if d.get('severity') == param]
         if len(only_param) > 0:
             # then remove the 'only_param' from the original data
-            child[severities][:] = [item for item in child[severities] if item not in only_param]
+            child[severities][:] = [
+                item for item in child[severities] if item not in only_param]
             # group by and create html table from the data
             output_list = param_to_matrix(only_param, output_list)
         else:
@@ -413,17 +354,19 @@ def process_one_child(child):
 
     # add new marker to the json object with array of all the markers
     total_sum = str(int(output_list[:, -1].sum()))
-    output_data = {"lat": fix_location(child[latitude]), "lng": fix_location(child[longitude]),
-                   "data": new_data_to_html_table(output_list, headers),
-                   "icon": icon_color,
-                   "label": {
-                       "color": 'black',
-                       "fontFamily": '',
-                       "fontSize": '14px',
-                       "fontWeight": 'bold',
-                       "text": total_sum
-                   }
-                   }
+    output_data = {
+        "lat": fix_location(child[latitude]),
+        "lng": fix_location(child[longitude]),
+        "data": new_data_to_html_table(output_list, headers),
+        "icon": icon_color,
+        "label": {
+            "color": 'black',
+            "fontFamily": '',
+            "fontSize": '14px',
+            "fontWeight": 'bold',
+            "text": total_sum
+        }
+    }
     global json_data
     # save the new child to the markers array
     json_data["Markers"].append(output_data)
@@ -436,7 +379,6 @@ def generate_map(http_request):
     :param http_request: the base http request to the Keepers API
     :return: save the map object to local html file
     """
-    global ex_one_person
     print("http request:")
     pprint.pprint(http_request)
     first_response = requests.get(http_request, headers=headers)
@@ -467,9 +409,11 @@ def generate_map(http_request):
                 process_one_child(child)
 
             # change the http request to the next page
-            next_page_request = ''.join([http_request, "&page=", str(page_number + 1)])
+            next_page_request = ''.join(
+                [http_request, "&page=", str(page_number + 1)])
             # send new API request to the Keepers server
-            new_response = requests.get(next_page_request, headers=headers).json()
+            new_response = requests.get(
+                next_page_request, headers=headers).json()
 
             # save the new data and management info
             data = new_response[markers_header]
@@ -480,10 +424,12 @@ def generate_map(http_request):
     except Exception as e:
         print("Error.", e)
         if first_response['status'] == 400:
-            print("There was an error in generate_map().\nDescription = Bad Request (400)", first_response['message'])
+            print("There was an error in generate_map().\nDescription = Bad Request (400)",
+                  first_response['message'])
             return
         else:
-            raise Exception("There was an general error in generate_map()\nDescription = ", e)
+            raise Exception(
+                "There was an general error in generate_map()\nDescription = ", e)
 
 
 def create_http_request():
@@ -492,7 +438,8 @@ def create_http_request():
     :return: the full http request as string
     """
     return ''.join([base_request_string, "latitude=", str(center_location['lat']), "&longitude=",
-                    str(center_location['lng']), "&range=", str(range), "&startDateEpoch=",
+                    str(center_location['lng']), "&range=", str(
+                        range), "&startDateEpoch=",
                     str(int(start_date)), "&endDateEpoch=", str(int(end_date))])  # , "&limit=", str(limit)])
 
 
@@ -511,10 +458,10 @@ def get_filter_by(by):
     return output
 
 
-def quick_sort(arr): 
+def quick_sort(arr):
     if len(arr) <= 1:
         return arr
     else:
         return quick_sort([x for x in arr[1:] if x < arr[0]]) + \
-               [arr[0]] + \
-               quick_sort([x for x in arr[1:] if x >= arr[0]])
+            [arr[0]] + \
+            quick_sort([x for x in arr[1:] if x >= arr[0]])
