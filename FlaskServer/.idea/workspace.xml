@@ -78,21 +78,6 @@
                 <element signature="e#11960#13270#0" />
                 <element signature="e#12305#12348#0" />
                 <element signature="e#12456#13189#0" />
-                <element signature="e#13403#13613#1" />
-                <element signature="e#14369#14869#0" />
-                <element signature="e#14557#14834#0" />
-                <element signature="e#15363#15596#0" />
-                <element signature="e#15768#16030#1" />
-                <element signature="e#16531#16563#0" />
-                <element signature="e#17775#18084#0" />
-                <element signature="e#17850#17975#0" />
-                <element signature="e#18118#18550#0" />
-                <element signature="e#18118#18250#1" />
-                <element signature="e#18270#18520#0" />
-                <element signature="e#18580#19037#0" />
-                <element signature="e#18580#18788#1" />
-                <element signature="e#18899#19019#0" />
-                <element signature="e#18943#19019#0" />
               </folding>
             </state>
           </provider>
@@ -146,7 +131,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="948" />
     <option name="width" value="981" />
     <option name="height" value="1032" />
@@ -339,6 +324,7 @@
       <workItem from="1559481645153" duration="75000" />
       <workItem from="1559481792477" duration="6108000" />
       <workItem from="1559570237149" duration="833000" />
+      <workItem from="1561901139276" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="start working on Keepers API">
       <created>1551209444993</created>
@@ -351,7 +337,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149582000" />
+    <option name="totallyTimeSpent" value="149587000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
